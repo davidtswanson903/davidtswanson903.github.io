@@ -1,0 +1,122 @@
+:root {
+  --bg: #f6f6f4;
+  --paper: #ffffff;
+  --text: #171717;
+  --muted: #5a5a5a;
+  --line: #d9d9d9;
+  --accent: #222222;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: 40px 0 24px;
+}
+
+.site-header h1 {
+  margin: 0 0 8px;
+  font-size: 2.1rem;
+}
+
+.tagline {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+nav a {
+  margin-right: 18px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+nav a:hover,
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 28px 20px 48px;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.paper-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.paper-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.paper-list li:last-child {
+  border-bottom: 0;
+}
+
+.meta,
+.muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+}
+
+.paper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fafafa;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #f0f0f0;
+  text-decoration: none;
+}
+
+code, pre {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fafafa;
+}
