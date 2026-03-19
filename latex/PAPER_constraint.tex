@@ -1,0 +1,557 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Constraint as a Condition of Disclosure}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Constraint as a Condition of Disclosure}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+
+\title{\textbf{Constraint as a Condition of Disclosure}\\
+\large Finitude, Non-Identity, and the Structure of Finite Rendering}
+\author{David T. Swanson}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Finite systems do not disclose reality by reproducing it in full. They disclose it through selective renderings that preserve some structure strongly enough for use while backgrounding, merging, compressing, or omitting other structure. This paper argues that such selectivity is not merely a practical habit or a defect of imperfect models. It is a structural consequence of constraint. The claim, however, is deliberately bounded. The paper does not argue that exhaustive world-equivalence is inconceivable in every abstract sense. It argues that, for finite embodied systems, exhaustive identity between reality and operative representation is unavailable as a usable mode of disclosure. Because finite systems are bounded in time, memory, energy, bandwidth, perspective, and operative capacity, and because disclosure must become tractable, stable, and action-guiding, rendering rather than reproduction is the form finite disclosure must take. From this follow several consequences: non-identity between world and operative representation is structural rather than accidental; residue is generated as a standing correlate of finite rendering; adequacy must be scoped rather than total; and correction is a standing requirement of finite disclosure under non-identity. The paper's narrower thesis is that, for finite embodied systems, constraint is one of the conditions that makes disclosure take the form of rendering at all.
+\end{abstract}
+
+\section{Introduction}
+
+Finite beings do not disclose reality by carrying it around in full. They perceive, classify, measure, store, model, and intervene through forms tractable enough to guide action. At one level this is obvious. Models idealize and abstract. Perception is selective. Institutions act through files, categories, and records rather than through exhaustive access to the cases they govern. Yet the familiarity of these facts can obscure a deeper question. If representations are partial, selective, and revisable across scientific, institutional, and embodied domains, what explains that structure in the first place rather than merely redescribing it \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP,Wheeler2024BoundedRationalitySEP}?
+
+The central question of this paper is therefore not whether finite representations leave things out. They plainly do. The deeper question is why finite disclosure must take that form at all. One possible answer is merely practical: simplification is convenient. Another is methodological: any useful representation will omit detail. A third is simply negative: finite agents are not omniscient, so their models are incomplete. Each answer captures something real. But each remains weaker than the phenomenon it is meant to explain. On such views, the gap between model and world appears mainly as a contingent shortfall relative to an ideal of total capture, or as a familiar limitation that accompanies representation without altering its basic structure. Selective rendering then looks like what happens when a finite system falls short of a more exact or complete norm that remains, at least in principle, the real standard.
+
+The contrast developed here should not be understood as directed only against a crude doctrine that representations literally duplicate the world in full. That doctrine is too weak to be the paper's real target. The deeper target is a more persistent background picture: that selectivity is fundamentally a shortfall from the real norm of fuller capture, so that omission, compression, and formatting are secondary defects rather than structural conditions of finite disclosure. The present paper argues against that background norm, not merely against a cartoon doctrine of perfect duplication.
+
+This paper therefore defends a stronger claim. For finite embodied systems, selective rendering is not a reduced form of a more basic possibility of exhaustive reproduction. It is the structural mode of disclosure under constraint. A finite embodied system situated in a reality that exceeds its operative capacity cannot sustain exhaustive identity between that reality and the representations through which it discloses and acts. It must instead preserve some structure strongly enough for use while preserving other structure weakly, indirectly, or not at all. Non-identity between world and operative representation is therefore structural rather than accidental. Constraint is a condition of disclosure.
+
+The force of that claim depends on one further point. Finite disclosure is not only bounded by the limits of the agent or by the resistance of the world. It must also become usable. A representation that cannot stabilize into tractable, action-guiding, communicable form is not yet operative for finite use. The requirements of operativity therefore help determine the shape of disclosure itself. This is why the paper treats constraint not as a mere external obstacle, but as partly generative of the forms through which finite systems disclose and act \cite{ConantAshby1970GoodRegulator,Ashby1956IntroductionCybernetics,Simon1982ModelsBoundedRationality}.
+
+The paper's central impossibility claim should be read in a bounded way. It does not argue that no notion of exhaustive duplication is even conceptually formulable, nor that every conceivable representational architecture is ruled out in advance. Its claim is functional-structural rather than universal in every abstract sense. For finite embodied systems, once disclosure must become operative---that is, usable, stabilized, and action-guiding---exhaustive identity between reality and representation is no longer an available norm of disclosure. What becomes structurally necessary instead is selective rendering.
+
+The argument is deliberately bounded. It does not claim that constraint explains everything. It does not attempt to derive a final theory of matter, information, or mind. It does not depend on strong claims that reality is fundamentally computational, discretized, or otherwise fixed by a speculative metaphysics. Its burden is narrower and more precise: to explain why finite embodied systems cannot disclose and act through exhaustive world-equivalence, and why this structural fact generates selective rendering, residue, scoped adequacy, and correction pressure.
+
+The paper proceeds in seven steps. Section 2 clarifies the problem and distinguishes the present proposal from weaker views of simplification and representation. Section 3 defines the core terms and introduces a three-part taxonomy of constraint. Section 4 presents the main argument for rendering rather than reproduction and clarifies the force of the impossibility claim. Section 5 derives consequences for residue, adequacy, operative representation, and correction. Section 6 shows the framework at work in scientific modeling, institutional case representation, and embodied perception. Section 7 addresses the strongest objections. Section 8 states the paper's limits and visible residues. Section 9 concludes.
+\section{The Problem of Finite Disclosure}
+
+The problem addressed in this paper can be framed as a choice between two ways of understanding representation. On the first picture, representation remains tacitly oriented by a norm of fuller and fuller capture. A model, description, or record falls short of full equivalence with reality because finite agents lack sufficient information, precision, memory, computational power, or technical sophistication. Incompleteness is therefore treated primarily as deficit. Simplification occurs because the system is limited, but the deeper norm of representation remains something like more complete capture.
+
+The contrast developed here should not be misunderstood as directed only against a crude doctrine that representations literally duplicate the world in full. That doctrine is too weak to be the paper's real target. The deeper target is a more persistent background picture: that selectivity is fundamentally a shortfall from the real norm of fuller capture, so that omission, compression, and formatting are secondary defects rather than structural conditions of finite disclosure.
+
+The alternative view defended here is stronger. On this view, selective disclosure is not a secondary compromise imposed upon an otherwise available ideal of fuller reproduction. It is the structural form finite disclosure must take. A system bounded in time, memory, energy, bandwidth, attention, perspective, and operative stability cannot maintain exhaustive identity between world and representation in any usable form. It must preserve some structure rather than all structure, and it must do so for some task, under some conditions, in some stabilized format. Selectivity is therefore not a regrettable departure from the true mode of representation. For finite systems, it is the true mode of disclosure \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP,Wheeler2024BoundedRationalitySEP}.
+
+That difference matters because several later notions depend on it. If selectivity is merely a practical convenience, then residue appears as a contingent leftover, adequacy appears as a temporary compromise, and correction appears as an occasional repair applied to otherwise world-equivalent representation. But if selective rendering is structurally necessary, those notions change status. Residue becomes a standing correlate of preservation under constraint. Adequacy becomes scoped rather than exhaustive. Correction becomes a standing requirement rather than an exceptional event.
+
+The central question of the paper can therefore be stated plainly:
+
+\begin{quote}
+Why must finite embodied systems render rather than reproduce reality?
+\end{quote}
+
+The answer defended here is equally plain:
+
+\begin{quote}
+Because finite embodied systems are constrained, and because usable disclosure requires operative stabilization, exhaustive world-equivalence is unavailable as a mode of finite use \cite{ConantAshby1970GoodRegulator,Simon1982ModelsBoundedRationality,Ashby1956IntroductionCybernetics}.
+\end{quote}
+\section{Core Definitions and Distinctions}
+
+The argument that follows depends on a small set of terms whose roles should be made explicit at the outset. The aim of this section is not to provide a complete ontology of representation, but to stabilize the vocabulary required for the paper's central claim.
+
+\subsection{Finite embodied system}
+
+A \emph{finite embodied system} is a bounded system with limited time, memory, energy, bandwidth, perspective, location, and action-capacity. Human beings are obvious examples, but the category is broader. Organisms, institutions, technical systems, and model-governed infrastructures can also count when they operate under bounded conditions through usable representations \cite{Wheeler2024BoundedRationalitySEP,Simon1982ModelsBoundedRationality}.
+
+The term \emph{embodied} is used here in a broad sense. It refers not only to physical embodiment narrowly understood, but to situatedness in concrete limits of access, processing, temporality, interface, and consequence. A finite system is always somewhere, under some conditions, with some bounded range of operation. It is never nowhere and never everything at once.
+
+\subsection{Reality or world}
+
+By \emph{reality} or \emph{world} I mean that which a finite system seeks to disclose, represent, model, or act within. The term is used minimally. Nothing in this paper requires a final metaphysical settlement of the world's ultimate structure. The argument requires only the weaker claim that reality exceeds the finite system and is not simply authored by that system's representations \cite{Chakravartty2011ScientificRealismSEP}.
+
+\subsection{Constraint}
+
+\emph{Constraint} names any limit or boundary that conditions what a finite system can disclose, preserve, simulate, stabilize, represent, or act through. It should not be understood here as a merely negative barrier. Constraint does not simply prevent perfect disclosure from occurring. It is also generative. It helps determine the form disclosure must take when the disclosing system is finite.
+
+Not every limit on a system counts equally for the present argument. A factor functions here as a disclosure-relevant constraint only insofar as it conditions what can be preserved, how it must be stabilized, or what can become usable for action. The term is therefore not being used as a catch-all label for every source of difficulty. It names those boundaries that shape what can be rendered, in what form, and with what residue.
+
+Three forms of constraint are especially important.
+
+\subsection{World-constraint}
+
+\emph{World-constraint} concerns what in reality resists, exceeds, or outruns finite rendering. The world is not infinitely pliable to representational convenience. It permits some renderings, resists others, changes over time, and contains more than any finite operative form can preserve in full.
+
+\subsection{Finite-agent constraint}
+
+\emph{Finite-agent constraint} concerns what the disclosing system itself cannot sustain. It arises from bounded memory, attention, time, perceptual access, processing, embodiment, perspective, and endurance. Even before any explicit model or institution is introduced, the finite system is already limited in what it can carry, preserve, or coordinate \cite{Wheeler2024BoundedRationalitySEP,Simon1982ModelsBoundedRationality}.
+
+\subsection{Operative constraint}
+
+\emph{Operative constraint} concerns what form disclosure must take in order to become usable. A representation that cannot stabilize into an action-guiding, communicable, tractable, or coordinative form is not yet operative for finite use. Institutions require files, categories, procedures, and thresholds. Scientific practice requires models, variables, scales, and formalisms. Organisms require action-relevant patterns rather than exhaustive totals. Operativity is therefore not external to constraint. It is itself a source of it \cite{ConantAshby1970GoodRegulator,Ashby1956IntroductionCybernetics}.
+
+\subsection{Rendering}
+
+A \emph{rendering} is a selective, usable disclosure of reality under constraint. It preserves some structure strongly enough for a task, purpose, or intervention while weakly preserving, compressing, merging, backgrounding, or omitting other structure. A rendering is therefore not reality in another format. It is reality preserved under conditions of finite use \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP}.
+
+\subsection{Reproduction}
+
+\emph{Reproduction}, as used here, is a hypothetical exhaustive identity-preserving relation between reality and representation. It would amount to a world-equivalent operative representation. The term is introduced here as a contrastive ideal-type, not as a claim about an explicit contemporary orthodoxy. The paper does not claim that no abstract notion of perfect duplication is conceivable. Its narrower claim is that finite embodied systems cannot sustain exhaustive reproduction \emph{as operative disclosure}.
+
+\subsection{Operative representation}
+
+An \emph{operative representation} is a rendering stable enough to guide action, communication, intervention, classification, or coordination. Not every rendering becomes operative. But wherever finite systems act in consequence-bearing ways, they do so through representations that have achieved some operative standing \cite{ConantAshby1970GoodRegulator,BowkerStar1999SortingThingsOut}.
+
+\subsection{Selective preservation}
+
+\emph{Selective preservation} is the preservation of some structure strongly enough for use while other structure is weakly carried, merged, backgrounded, or omitted. It should not be confused with arbitrary omission. Selection here is structured by the constraints under which rendering becomes usable.
+
+\subsection{Non-identity}
+
+\emph{Non-identity} is the structural non-equivalence between reality and operative representation. It does not mean mere error. A very good model can remain non-identical to what it renders. The point is not that the model is simply false, but that it remains a selective preservation under constraint rather than a world-equivalent operative form \cite{FriggNguyen2021ScientificRepresentationSEP,ConantAshby1970GoodRegulator}.
+
+\subsection{Residue}
+
+\emph{Residue} is what a rendering does not preserve strongly enough for its operative use: what is omitted, backgrounded, merged, weakly carried, or left outside the rendering's dominant preservation profile. Residue is therefore not just leftover detail. It is the structured remainder generated by selective preservation.
+
+\subsection{Adequacy}
+
+\emph{Adequacy} is not exhaustive capture. It is the preservation of enough structure for a task, level, purpose, or domain. If exhaustive equivalence is unavailable, adequacy must be treated as scoped rather than total \cite{FriggHartmann2025ModelsScienceSEP,Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism}.
+
+\subsection{Correction}
+
+\emph{Correction} is revision or recalibration in response to misfit under constrained rendering. Where representation is structurally non-identical to reality, correction is not an occasional add-on. It is a standing feature of responsible finite disclosure.
+
+\subsection{Load-bearing distinctions}
+
+The argument depends on several distinctions that should remain explicit.
+
+\begin{enumerate}
+    \item \textbf{Rendering vs.\ reproduction.} A usable representation is not the world in another format.
+    \item \textbf{Structural non-identity vs.\ accidental error.} World/model gap is not introduced only by bad modeling.
+    \item \textbf{World-constraint vs.\ finite-agent constraint.} Not all limits come from the describer alone.
+    \item \textbf{Finite-agent constraint vs.\ operative constraint.} Bounded embodiment is not the whole story; usability imposes further form.
+    \item \textbf{Selective preservation vs.\ arbitrary omission.} Selection is structured, not merely careless.
+    \item \textbf{Adequacy vs.\ exhaustiveness.} Usefulness does not imply total capture.
+    \item \textbf{Correction vs.\ replacement.} Not every representational change counts as correction.
+\end{enumerate}
+\section{Main Argument}
+
+\subsection{The core argument}
+
+The paper's central claim can be stated in a compact sequence.
+
+\begin{enumerate}
+    \item Reality exceeds what a finite embodied system can preserve and use in exhaustive operative detail.
+    \item A finite embodied system is bounded in time, memory, energy, bandwidth, perspective, and action-capacity.
+    \item Usable disclosure requires forms stable enough to guide communication, intervention, coordination, or response.
+    \item Therefore a finite system cannot sustain exhaustive identity between reality and operative representation.
+    \item Disclosure and action must therefore proceed through selective rendering rather than reproduction.
+    \item The resulting non-identity between world and operative representation is structural rather than accidental.
+\end{enumerate}
+
+No single premise carries the whole burden on its own. The argument works through the interaction of the three constraints already introduced. Reality exceeds the system. The system is bounded. Operative use requires tractable stabilization. Taken together, these conditions rule out exhaustive world-equivalence as a mode of finite disclosure \cite{Wheeler2024BoundedRationalitySEP,ConantAshby1970GoodRegulator,Ashby1956IntroductionCybernetics}.
+
+The force of this claim is functional-structural rather than absolute in every abstract sense. The paper does not argue that no notion of exhaustive duplication is even conceptually formulable. It argues that, for finite embodied systems, exhaustive identity between reality and operative representation is unavailable as a usable mode of disclosure. The impossibility at issue is therefore tied to boundedness, operativity, and consequence-bearing use. A representation that had to preserve everything without compression, stabilization, selection, or formatting would no longer function as finite operative disclosure in the sense relevant here.
+
+\subsection{Why exhaustive world-equivalence is unavailable for finite use}
+
+The thesis at stake here can be misunderstood in two opposite ways. It can sound, first, like the claim that finite systems can never disclose anything real. It can sound, second, like the claim that all representation is hopelessly compromised from the start. Neither reading is correct. The point is narrower and more precise: a finite system cannot sustain \emph{exhaustive operative equivalence} with reality.
+
+The impossibility at issue is not primarily logical or metaphysical in the strongest sense. It is functional and structural. Once disclosure must become usable, a representation must become tractable enough to be carried, recalled, transmitted, coordinated, or applied. It must stabilize enough to support intervention. It must reduce an open-ended field into distinctions that can actually be worked with by a finite system. But once disclosure takes on this tractable, stabilized, action-guiding form, it is no longer functioning as exhaustive world-equivalence. It is functioning as selective preservation.
+
+This is not because finite systems are merely clumsy approximators of an otherwise available total relation. It is because operativity itself imposes form. The requirements of use push disclosure toward compression, stabilization, and selectivity. A finite system cannot both remain finite and operate through exhaustive world-possession at once \cite{Simon1982ModelsBoundedRationality,ConantAshby1970GoodRegulator}.
+
+Nothing in this argument depends on a strong speculative claim that reality is infinitely complex, fundamentally discrete, or computational in nature. The burden is weaker. It is enough that a bounded system cannot preserve and use the world in exhaustive detail while remaining a bounded operative system.
+
+\subsection{Rendering rather than reproduction}
+
+At this point the distinction between rendering and reproduction becomes decisive. A rendering is not a failed reproduction. It is the form disclosure must take under finite constraint.
+
+The contrast at issue is not between a plausible theory of ordinary representation and some crude doctrine of literal duplication. It is between two norms of representation. On one norm, selectivity appears mainly as a shortfall from fuller capture. On the other, selectivity is understood as a structural condition of finite disclosure itself. The present paper defends the second view.
+
+That is why the ordinary observation that ``models simplify'' is too weak for present purposes. It captures a familiar fact, but it leaves open the thought that simplification is merely a secondary reduction applied to something that could otherwise approximate the world in full. The stronger thesis defended here is that selective rendering is basic. For finite systems, reproduction is not the ordinary norm from which disclosure departs. It is a hypothetical counterfactual limit. Rendering is the actual structure of finite use \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP}.
+
+To render is to preserve enough structure for some task, purpose, or intervention under conditions of constraint. That preservation may be coarse or fine, formal or informal, perceptual or institutional, descriptive or action-guiding. What unifies these cases is not a common medium but a common structural relation: finite disclosure proceeds by preserving selectively because exhaustive operative identity is unavailable.
+
+\subsection{Why non-identity is structural}
+
+A common way of thinking about model/world gap is to treat it mainly as a matter of poor fit. Better measurement, more data, stronger formalism, improved instrumentation, or more careful observation can reduce the gap. This is true as far as it goes, but it does not reach the deeper point. Even a highly adequate representation remains non-identical to what it renders if it is finite, operative, and selective.
+
+Structural non-identity means exactly this. World/model non-equivalence is not introduced only when something goes wrong. It belongs to the form finite operative representation takes as such. Better modeling can reduce misfit relative to task and purpose. It cannot turn selective rendering into exhaustive world-equivalence without ceasing to be finite operative disclosure \cite{FriggNguyen2021ScientificRepresentationSEP,ConantAshby1970GoodRegulator}.
+
+This distinction also clarifies the relation between non-identity and error. All finite renderings are non-identical to what they render, but not all are therefore misfitting. Misfit is a stricter case within structural non-identity. Correction addresses target-relative failure within unavoidable non-identity; it does not eliminate non-identity as such. The theoretical and practical burden is therefore not to imagine that every gap can be erased, but to distinguish structural non-identity from correctable failure within it.
+
+\subsection{Compression and stabilization}
+
+Constraint means more than the simple loss of detail. It means that disclosure must be shaped into usable form. Rendering involves both compression and stabilization.
+
+Compression is not mere subtraction. It is the patterned preservation of some relations strongly enough for finite use while other relations are weakly carried, merged, backgrounded, or omitted. Stabilization is not mere rigidity. It is the production of forms that can persist long enough, and clearly enough, to support memory, communication, prediction, intervention, institutional procedure, or embodied response \cite{Ashby1956IntroductionCybernetics,ConantAshby1970GoodRegulator}.
+
+This is why constraint should be treated as generative rather than merely restrictive. It does not simply block total reproduction from occurring. It helps produce the operative forms through which finite disclosure becomes possible at all. The need for tractability produces compression. The need for durable use produces stabilization. Both are conditions of operativity, and both help explain why rendering rather than reproduction is the structural mode of finite disclosure.
+\section{Consequences for Disclosure and Action}
+
+If the argument so far is sound, then several consequences follow directly. Once finite disclosure is understood as selective rendering rather than reproduction, residue, scoped adequacy, operative representation, and correction no longer appear as secondary complications appended to an otherwise world-equivalent relation. They follow from the structure of finite disclosure itself. More specifically, if the paper's central impossibility claim is functional-structural rather than absolute in every abstract sense, then these consequences are not optional add-ons. They are structural features of finite operative disclosure.
+
+\subsection{Selective preservation and residue}
+
+Once rendering replaces reproduction, preservation becomes necessarily selective. A rendering preserves some structure strongly enough for use, but in doing so it also preserves other structure weakly, merges distinctions, backgrounds features, or omits them altogether. Residue therefore follows directly from selective preservation under constraint.
+
+This is a stronger claim than the familiar observation that no model contains everything. The point is not simply that some details are left out. The point is that every operative rendering has a preservation profile. It carries some relations and distinctions forward strongly enough to support the task at hand, while carrying others only weakly or not at all. Residue names the structured remainder relative to that profile \cite{BowkerStar1999SortingThingsOut}.
+
+Residue should therefore not be understood as an accidental leftover produced only by careless practice. It is generated whenever finite systems preserve selectively under conditions of use.
+
+\subsection{Scoped adequacy}
+
+If exhaustive adequacy is unavailable, then adequacy must be scoped. A rendering is adequate \emph{for} something: for a task, a level of analysis, a practical domain, a purpose, an interface, or a type of intervention. Once total preservation is unavailable, adequacy can no longer mean exhaustive capture. It must mean sufficient preservation relative to a bounded use.
+
+This does not collapse adequacy into arbitrary pragmatism. A rendering can still be more or less adequate. It can preserve too little, preserve the wrong structure, distort relevant relations, or suppress distinctions that matter for the domain in question. But adequacy is indexed rather than absolute. Constraint makes this unavoidable. Once exhaustive equivalence is unavailable, adequacy becomes structured sufficiency under a scope condition rather than total coincidence with reality \cite{FriggHartmann2025ModelsScienceSEP,Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism,Chang2022RealismForRealisticPeople}.
+
+\subsection{Operative representation}
+
+So far the argument has concerned disclosure. But finite systems do not merely disclose. They also act. Wherever action is consequence-bearing, finite systems act through operative representations.
+
+An institution acts through files, categories, thresholds, assessments, records, and procedures. A scientist acts through models, variables, formal relations, and instrument outputs. An organism acts through action-relevant perceptual and inferential patterns. In each case, disclosure becomes operative by stabilizing into forms that can guide intervention, communication, coordination, or response \cite{ConantAshby1970GoodRegulator,Ashby1956IntroductionCybernetics,BowkerStar1999SortingThingsOut,Gibson1979EcologicalApproachVisualPerception}.
+
+Operative representation is therefore not a strange secondary phenomenon layered on top of a more basic direct access to reality. It is the action-facing form of rendering under constraint. Once this is recognized, fantasies of direct institutional, technical, or procedural access to cases in unconstrained fullness become much harder to sustain.
+
+\subsection{Misfit and correction}
+
+Because operative representations are non-identical to reality, misfit is always structurally possible. A rendering can fail not only because it was careless or badly constructed, but because a pattern of selective preservation adequate under one purpose, scale, or interface may fail relative to another. What is preserved strongly enough for one use may suppress or distort structure that matters elsewhere \cite{FriggNguyen2021ScientificRepresentationSEP,BowkerStar1999SortingThingsOut}.
+
+Correction therefore cannot be understood as an occasional repair applied to representations that are otherwise world-equivalent. It is a standing requirement of finite disclosure under structural non-identity. Wherever finite systems act through selective renderings, responsible practice must remain open to revision in light of target-relative failure.
+
+Correction should also be distinguished from mere replacement. A system may replace one representation with another because the new one is faster, cheaper, simpler, or institutionally preferred. That is not yet correction. Correction is stronger. It names revision in response to misfit relative to what the representation purports to disclose. Because no finite operative representation is identical with reality, correction must remain a live structural possibility. More precisely, correction addresses target-relative misfit within unavoidable structural non-identity; it does not eliminate non-identity as such.
+
+\subsection{A general guardrail}
+
+One broader implication follows immediately. Wherever a model, file, score, diagnosis, optimization target, or record is treated as identical with the reality it renders, a structural mistake has already been made. That mistake is not merely moral, administrative, or political. It is metatheoretical. It forgets that finite systems act through selective renderings under non-identity.
+
+Reification is therefore not a minor intellectual vice. It is a predictable pathology of disclosure under constraint. The moment a rendering is treated as if it were simply the reality itself in operative form, the conditions under which that rendering became possible are obscured. What disappears from view are exactly the features this paper has argued are structurally unavoidable: selective preservation, residue, scoped adequacy, and the standing need for correction.
+\section{Applications and Explanatory Payoff}
+
+The framework developed in this paper should do more than restate a general thesis about finite representation. Its task is to explain why selective rendering is structurally necessary across domains that are often treated separately. The following cases are therefore not meant merely as illustrations. They are meant to show that the same underlying structure recurs wherever finite systems must disclose reality in forms usable for inquiry, administration, or action.
+
+\subsection{Scientific modeling}
+
+Scientific models are often described as selective idealizations, and that description is correct as far as it goes \cite{FriggHartmann2025ModelsScienceSEP,FriggNguyen2021ScientificRepresentationSEP}. The present framework sharpens what that selectivity means. A scientific model is not merely a convenient shortcut taken because inquiry has not yet reached a more complete form. It is a rendering produced under world-constraint, finite-agent constraint, and operative constraint. It preserves some relations strongly enough for explanation, prediction, intervention, or unification, while backgrounding, compressing, or omitting others.
+
+Standard accounts of scientific modeling already show that models idealize, abstract, and often achieve only domain- or purpose-relative adequacy \cite{Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism,LudwigRuphy2026ScientificPluralismSEP,Chang2022RealismForRealisticPeople}. The present framework does not replace those insights. Its added claim is more upstream: these features are not merely common habits of inquiry but expressions of a deeper structural condition. Because scientific modeling must produce operative forms usable by finite systems, selectivity is not incidental to modeling practice. It is one of the conditions under which modeling becomes possible at all.
+
+A simple contrast helps make the point. Consider a coarse epidemiological compartment model and a finer-grained clinical or population-level account of the same disease domain. The compartment model may preserve transmission dynamics strongly enough for forecasting or public-health intervention, while backgrounding individual heterogeneity, comorbidity, local institutional variation, or lived symptom burden. A more fine-grained account may preserve some of those neglected structures, but it will in turn background others in order to remain usable for a different purpose. The result is not merely that scientists have chosen different levels of detail. It is that no single operative rendering exhausts the domain in the form required for every use. Residue is therefore not an anomaly but a structural consequence of model-based inquiry, and correction and revision remain standing possibilities even in mature sciences because non-identity between model and world is structural rather than a temporary embarrassment awaiting elimination.
+
+What this framework adds, then, is not the bare claim that scientific models are selective. That point is already well known. Its contribution is to explain why model selectivity, residue, and standing correction-pressure are not merely familiar features of scientific practice, but consequences of the structure finite operative disclosure must take.
+
+\subsection{Institutional case representation}
+
+The same structure appears with particular force in administrative and institutional life. Consider a patient record, a benefits file, a risk score, a disciplinary report, or a school profile. Institutions do not act on cases in their full concrete unfolding. They act through operative representations. This is often treated as a contingent weakness of bureaucracy or technical systems, as though institutions would act more directly if only they were less rigid or better informed. The present framework reveals something deeper. Institutions must render rather than reproduce because they are finite systems acting through constrained operative forms \cite{BowkerStar1999SortingThingsOut}.
+
+A patient record is a useful example. The chart, coded diagnosis, medication list, and standardized assessment do not simply mirror the patient's lived condition. They preserve some structure strongly enough for coordination, intervention, reimbursement, and procedural action, while backgrounding or weakly carrying other forms of reality, including pain, fatigue, practical incapacity, narrative context, or burdens that matter to the patient's life. The result is not simply that the record is incomplete. The stronger point is that incompleteness is built into the operative form itself. The chart must stabilize the case in a way the institution can use, and that requirement of use shapes what counts, what disappears, and what remains weakly carried \cite{BowkerStar1999SortingThingsOut,Douglas2004IrreducibleComplexityObjectivity}.
+
+Two consequences follow. First, residue is unavoidable. The case always contains more than the record carries forward. Second, correction is structurally necessary. Because the operative representation is non-identical to the case, misfit cannot be treated only as an occasional scandal caused by corruption, negligence, or incompetence. Those may intensify the problem, but they do not create its basic form. The deeper point is that constrained institutions necessarily act through selective renderings. Where certain dimensions of a case are repeatedly disfavored, excluded, or granted insufficient standing, this can also produce specifically epistemic harms rather than mere administrative inconvenience \cite{Fricker2007EpistemicInjustice,Haraway1988SituatedKnowledges}.
+
+This does not excuse institutional failure. On the contrary, it sharpens its diagnosis. The problem is often not simply that an institution used a model, category, or file. The problem is that it forgot this operative form was a rendering under constraint and treated it as identical with the case itself. The framework therefore explains not only why institutional records are partial, but why residue, standing correction-pressure, and recurrent reification are built into institutional case management as such.
+
+\subsection{Embodied perception and action}
+
+The same basic structure appears at the level of embodied perception and action. An organism does not disclose the world by preserving the entirety of its environment in exhaustive operative detail. It perceives and responds through patterns selective relative to survival, movement, affordance, salience, temporality, and embodied need \cite{Gibson1979EcologicalApproachVisualPerception}. That selectivity is not merely a primitive defect measured against an impossible ideal of total world-possession. It is the structural form of finite embodied disclosure.
+
+This example matters because it prevents the paper's argument from being mistaken for a thesis only about science, bureaucracy, or formal modeling. The distinction between rendering and reproduction reaches down into ordinary finite life. It is not a late technical distortion imposed by special institutions on an otherwise complete access to reality. It belongs to the basic condition under which finite beings disclose and act in the first place.
+
+Taken together, these cases show that the paper's argument is not merely compatible with familiar phenomena across several domains. It helps explain why those phenomena recur. Scientific models, institutional records, and embodied perception differ in medium, purpose, and stakes, but they share a common structure: finite systems do not act through exhaustive world-equivalence. They act through selective renderings shaped by what they can preserve, stabilize, and use.
+\section{Objections and Replies}
+
+\subsection{Objection 1: This explains everything and therefore nothing}
+
+A natural objection is that the paper's key term is too broad to do real explanatory work. ``Constraint'' can be invoked almost anywhere. If every finite practice can be redescribed as constrained, then the framework risks collapsing into a high-level redescription with little discriminating force.
+
+That objection would be decisive if the paper were offering a theory of constraint in general. But it is not. Its burden is narrower and more specific: to explain why finite disclosure must take the form of selective rendering rather than reproduction. The argument is therefore bounded by a particular domain, namely disclosure, representation, and action through operative forms. It does not claim that all failures, all institutions, or all forms of finitude reduce to constraint as such. It claims that world/model non-identity, residue, scoped adequacy, and correction pressure become intelligible once one sees that finite embodied systems cannot sustain exhaustive world-equivalence in operative form. The framework is broad, but it is not empty, because it is tied to a determinate explanatory question.
+
+\subsection{Objection 2: This is just a more elaborate way of saying that models simplify}
+
+This objection is more serious. If the paper says nothing more than that useful models simplify reality, then it has not earned either its vocabulary or its theoretical ambition.
+
+The reply is that the paper's claim is stronger than the familiar observation that simplification occurs. It is not merely saying that finite systems often leave things out. It is saying that selective rendering is structurally necessary because finite systems cannot operate through exhaustive reproduction. That difference matters. On the weaker view, simplification is a familiar practical reduction that might in principle be minimized toward fuller capture. On the stronger view defended here, non-identity is structural. Residue, scoped adequacy, and correction are therefore not incidental complications of representation. They are built into finite disclosure as such \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP}.
+
+\subsection{Objection 3: The paper depends on speculative metaphysics or physics}
+
+A further objection is that the argument appears to rely on controversial background assumptions in metaphysics, information theory, or physics. If the impossibility of world-equivalence secretly depends on stronger theses about quantization, computation, or the deep structure of reality, then the paper may be overreaching.
+
+The reply is that the paper deliberately brackets those stronger commitments. It does not require that reality be fundamentally quantized, computational, continuous, or processual in any final sense. Its burden is weaker and more local. It requires only that finite embodied systems cannot sustain exhaustive identity between reality and operative representation for use. That claim is functional-structural rather than a final metaphysical thesis. It rests on bounded finitude and operative structure, not on a completed theory of the universe \cite{Wheeler2024BoundedRationalitySEP,Simon1982ModelsBoundedRationality,ConantAshby1970GoodRegulator}. The paper therefore aims at a metatheoretical condition of finite disclosure, not a final metaphysics of reality in itself.
+
+\subsection{Objection 4: Structural non-identity collapses into skepticism}
+
+If operative representation is structurally non-identical to reality, one might worry that the paper slides toward skepticism or anti-realism. If models never reproduce the world, why trust them at all? Why not conclude that representation is too compromised to be genuinely answerable?
+
+The reply is that non-identity is not the same as non-answerability. A rendering can remain non-identical to its target while still preserving enough structure to be adequate for a domain and purpose. The paper does not deny that finite disclosure reaches reality. It denies only that finite disclosure does so through exhaustive operative equivalence. Indeed, the very notions of scoped adequacy and correction would make little sense if reality were not answerable at all \cite{Chakravartty2011ScientificRealismSEP,FriggNguyen2021ScientificRepresentationSEP}. The paper therefore opposes reification, not answerability. Its target is the fantasy of exhaustive operative identity, not the possibility of real disclosure.
+
+\subsection{Objection 5: The theory is parasitic on a broader account of finite description}
+
+A final objection is that the theory adds little of its own. Any broader account of finite description will already say that representations are partial, scoped, and revisable. If so, what independent work does this paper actually perform?
+
+The reply is that this paper addresses a prior question. It is not mainly concerned with describing the structure of finite representations once they are already in view. It is concerned with explaining why finite disclosure must be selective in the first place. A broader account of cuts, scope, adequacy, and residue may show how finite rendering is organized. The present argument is meant to show why finite systems cannot do without rendering at all. Its contribution is therefore generative rather than merely classificatory. It explains why selective disclosure is not an optional technique laid over reality from the outside, but a structural consequence of finitude under operative constraint \cite{Wheeler2024BoundedRationalitySEP,ConantAshby1970GoodRegulator,FriggNguyen2021ScientificRepresentationSEP}.
+\section{Scope, Limits, and Residues}
+
+The argument of this paper is intentionally bounded. Its claim is that, for finite embodied systems, constraint is a condition of disclosure. More specifically, the paper's central claim is functional-structural and limited to finite operative disclosure. It is not a universal impossibility thesis about every conceivable form of representation. Part of the paper's force lies in keeping that claim within its proper limits.
+
+Accordingly, the paper does \emph{not} offer a final metaphysics of physics. It does \emph{not} establish that reality is fundamentally quantized, computational, or otherwise fixed by a strong speculative ontology. It does \emph{not} provide a complete theory of mind, consciousness, or subjectivity. It does \emph{not} show that every form of simulation, modeling, and representation can be reduced to one unified formal scheme. Nor does it settle the broader normative, political, or institutional questions that arise once finite systems act through constrained renderings.
+
+Several residues therefore remain visible.
+
+First, some \emph{conceptual} residues remain open. The taxonomy of constraint is still provisional. The distinction among world-constraint, finite-agent constraint, and operative constraint is sufficient for the present argument, but it may require further refinement, subdivision, or restructuring in later work. The relation between rendering and simulation also remains underdeveloped. The paper has treated both as non-equivalent to exhaustive reproduction for finite use, but it has not yet provided a full account of their exact relation.
+
+Second, some \emph{metaphysical} residues remain open. The relation between this account of finite disclosure and a fuller process-oriented articulation of reality remains unsettled. Nothing in the argument rules out such an articulation, and it may eventually support one, but the present paper does not depend on it.
+
+Third, some \emph{formal} residues remain open. Residue has been introduced structurally rather than exhaustively formalized. The paper argues that residue follows from selective preservation under constraint, but it does not provide a complete formal profile of how residue behaves across every relevant domain.
+
+These limits are not defects to conceal. They are part of the paper's discipline. A theory that attempted to settle all of these matters at once would risk losing the bounded explanatory gain it actually secures.
+
+\section{Conclusion}
+
+The main result of this paper is a sharper account of why finite disclosure must take the form of selective rendering. Finite embodied systems are constrained by the world they confront, by their own bounded capacities, and by the operative requirements of usable representation. For that reason, they cannot sustain exhaustive identity between reality and operative representation. They must render rather than reproduce.
+
+That result matters because it changes the status of several familiar notions. Model/world non-identity is not merely a sign of poor representation. It is structural. Residue is not an accidental leftover that appears after the fact. It is generated by selective preservation under constraint. Adequacy cannot be exhaustive for finite systems; it must be scoped to task, purpose, level, and use. Correction is not an occasional repair applied to otherwise world-equivalent representation; it is a standing requirement of finite disclosure under structural non-identity.
+
+The point, however, is not that representation is impossible or fatally compromised. It is that, for finite embodied systems, once disclosure must become operative, exhaustive equivalence ceases to be the relevant norm and selective rendering becomes structurally necessary.
+
+The paper therefore supports a simple but consequential claim. Constraint is not merely something disclosure encounters as an external obstacle. For finite embodied systems, it is one of the conditions that makes disclosure take the form of rendering at all.
+
+\appendix
+\section{Appendix A: Schematic Summary of the Argument}
+
+The paper's central argument can be compressed into the following sequence:
+
+\begin{enumerate}
+    \item A finite embodied system is bounded in time, memory, energy, bandwidth, perspective, and action-capacity.
+    \item Reality exceeds what such a system can preserve and use in exhaustive operative detail.
+    \item Usable disclosure requires tractable, stable, and action-guiding forms.
+    \item Therefore exhaustive world-equivalence is unavailable as a mode of finite operative representation.
+    \item Finite disclosure must therefore proceed through selective rendering rather than reproduction.
+    \item Selective rendering generates residue and requires adequacy to be scoped rather than exhaustive.
+    \item Because rendering remains structurally non-identical to reality, correction pressure is a standing feature of finite disclosure.
+\end{enumerate}
+
+\section{Appendix B: Minimal Notational Compression}
+
+Let \(W\) denote reality or world, \(S\) a finite embodied system, and \(R_S(W)\) a rendering of \(W\) by \(S\).
+
+The paper's thesis can then be stated minimally as:
+
+\[
+R_S(W) \neq W
+\]
+
+This inequality does not mean that every rendering is false or detached from reality. It means that \(R_S(W)\) is not an exhaustive world-equivalent operative form, because \(S\) is finite and the rendering must be usable.
+
+More explicitly, the paper's claim is not that finitude alone mechanically yields selectivity, but that finitude under operative constraint does so:
+
+\[
+\text{finite}(S) \;\land\; \text{operative}(R_S(W)) \;\Rightarrow\; \text{selective}(R_S(W))
+\]
+
+and therefore:
+
+\[
+\text{selective}(R_S(W)) \;\Rightarrow\; \text{residue}(R_S(W),W)
+\]
+
+together with:
+
+\[
+\neg \text{exhaustive adequacy}(R_S(W))
+\]
+
+so that adequacy must instead be treated as indexed to task, level, purpose, and interface.
+
+One further distinction is important. Structural non-identity does not by itself imply misfit:
+
+\[
+R_S(W) \neq W \;\centernot\Rightarrow\; \text{misfit}(R_S(W),W)
+\]
+
+Rather, misfit is a stricter case within unavoidable non-identity:
+
+\[
+\text{misfit}(R_S(W),W) \subset \text{nonidentity}(R_S(W),W)
+\]
+
+Correction therefore addresses target-relative misfit within structural non-identity; it does not eliminate non-identity as such.
+
+This sketch is illustrative rather than demonstrative. Its purpose is to compress the paper's structure, not to replace the prose argument that establishes it.
+
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/constraint/con}
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+DOI:
+\href{https://doi.org/10.5281/zenodo.19078575}{10.5281/zenodo.19078575}
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}
+
+\end{document}

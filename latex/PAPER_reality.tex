@@ -1,0 +1,633 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Embedded Process}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Shared Reality as a Condition of Disclosure}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+
+\title{\textbf{Shared Reality as a Condition of Disclosure}\\
+\large Coherence, Constraint, and the Possibility of Finite Description}
+\author{David T. Swanson}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+Finite descriptions are partial, conditioned, and often plural. Yet they do not ordinarily present themselves as sealed worlds. They present themselves as renderings of a reality that can be more or less adequately disclosed, contested, and corrected. This paper argues that the very intelligibility of finite disclosure, substantive disagreement, descriptive misfit, and correction presupposes a sufficiently shared and non-fragmented reality. The claim defended here is modest but strong. It is stronger than the thought that distinct frameworks merely coordinate, overlap, or interoperate for practical purposes, but weaker than the thesis that reality must therefore admit one final exhaustive vocabulary. The paper thus advances a shared-reality or coherence-based unity thesis: reality must be common and constraint-bearing enough for multiple renderings to answer to one target, even though no single finite rendering can be presumed to exhaust that target. I situate this proposal between stronger forms of scientific realism, perspectival and plural realist positions, and condition-oriented or transcendental styles of argument. I then develop the core distinctions between shared reality, shared usage, interoperability, answerability, misfit, and correction, and show how the framework clarifies scientific model plurality, institutional representation, and cases of epistemic injustice. The paper does not claim to prove maximal monism, settle a complete process ontology, or eliminate all anti-realist alternatives. Its narrower aim is to show that shared reality is not an optional metaphysical add-on, but a condition of disclosure itself.
+\end{abstract}
+
+\section{Introduction}
+
+Finite beings do not disclose the world from nowhere. They describe, model, classify, measure, interpret, and act under conditions of limitation. Their renderings are partial, selective, and often in tension with one another. Much recent thought has rightly emphasized this plurality. Different models disclose different features. Different perspectives reveal different structures. Different institutions organize cases through different practical schemas. Different agents stand in different epistemic positions to what they seek to know. Yet once this much is granted, a further question becomes unavoidable.
+
+What makes these finite renderings renderings \emph{of the same reality} rather than merely neighboring conveniences, mutually useful schemes, or isolated practice-worlds?
+
+This question matters because several familiar practices seem to require more than practical coordination. Substantive disagreement appears to require that distinct renderings can genuinely conflict about one target. Descriptive misfit appears to require that a rendering can fail relative to what it purports to disclose. Correction appears to require that revision is sometimes warranted by the target, not merely by shifting convenience or institutional preference. If these practices are real, then finite plurality alone is not enough. Some sufficiently shared and constraint-bearing reality must also be in play.
+
+The central thesis of this paper is therefore the following: \emph{the intelligibility of finite disclosure, substantive disagreement, descriptive misfit, and correction presupposes that what is being rendered belongs to a sufficiently shared, non-fragmented, and constraint-bearing reality}. The result secured by this argument is modest but robust. It does not claim that one reality must be capturable in one final vocabulary. It does not claim that all plurality collapses into one ultimate scheme. It does not claim to derive a complete metaphysical system from pure reflection. It claims something narrower and, I think, more defensible: shared reality is a condition of disclosure.
+
+The paper proceeds as follows. Section 2 situates the proposal relative to scientific realism, perspectival and plural realist views, and transcendental styles of argument. Section 3 introduces the core definitions and distinctions on which the argument depends. Section 4 presents the main theory and the inferential route from disclosure, disagreement, misfit, and correction to shared reality. Section 5 explains why this theory is needed and why weaker alternatives do not suffice. Section 6 shows the framework at work in science, institutional representation, and epistemic injustice. Section 7 addresses major objections. Section 8 states the paper's scope, limits, and residue. Section 9 sketches implications and future work. Section 10 concludes.
+
+\section{Background and Rival Views}
+
+The proposal developed in this paper does not arise in a vacuum. It belongs to a recognizable philosophical neighborhood, but it is not identical to any single position within that neighborhood. Its central concern is to hold together two claims that are often separated or made to compete: first, that finite disclosure is partial, situated, mediated, and frequently plural; and second, that such disclosure still answers to a reality sufficiently shared for substantive disagreement, descriptive misfit, and correction to be real. The view defended here is therefore best located between stronger forms of realism on one side and pluralist, perspectival, or situated reactions on the other, while also drawing methodological support from condition-oriented styles of argument.
+
+The comparative task of this section is accordingly threefold. It must show what nearby views get right, what burden they leave unmet, and why the present framework is not merely a relabeling of familiar positions. The paper's claim is not simply that reality exists, nor simply that inquiry is plural. Its more specific claim is that a sufficiently shared and non-fragmented reality is already presupposed by practices of disclosure, disagreement, misfit, and correction that many adjacent positions themselves rely upon.
+
+\subsection{Scientific realism and its pressure}
+
+Scientific realism, broadly construed, affirms that our best theories and models aim at, and in some measure succeed in, disclosing a mind-independent world \cite{Chakravartty2011ScientificRealismSEP}. This is a major strength. Realism preserves the thought that inquiry is constrained by what is not simply authored by our concepts, preferences, or institutions. Putnam's realism and Hacking's emphasis on representation and intervention both reinforce the idea that knowledge practices are not merely free-floating linguistic games but engagements with a world that resists, constrains, and sometimes corrects us \cite{Putnam1983RealismReason,Hacking1983RepresentingIntervening}.
+
+What realism gets right, then, is answerability. It preserves the intuition that theories and models do not merely circulate within discourse but purport to disclose a world that can matter independently of their local uptake. This point is indispensable for the present paper, which would have no argument at all without some version of worldly constraint.
+
+Yet realism, especially in stronger formulations, is often heard as carrying more than this. It can seem to suggest not merely that reality constrains inquiry, but that one world should in principle yield one final convergent account, one privileged description, or one ultimate vocabulary. Even when careful realists do not explicitly endorse that stronger conclusion, the structure of the position is often taken to lean in that direction. This generates two related pressures.
+
+First, realism can appear insufficiently sensitive to the actual heterogeneity of inquiry. Scientific and institutional practice proceed through multiple models, scales, instruments, purposes, and modes of access. They do not typically look like approximations to one transparent final description. Second, realism can appear to understate the role of situatedness, mediation, and selective disclosure. Once those features become visible, stronger realism risks sounding descriptively monistic even when its defenders mean only to preserve mind-independent constraint.
+
+The present paper therefore inherits realism's insistence on answerability while resisting the slide from one reality to one sufficient vocabulary. That resistance is not a concession to anti-realism. It is part of clarifying what shared reality must mean under conditions of finite disclosure.
+
+\subsection{Pluralism, perspectivism, and situated knowledge}
+
+Pluralist and perspectival approaches arose in significant part as corrections to those realist pressures. Giere's scientific perspectivism, Massimi's perspectival realism, Chang's pragmatic and pluralist realism, and broader defenses of scientific pluralism all emphasize that finite inquiry proceeds through multiple models, aims, methods, and standpoints \cite{Giere2006ScientificPerspectivism,Brown2009ModelsPerspectives,Massimi2012ScientificPerspectivismFoes,Massimi2022PerspectivalRealism,Chang2012IsWaterH2O,Chang2022RealismForRealisticPeople,Veit2020ModelPluralism,Ludwig2021ScientificPluralismSEP}. Their shared force lies in rejecting the idea that one domain must be disclosed through one exhaustive scheme. Different renderings can reveal different features, answer different questions, operate at different scales, and remain legitimate without thereby becoming mutually eliminable.
+
+This family of views gets something essential right. Finite disclosure is conditioned. The plurality of renderings is not merely an unfortunate defect to be eliminated at the end of inquiry. It is often built into the structure of inquiry itself. A model can succeed at one scale and fail at another. A classificatory scheme can be useful for one purpose and distorting for another. A perspective can reveal what another cannot. These insights are indispensable for any serious account of actual epistemic practice.
+
+Related pressures come from situated knowledge traditions and critiques of over-idealized objectivity. Haraway's argument for situated knowledges and Douglas's critique of oversimplified objectivity both insist that standpoint, embodiment, practice, and context are not merely accidental contaminations of otherwise pure knowledge \cite{Haraway1988SituatedKnowledges,Douglas2004IrreducibleComplexityObjectivity}. They are constitutive conditions of real inquiry. These positions strengthen the case that disclosure is always selective and mediated, and that claims to view-from-nowhere neutrality often conceal their own conditioning.
+
+The present paper inherits these insights as well. It agrees that finite disclosure is partial, conditioned, and plural. It agrees that no single model, scale, or institutional rendering should be presumed exhaustive. It agrees that standpoint and mediation matter. But once these points are granted, a further burden emerges that pluralist and perspectival positions do not always make fully explicit.
+
+What, exactly, makes distinct renderings renderings \emph{of the same thing}? What keeps plurality from collapsing into mere coexistence of workable schemes, local coordination, or framework-relative success? What explains why two renderings can be not merely different but genuinely in tension \emph{over one target}? And what makes correction more than replacement of one serviceable framework by another?
+
+These questions mark the pressure point to which the present paper is addressed. The problem is not that pluralism or perspectivism are wrong to emphasize multiplicity. The problem is that multiplicity alone does not yet explain shared targethood. If that point remains underdescribed, then the ontological status of disagreement, misfit, and correction becomes unclear.
+
+\subsection{Beyond coordination, overlap, and framework-local success}
+
+At this point it becomes helpful to identify three weaker positions that can seem attractive once descriptive plurality is foregrounded.
+
+The first is \emph{exhaustive unity}: one reality is taken to imply one final vocabulary, one privileged scheme, or at least one ideal convergence point. This view preserves shared reality but at the cost of flattening finite disclosure into a single descriptive horizon. The paper rejects this move because it cannot adequately accommodate the persistent plurality of legitimate renderings.
+
+The second is \emph{framework-local pragmatism}: what matters is not shared targethood but local success within a practice, model, or institutional regime. This view captures something real about situated use, but it weakens answerability too far. If local success is all that matters, it becomes difficult to explain substantive misfit and correction as anything more than internal adjustment.
+
+The third is \emph{fragmented overlap}: distinct renderings may partially overlap where coordination is needed, but no sufficiently shared reality need be presupposed beyond those overlap zones. This position is more subtle, and in some ways closer to the present paper's concerns. But it still leaves unresolved what makes strong disagreement and target-relative correction possible where overlap is robust enough to matter.
+
+The view defended here is meant to avoid all three reductions. It preserves one shared reality without collapsing into one exhaustive scheme. It preserves plurality without reducing disagreement to local success conditions. And it treats overlap and interoperability as real but insufficient unless they are backed by stronger common targethood.
+
+\subsection{Condition-oriented argument}
+
+Methodologically, the paper approaches these issues through a condition-oriented argument. In broad terms, it asks what must hold for finite disclosure, substantive disagreement, descriptive misfit, and correction to make sense as the practices they present themselves as being. In that respect, the argument resembles transcendental styles of reasoning insofar as it moves from the intelligibility of certain practices to conditions on their possibility, while remaining more modest than a full-dress transcendental proof \cite{Stern2011TranscendentalArgumentsSEP}.
+
+That methodological choice matters. The paper is not trying to derive an exhaustive metaphysics from nowhere. It is not claiming unconstrained access to the world's final structure. It is instead asking what ontological commitments are already implicit in practices many rival positions themselves take seriously. Realists appeal to answerability. Pluralists appeal to multiple renderings of one domain. Situated knowledge traditions appeal to partial but nevertheless significant disclosure. Institutional critique often depends on the thought that some renderings misrepresent a case they purport to describe. The present argument asks what must be true if such appeals are to make strong sense.
+
+What it aims to show is not that every rival view is wholly mistaken, but that many of them tacitly depend on a shared-reality condition they do not always state explicitly. That is why the argument is best understood as condition-oriented rather than as a free-standing metaphysical proclamation.
+
+\subsection{The unresolved burden}
+
+The unresolved burden can now be stated more precisely. Stronger realism preserves shared reality, but often at the cost of sounding descriptively monistic or insufficiently attentive to finite mediation. Stronger pluralism preserves multiplicity, situatedness, and model-dependence, but often leaves the ontological status of shared targethood underdescribed. Pragmatist or overlap-based alternatives capture local functioning and partial coordination, but risk weakening answerability into mere interoperability.
+
+What is needed, then, is a framework that keeps both of the following in view:
+
+\begin{enumerate}
+    \item finite disclosure is partial, conditioned, selective, and frequently plural, and
+    \item finite disclosure nevertheless answers to a sufficiently shared, non-fragmented, and constraint-bearing reality strongly enough for disagreement, misfit, and correction to be real.
+\end{enumerate}
+
+That is the burden this paper takes up. Its distinctive proposal is not simply that there is one reality, nor simply that there are many renderings. It is that a sufficiently shared reality is a condition under which finite plurality can count as plurality \emph{of disclosures of one world} rather than as a loose collection of locally workable schemes.
+\section{Core Definitions and Distinctions}
+
+The argument developed in this paper depends on a small set of terms that must be kept stable throughout. These terms do not function as ornamental vocabulary. They do specific theoretical work. If they are allowed to blur into one another, the paper either overclaims---by sliding too quickly toward maximal metaphysical conclusions---or underclaims, by collapsing its result into mere pragmatism or coordination. The purpose of this section is therefore to fix the minimum conceptual structure needed for the argument that follows.
+
+\subsection{Rendering}
+
+A \emph{rendering} is any finite articulation that purports to disclose some aspect of reality. A rendering may take the form of a description, model, measurement, classification, diagnosis, testimony, record, theory, or interpretive frame. What unifies these heterogeneous cases is not their format but their role: each presents something as being some way.
+
+Two points are important here. First, a rendering is not an exhaustive capture of its target. It is a finite disclosure under conditions of scale, method, purpose, standpoint, and capacity. Second, a rendering is not merely a neutral inscription. It organizes, selects, and presents. For that reason, renderings are always vulnerable both to adequacy and to inadequacy. They can illuminate, omit, distort, simplify, or misclassify.
+
+The term therefore names something stronger than a bare sign and weaker than a total representation. A rendering is a structured, finite, and answerable disclosure.
+
+\subsection{Target}
+
+A \emph{target} is that aspect, case, process, or domain of reality a rendering purports to be about. The notion of target is indispensable because without it renderings threaten to collapse into symbolic self-containment. If a rendering is only a locally useful artifact, then it is difficult to explain what it could mean for it to succeed, fail, distort, or require correction. The concept of a target blocks that collapse.
+
+To say that a rendering has a target is to say that it presents itself as answerable to something beyond its own internal organization or local uptake. A diagnosis purports to be about a condition. A model purports to be about a system. A record purports to be about a case. A testimony purports to be about an event, situation, or lived reality. In each case, the rendering is not just a free-standing product. It claims aboutness.
+
+The target need not be exhaustively available, fully transparent, or easily rendered. The present argument requires only that renderings purport beyond themselves strongly enough for target-relative adequacy and inadequacy to be intelligible.
+
+\subsection{Shared targethood}
+
+\emph{Shared targethood} obtains when distinct renderings are about the same target strongly enough for them to be compared as convergent, divergent, conflicting, complementary, or mutually corrective. This notion is central to the paper because it marks the difference between mere plurality of renderings and plurality \emph{of renderings of one thing}.
+
+Shared targethood is stronger than common vocabulary. Two communities may use the same word while tracking different targets. Conversely, they may use very different vocabularies while still rendering one and the same target under different conditions. Shared targethood is therefore not secured by linguistic overlap alone. Nor is it exhausted by functional coordination. What matters is common aboutness.
+
+This concept is load-bearing because substantive disagreement depends on it. If two renderings do not share targethood, then their difference may be no more than divergence in language, interest, or use. But if they do share targethood, then one can say something stronger: they may genuinely disagree about one case, one process, one domain, or one reality. Shared targethood is thus what makes conflict and correction more than parallel local performances.
+
+\subsection{Answerability}
+
+\emph{Answerability} is the condition under which a rendering can succeed or fail relative to its target. It is what makes adequacy, inadequacy, omission, distortion, and revision intelligible as more than expressions of preference, convenience, or institutional momentum.
+
+A rendering that is answerable is not merely assessed by whether it is useful, stable, or widely adopted. It is assessed by whether it gets something about its target right or wrong, reveals or conceals, discloses or misdescribes. Answerability therefore introduces a form of normative pressure internal to disclosure itself. Once a rendering is taken to be about a target, it is no longer merely available for strategic use. It becomes vulnerable to the question of whether it fits what it purports to disclose.
+
+This notion does not require infallible access or perfect representation. It requires only that target-relative success and failure remain real possibilities. That is enough for the purposes of this paper. Without answerability, correction collapses into replacement, and disclosure collapses into organized production.
+
+\subsection{Misfit and correction}
+
+\emph{Misfit} is failure of a rendering relative to what it purports to disclose. Such failure may take many forms: omission of relevant features, distortion of salient structure, false attribution, overcompression, misclassification, or misplaced emphasis. The important point is that misfit is not merely dissatisfaction with a rendering. It is target-relative inadequacy.
+
+\emph{Correction} is revision in light of such inadequacy. Not every change, however, counts as correction. Some changes are strategic substitutions, convenience shifts, administrative reorganizations, or adaptations to new purposes. These may be significant, but they are not yet corrections in the stronger sense at issue here. Correction names a more demanding relation: a prior rendering is revised because it failed, in some respect, relative to what it purported to disclose.
+
+This distinction is crucial. If all change were merely replacement, then one could explain revision without invoking strong answerability to a common target. But once correction is treated as genuine target-relative improvement, stronger ontological consequences follow. Correction is therefore one of the main hinges of the paper's argument.
+
+\subsection{Coherence}
+
+\emph{Coherence}, as used here, does not mean mere logical consistency among propositions, nor does it mean only social harmony among descriptions. It means the minimum non-fragmentation of reality required for shared targethood, cross-rendering constraint, and correction-permitting answerability.
+
+The term is introduced because the paper does not seek to prove, at this stage, the strongest possible version of metaphysical monism. It seeks instead to establish a more disciplined claim: reality must be sufficiently one, common, and constraint-bearing for distinct renderings to answer to one target field. Coherence names that minimum condition.
+
+Its content is therefore modest but real. A coherent reality, in the sense relevant here, is one in which distinct renderings need not collapse into one exhaustive vocabulary, yet can still be jointly constrained by what they purport to disclose. Coherence marks the worldly basis of non-fragmented targethood. It is what allows disagreement to be more than divergence, misfit to be more than inconvenience, and correction to be more than negotiated replacement.
+
+\subsection{Interoperability}
+
+\emph{Interoperability} is the practical capacity of schemes, systems, or renderings to coordinate with one another. Two classificatory systems may interoperate. Two models may be partially translatable. Two institutions may exchange information across distinct administrative schemas. Interoperability is real and often indispensable.
+
+But interoperability is weaker than shared reality in the sense relevant to this paper. Two systems may coordinate for local purposes without thereby establishing that they are answerable to one target strongly enough for substantive correction. A medical coding system and a patient narrative may interact operationally; a legal category and a social description may partially overlap in use. Yet practical compatibility alone does not show that the relation between them is one of common targethood rather than temporary or partial coordination.
+
+This distinction matters because weaker views often try to replace shared reality with overlap, translation, or functional coordination. Those notions capture something important, but they do not yet explain why one rendering can expose another as having failed relative to what both are about. Interoperability can facilitate comparison, but it cannot by itself carry the ontological burden of answerability.
+
+\subsection{Load-bearing distinctions}
+
+The following distinctions organize the rest of the paper and guard against predictable forms of drift.
+
+\begin{enumerate}
+    \item \textbf{Shared reality vs.\ maximal monism.} The claim defended here is not yet that all of reality has been shown to be numerically one in the strongest metaphysical sense. The narrower claim is that reality must be sufficiently shared and non-fragmented for finite disclosure to be genuinely answerable.
+    
+    \item \textbf{Shared reality vs.\ one sufficient vocabulary.} One shared reality does not imply one exhaustive descriptive scheme. Ontological commonality and descriptive sufficiency must be kept sharply separate.
+    
+    \item \textbf{Shared targethood vs.\ shared usage.} Agreement in words, conventions, or institutional practice does not by itself establish common aboutness. Shared targethood is stronger than linguistic or practical overlap.
+    
+    \item \textbf{Coherence vs.\ consistency.} Coherence here is not mere discursive tidiness. It names a worldly non-fragmentation sufficient for cross-rendering constraint and correction.
+    
+    \item \textbf{Correction vs.\ replacement.} Not every revised rendering is thereby corrected. Some renderings are simply exchanged, repurposed, or reorganized. Correction is the stronger relation of target-relative improvement.
+    
+    \item \textbf{Interoperability vs.\ common targethood.} Practical coordination, overlap, or translatability does not yet establish the kind of shared-reality answerability the paper aims to defend.
+\end{enumerate}
+
+These distinctions matter because the paper's result is vulnerable in two opposite directions. It can be overstated by collapsing too quickly from shared reality into maximal monism or one final vocabulary. It can also be trivialized by weakening shared reality into mere coordination, overlap, or stable usage. The argument that follows depends on resisting both temptations. Only if these distinctions are kept explicit can the paper secure a conclusion that is both modest and robust.
+\section{Main Argument} 
+
+The central claim of this paper is that shared reality is not an optional metaphysical addition to finite disclosure. It is one of the conditions under which finite disclosure, substantive disagreement, descriptive misfit, and correction become intelligible as the practices they ordinarily present themselves as being. The argument for that claim can first be stated in compressed form and then unpacked in stages.
+
+\subsection{The basic inferential sequence}
+
+The core argumentative sequence is as follows:
+
+\begin{enumerate}
+    \item Finite renderings purport to disclose something beyond themselves.
+    \item Distinct finite renderings can be about the same target.
+    \item Where distinct renderings share a target, their differences can amount to more than verbal or practical divergence.
+    \item Once such divergence is substantive, some renderings can misfit what they purport to disclose.
+    \item If misfit is real, then revision cannot always be understood as mere replacement, convenience shift, or negotiated reorganization.
+    \item Genuine correction therefore presupposes that renderings are answerable to a sufficiently shared and non-fragmented target field.
+    \item Shared reality is thus a condition of disclosure.
+\end{enumerate}
+
+This sequence does not eliminate plurality. On the contrary, it explains how plurality is possible \emph{as plurality of renderings of one sufficiently shared reality}. The conclusion is not that all renderings collapse into one final scheme, but that their plurality is intelligible only if they are not sealed off into disconnected ontological islands.
+
+\subsection{From disclosure to substantive disagreement}
+
+The first step of the argument is modest but necessary. Finite renderings do not ordinarily present themselves as self-contained symbolic constructions. A description, model, diagnosis, testimony, or institutional record presents itself as being \emph{about} something. It purports to disclose some aspect of reality, however partially or selectively. This aboutness is what makes the notion of a target necessary in the first place.
+
+But aboutness alone is not yet enough to secure the paper's conclusion. One could imagine many finite renderings that each purport beyond themselves while remaining isolated within local practical schemes. What matters for the present argument is the stronger case in which distinct renderings are not merely different, but are about the same target strongly enough for their relation to count as convergence, divergence, conflict, or mutual correction.
+
+This is where substantive disagreement enters. If two renderings share a target, then their difference need not be merely verbal, stylistic, or strategic. It can instead be a disagreement about one and the same case, process, domain, or reality. The force of this step is easy to miss. The paper does not move from plurality alone to shared reality. It moves from \emph{shared targethood under conditions of disagreement}. That is a much stronger premise.
+
+\subsection{From disagreement to misfit}
+
+Once disagreement is understood as substantive rather than merely verbal, the possibility of misfit follows. A rendering can fail relative to what it purports to disclose. It can omit what matters, distort relevant structure, misclassify a case, overcompress a process, or otherwise present the target inadequately. Misfit therefore names more than local dissatisfaction or functional inconvenience. It names target-relative inadequacy.
+
+This point is important because weaker pragmatic or coordination-based accounts can often explain why schemes differ, why they are revised, or why one is preferred for a given use. What they do not yet explain is why one rendering can be \emph{wrong about the target} in a way another rendering helps disclose. Misfit introduces precisely that stronger pressure. It makes the target matter independently of the rendering's immediate uptake, convenience, or institutional stability.
+
+\subsection{From misfit to correction}
+
+The argument becomes strongest at the point of correction. If misfit is real, then some revisions are not merely exchanges of one usable scheme for another. They are corrections in the stronger sense: changes warranted because a prior rendering failed relative to what it purported to disclose.
+
+This distinction between correction and replacement is one of the hinges of the paper. Replacement can be explained in many thinner ways. A framework may be replaced because a new one is easier to administer, more efficient, more politically advantageous, or better suited to a changing purpose. None of that yet requires shared reality in the robust sense defended here. Correction does. If one rendering corrects another, then the earlier rendering did not merely become inconvenient. It misfit a target to which both renderings are answerable.
+
+This is why correction adds ontological pressure. It forces the argument beyond coexistence, overlap, or practical coordination. If one rendering can expose another as inadequate relative to what both are rendering, then both must already stand in relation to a common target strong enough for target-relative improvement to make sense.
+
+\subsection{Why disclosure alone is not enough}
+
+The argument therefore cannot stop at the claim that there are many finite renderings. Plurality by itself does not yield shared reality. One could imagine many local schemes that function well for their own purposes without ever sharing more than partial coordination. The decisive move comes from the cluster of shared targethood, answerability, misfit, and correction.
+
+If a rendering can be wrong \emph{about what it purports to disclose}, then its target must matter independently of the scheme's local success conditions. If another rendering can reveal or repair that wrongness, then both renderings must answer to something common strongly enough for their relation to count as more than divergence in use. Mere coexistence of frameworks is therefore too weak. What matters is whether those frameworks stand under a common discipline of target-relative adequacy and inadequacy.
+
+For that reason, the real burden of the paper is not to show that finite disclosure is plural. That much is already familiar. The burden is to show that once plurality includes substantive disagreement, misfit, and correction, shared reality is no longer optional.
+
+\subsection{The minimum content of coherence}
+
+The conclusion of the argument is intentionally stated in terms of coherence rather than in the strongest possible language of metaphysical monism. The paper does not claim here to have derived a complete account of ultimate reality. It claims something narrower but still substantial: reality must be sufficiently coherent for finite disclosure to be intelligible as answerable disclosure.
+
+In the present framework, that minimum coherence includes at least three features.
+
+\begin{enumerate}
+    \item \textbf{Non-fragmented targethood.} Distinct renderings can be about one target rather than sealed local objects or disconnected domain-fragments.
+    \item \textbf{Cross-rendering constraint.} Distinct renderings can be jointly constrained by that target rather than merely coordinated by convenience or convention.
+    \item \textbf{Correction-permitting answerability.} Revisions can count as warranted corrections because prior renderings can misfit that target.
+\end{enumerate}
+
+A reality lacking these features would not be shared enough for the practices under discussion. It might still permit local coordination, temporary overlap, or partial interoperability, but it would not support the stronger structure of shared targethood and correction. Conversely, once these features are secured, the paper has already earned a conclusion stronger than mere pragmatism and weaker than one final exhaustive descriptive scheme.
+
+\subsection{What the paper secures}
+
+The result of the argument is a \emph{shared-reality} or \emph{coherence-based unity} thesis. Reality behaves, for finite disclosure, as a common and constraint-bearing target field. That result is modest in one sense and robust in another.
+
+It is modest because it does not yet settle whether stronger numerical monism is true, whether process is the best final articulation of reality, or whether some fuller metaphysical framework might later deepen the present result. It is robust because it does establish three claims of immediate importance:
+
+\begin{itemize}
+    \item shared reality is not optional if disclosure, misfit, and correction are real,
+    \item shared reality is stronger than interoperability, overlap, or stable usage,
+    \item and one shared reality does not imply one sufficient vocabulary.
+\end{itemize}
+
+The paper therefore secures a minimum ontological condition for disclosure without collapsing that condition into descriptive totalization.
+
+\subsection{Condition, not proof from nowhere}
+
+The form of the argument matters as much as its conclusion. This paper does not claim unconstrained access to the world's final nature. It does not proceed by attempting to derive a complete metaphysics from nowhere. It proceeds instead by asking what must be true of reality if finite beings are genuinely disclosing, disagreeing, misfitting, and correcting rather than merely circulating local symbolic habits.
+
+In that sense, the argument is best understood as a condition-of-disclosure argument. It begins from the intelligibility of practices we already rely on and asks what ontological structure those practices presuppose. That bounded ambition is a strength. It keeps the thesis disciplined. The paper does not claim to have settled everything about reality. It claims to have shown that a sufficiently shared and non-fragmented reality is one of the conditions under which finite disclosure makes strong sense at all.
+\section{Why This Theory Is Needed}
+
+The proposal developed here is not needed because existing positions are wholly mistaken. It is needed because nearby options each leave something essential underdescribed. Some preserve shared reality but risk collapsing too quickly toward descriptive monism. Others preserve plurality, situatedness, and practical flexibility but weaken shared targethood into coordination, overlap, or framework-local success. The present theory is needed to hold together what these options tend to separate: one sufficiently shared reality, many finite renderings, and a strong enough notion of answerability for disagreement, misfit, and correction to remain real.
+
+\subsection{Against collapse into one final vocabulary}
+
+A familiar temptation is to move too quickly from one world to one privileged description. If reality is shared, the thought goes, then there should in principle be one final scheme capable of capturing it exhaustively. This inference is too quick. It confuses ontological commonality with descriptive sufficiency.
+
+Even if reality is shared, finite renderings remain conditioned by scale, purpose, method, embodiment, institution, and context. A model can disclose one structure while omitting another. A diagnosis can organize a case for one practical aim while obscuring other salient features. A measurement can be adequate to one task and inadequate to another. In all of these cases, one target does not imply one exhaustive rendering of that target. Scientific model plurality, perspectival realism, and pragmatic realism all give strong reason to reject that stronger conclusion \cite{Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism,Chang2022RealismForRealisticPeople}.
+
+This is one reason the present theory is needed. It preserves ontological commonality while refusing descriptive totalization. It rejects the false choice between one reality and many legitimate renderings. Without such a framework, theories of shared reality are too easily heard as commitments to one final vocabulary, one privileged access mode, or one idealized endpoint of convergence. The present view blocks that slide.
+
+\subsection{Against reduction to coordination}
+
+An equal and opposite temptation is to weaken the issue too far. On this view, what matters is not shared targethood but only workable coordination. Different models, practices, or institutional schemes need not answer to one common target. They need only overlap enough to function together, translate partially, or support local cooperation. This thought captures something real. Practical coordination matters. Systems often do interoperate without sharing a full conceptual framework. But coordination is too weak to carry the burden at issue in this paper.
+
+Coordination by itself does not explain why a model can be wrong about what it models, why a classification can misdescribe a case, why a testimony can expose omission in an institutional record, or why two theories can genuinely disagree about one thing rather than merely serve different purposes. In all of these cases, the relevant relation is stronger than functional compatibility. What matters is not merely that renderings can coexist or be jointly used, but that they are answerable to something common strongly enough for one rendering to be assessed as inadequate relative to another.
+
+This is where correction becomes decisive. A change that improves local functioning may still be mere replacement. An administrative form may be updated for efficiency. A model may be exchanged because a new one is easier to compute. A vocabulary may shift because institutions change. None of that yet establishes correction in the stronger sense. Correction requires more: a prior rendering must have failed relative to something shared. The present theory is needed because weaker coordination-based accounts do not adequately explain that stronger structure of target-relative failure and warranted revision.
+
+\subsection{Against fragmentation into local worlds}
+
+A more radical alternative is to treat different domains, practices, or perspectives as operating over partly disconnected ontological spaces. On such a view, what appears to be conflict across renderings may actually be little more than coexistence across local worlds, each internally coherent for its own purposes. This option preserves difference more strongly than coordination-based views, but it does so at significant cost.
+
+If the relevant worlds are too disconnected, then substantive disagreement becomes difficult to understand. What looks like conflict dissolves into side-by-side difference. Cross-perspectival learning loses much of its force. Misfit becomes hard to distinguish from external criticism. Correction begins to look like relocation from one framework to another rather than improvement relative to one target. Yet this is not how many actual cases present themselves. In scientific inquiry, institutional life, and ordinary practical judgment, we often do not treat competing renderings as sealed off in this way. We take them to be about one patient, one climate system, one legal case, one event, one history, one world.
+
+The present theory is needed because it explains why that stance is not merely rhetorical or naive. It gives that stance conceptual backing. It clarifies how plurality can be real without requiring ontological fragmentation, and how conflict across renderings can retain genuine force because what is at issue is one sufficiently shared target field rather than many disconnected local realities.
+
+\subsection{The comparative necessity of the present framework}
+
+The comparative necessity of the present framework can now be stated directly. Stronger realist views preserve reality but risk overcommitting to descriptive convergence or privileged vocabulary. Coordination-based views preserve practical flexibility but weaken answerability into interoperability. Fragmentation-based views preserve difference but make substantive disagreement and correction increasingly difficult to explain.
+
+What is needed instead is a framework that can say all of the following at once:
+
+\begin{enumerate}
+    \item reality is sufficiently shared and non-fragmented for finite renderings to be about one target,
+    \item finite renderings remain partial, conditioned, and frequently plural,
+    \item disagreement can therefore be substantive rather than merely verbal or strategic,
+    \item and correction can therefore count as more than replacement because renderings remain answerable to a common target field.
+\end{enumerate}
+
+That is the specific burden the present theory is meant to discharge. Its value lies not merely in combining familiar themes, but in organizing them in a way that makes their mutual compatibility explicit.
+
+\subsection{The structural gain}
+
+The structural gain of the theory is therefore fourfold. First, it secures a common target field without demanding descriptive exhaustiveness. Second, it preserves plurality without surrendering answerability. Third, it explains why correction carries ontological weight rather than reducing it to mere scheme replacement. Fourth, it does all of this with a narrower and more defensible conclusion than stronger monist realism typically invites.
+
+For that reason, the proposal is not simply another statement that reality exists or that perspectives differ. Its gain is more specific. It shows why shared reality must be strong enough to support substantive disagreement, misfit, and correction, while remaining weak enough not to collapse plurality into one final scheme. That balance is precisely what nearby alternatives struggle to hold, and it is why this theory is needed.
+\section{Applications and Explanatory Payoff}
+
+A theory of this kind earns its keep only if it clarifies real cases rather than merely reorganizing familiar vocabulary. The point of the present framework is not simply to restate that there are many perspectives or that reality constrains inquiry. Its point is to show how finite plurality, shared targethood, and target-relative correction can coexist. The following cases illustrate that payoff in three different settings: scientific modeling, institutional casework, and epistemic injustice.
+
+\subsection{Scientific model plurality}
+
+Scientific practice frequently relies on multiple models of what is taken to be the same phenomenon. Different models of climate systems, ecosystems, disease spread, or molecular behavior may foreground different variables, operate at different scales, and serve different investigative purposes. Pluralists are right to emphasize that no single model need exhaust the domain \cite{Ludwig2021ScientificPluralismSEP,Veit2020ModelPluralism}. The plurality of models is not necessarily a temporary defect awaiting elimination.
+
+But scientific practice does not usually treat these models as sealed local inventions with no stronger relation than practical coexistence. They are ordinarily taken to be models \emph{of the same target domain}. That is precisely why comparison, integration, calibration, and correction are possible. A model can illuminate another model's omission, reveal distortion introduced by simplifying assumptions, or show that a rival model works only within a narrower range than originally assumed. Those relations would be difficult to explain if the models did not share targethood strongly enough to stand under a common discipline of adequacy and inadequacy.
+
+The present framework clarifies the ontological background of this familiar scientific situation. Multiple models can coexist because one sufficient vocabulary is not required. Finite disclosure can remain plural without collapsing into descriptive chaos. But the plurality is not merely a plurality of useful instruments floating side by side. It is a plurality of renderings of one sufficiently shared reality. That is why disagreement among models can be substantive rather than merely strategic, and why refinement can count as correction rather than mere replacement. The framework therefore strengthens pluralist insight by explaining what makes model plurality a plurality \emph{of disclosures of one domain} rather than a collection of unrelated local tools.
+
+\subsection{Institutional representation and administrative casework}
+
+Institutional systems rarely act on cases in their full lived richness. They act through forms, files, categories, indicators, checkboxes, diagnoses, scores, and records. Classification and administrative infrastructures make coordinated action possible, but they do so by selecting, simplifying, and sometimes erasing \cite{BowkerStar1999SortingThingsOut}. A benefits determination file, a hospital chart, a risk score, or a disciplinary record is not a neutral mirror of a case. It is a finite rendering structured for institutional use.
+
+This is exactly the kind of setting in which the present theory does important work. Consider a patient whose chart records the patient as ``stable,'' while the patient's own testimony reports severe pain, confusion, inability to manage ordinary action, and a felt sense that something is seriously wrong. If these were merely different practice-worlds, then the tension between them would amount to little more than local divergence. The chart would belong to one regime of description, the testimony to another, and neither would have strong claim on the other. But this is not how such cases are ordinarily experienced or judged. Clinicians, patients, and institutions alike generally take both renderings to concern one patient, one condition, one unfolding case.
+
+That common targethood is what makes stronger criticism possible. It becomes possible to say not merely that the institutional rendering uses a different vocabulary, but that it omits salient features of the case, compresses the patient's condition in a distorting way, or fails to disclose what matters for adequate judgment. The patient's testimony, on this reading, is not merely an alternative expression. It may reveal misfit in the chart itself. And if that is so, then revision of the record is not merely administrative updating. It is correction in light of target-relative failure.
+
+The present framework clarifies why this diagnosis is stronger and more useful than one framed only in terms of differing perspectives or institutional convenience. Institutional misrepresentation is not merely a clash of vocabularies. It is the failure of a partial rendering relative to the case it purports to organize. That is why institutions can be criticized not only for using power badly, but for getting the case wrong.
+
+\subsection{Epistemic injustice and neglected disclosure}
+
+Cases of epistemic injustice often involve the systematic discounting of certain speakers, forms of testimony, or modes of disclosure \cite{Fricker2007EpistemicInjustice}. Situated knowledge traditions likewise show that social position, embodiment, and lived location can affect what becomes visible, sayable, and intelligible within a practice \cite{Haraway1988SituatedKnowledges}. These literatures are often read in primarily normative or political terms, and rightly so. But they also place pressure on theories of disclosure at a deeper level.
+
+If the testimony of a marginalized knower is dismissed as merely subjective, local, emotional, or framework-bound, then one tempting interpretation is that the conflict involved is simply a clash of perspectives with no deeper target-relative issue at stake. On that reading, one community values one form of discourse, another values another, and the problem is largely distributive or procedural. That description captures part of what is happening, but it can miss the stronger claim often implicit in such cases: the dominant rendering fails to disclose something real about one shared world.
+
+A patient's testimony about pain, a worker's testimony about dangerous conditions, or a marginalized group's account of routine institutional burden can matter not only because it expresses a different standpoint, but because it reveals inadequacy in an allegedly authoritative rendering of the case. The issue is not just that another community prefers a different description. It is that one rendering omits or distorts features of a shared target that another rendering brings into view. The injustice is therefore not only distributive or recognitional. It is also epistemic in the stronger sense that authoritative disclosure is being blocked, thinned, or misfit.
+
+The present framework captures this cleanly. Shared reality does not eliminate perspective; it is what makes perspective matter as disclosure rather than as sealed expression. Without a sufficiently shared target, epistemic injustice would too easily collapse into non-overlapping discourse or incommensurable narrative. With shared reality in view, one can say something stronger: injustice may involve suppressing, discounting, or structurally excluding access to features of one common case. That gives the framework both explanatory and diagnostic force. It explains why neglected testimony can matter cognitively, not merely politically, and why restoring such testimony can count as correction rather than mere inclusion of another voice.
+
+\subsection{What these cases show}
+
+Taken together, these cases display the paper's central payoff. In scientific inquiry, institutional representation, and socially unequal epistemic practice, finite renderings remain partial, situated, and plural. Yet in each case, the relevant practices still rely on stronger notions of common targethood, misfit, and correction than weaker coordination-based views can easily explain. The present theory makes that structure explicit.
+
+Its explanatory gain is therefore not just that it permits many renderings. Many views already do that. Its gain is that it explains how multiple renderings can remain finite and heterogeneous while still answering to one sufficiently shared reality. That is what allows disagreement to be substantive, omission to count as misfit, and revision to count as correction. In that sense, the framework is not merely compatible with these cases. It helps explain why they take the form they do.
+\section{Objections and Replies}
+
+No argument of this kind should present itself as immune to pressure. The proposal defended here is deliberately bounded, but even a bounded thesis incurs real burdens. The most serious objections do not merely challenge isolated formulations. They test whether the paper has actually earned its central conclusion, whether it has defined its key terms with enough discipline, and whether it differs in substance rather than only in language from nearby positions. The objections below therefore function not as ornamental dialectical exercises but as pressure points internal to the paper's own correction path.
+
+\subsection{Objection 1: The paper assumes one reality through rhetoric}
+
+A first objection is that the paper may simply begin with the conclusion it wants. Terms such as ``target,'' ``misfit,'' ``answerability,'' and ``correction'' already seem to presuppose that renderings are related to one reality strongly enough for success and failure to be meaningful. If that is so, then the paper would not be deriving a shared-reality thesis from disclosure practices. It would merely be redescribing realist assumptions in different words.
+
+This objection would have greater force if the paper claimed to prove maximal monism or a complete metaphysical system from neutral premises. But that is not its ambition. The argument is explicitly conditional and bounded. It begins from familiar practices of disclosure, disagreement, misfit, and correction and asks what minimum ontological structure those practices presuppose if they are to make strong sense. The conclusion is correspondingly modest. What the paper secures is not the strongest possible doctrine of metaphysical unity, but a thinner and more disciplined claim: reality must be sufficiently shared and non-fragmented for renderings to answer to a common target field.
+
+That does not make the objection disappear entirely. The paper does rely on concepts that are not metaphysically innocent. But that reliance is not fatal so long as the paper's burden is stated correctly. The argument is not that absolutely everyone must accept its premises. It is that positions already appealing to disclosure, disagreement, error, and correction incur a stronger shared-reality commitment than they may explicitly acknowledge. In that sense, the paper is not question-begging in the strongest form. It is an attempt to make explicit a condition implicit in practices many rivals already rely on.
+
+\subsection{Objection 2: Local overlap is enough}
+
+A more serious objection holds that finite disclosure requires only local regularities, practical overlap, or domain-specific coordination, not any stronger shared reality. Different schemes may partially overlap in the regions where comparison is useful. They may align enough to permit translation, coordination, and limited adjustment. Nothing stronger need be assumed. On this view, the paper overreaches by moving from overlap to common targethood.
+
+This is the strongest alternative considered here because it captures something genuinely important. Many real epistemic situations do not present us with perfect unity across renderings. They present us with partial intersections, loose compatibility, and local coordination. Scientific models often overlap only at certain scales. Institutional descriptions may partially correspond without fully coinciding. Different communities may track intersecting but non-identical structures. So the objection is not merely hypothetical. It points to a live alternative picture.
+
+The reply is that overlap is not yet an alternative to the paper's conclusion once it becomes strong enough to support \emph{substantive correction}. If two renderings overlap only weakly, then they may indeed coexist without much ontological consequence. But if the overlap is robust enough that one rendering can expose the other's misfit relative to what both purport to disclose, then the relevant relation is no longer just loose interoperability. At that point, the two renderings are already answerable to something common strongly enough for target-relative inadequacy and improvement to hold. ``Overlap'' may remain a useful descriptive term, but it is now functioning as a thin restatement of shared targethood rather than as a genuine alternative to it.
+
+Still, this objection reveals a real residue rather than a fully defeated alternative. There are boundary cases where overlap is weak, fragmented, or highly domain-specific, and the exact threshold at which overlap becomes strong enough to count as common targethood is not fully theorized here. The paper's claim is therefore strongest where disagreement, misfit, and correction are already robustly in play. It is weaker at the margins where overlap is thin and the target itself remains highly indeterminate. That limitation should remain explicit.
+
+\subsection{Objection 3: Coherence is doing hidden labor}
+
+A third objection is that the paper's key term ``coherence'' does too much hidden work. If coherence is left vague, it risks functioning as a placeholder for exactly the shared reality the paper is supposed to establish. One could then suspect that the argument succeeds only because the conclusion has been silently inserted into the premises.
+
+This objection is well taken. If coherence meant no more than ``whatever must be true for the argument to work,'' then it would be empty. The paper's reply is therefore to give coherence minimum content, both negatively and positively. Negatively, coherence does not mean mere logical consistency among propositions, mere social agreement, or mere interoperability across practices. Positively, coherence names the minimum non-fragmentation of reality required for non-fragmented targethood, cross-rendering constraint, and correction-permitting answerability. In other words, coherence here is not a synonym for harmony. It is a name for the worldly condition under which renderings can genuinely be about one target strongly enough to stand under a common discipline of adequacy and inadequacy.
+
+That clarification does not amount to a full metaphysics of coherence, and it is not presented as such. The objection is right that more remains to be said. A fuller account of coherence would likely require either a more explicit ontology of worldly structure or a later articulation, perhaps processual, of what it means for reality to remain one across heterogeneous disclosures. So the reply here is partly defensive and partly concessive. The paper gives coherence enough content to avoid emptiness, but not enough to treat the matter as closed.
+
+\subsection{Objection 4: Shared reality still implies one final vocabulary}
+
+Another objection says that if reality is genuinely shared, then one should eventually expect one final correct description of it, even if present inquiry has not yet achieved it. On this view, the paper cannot have it both ways. Either reality is one, in which case plurality is provisional and ultimately eliminable, or plurality is irreducible, in which case the reality disclosed is not genuinely one in the stronger sense.
+
+The paper rejects that inference. The move from shared target to exhaustive rendering is invalid. A target can be one without being finitely exhaustible under one scheme. Finite renderings remain conditioned by scale, embodiment, purpose, method, and practical context. Distinct renderings may therefore remain indispensable even where their target is one. This is not a reluctant concession but a central lesson drawn from perspectival and pluralist work, which has shown that many domains are adequately disclosed only through multiple partial renderings rather than through one comprehensive scheme \cite{Massimi2022PerspectivalRealism,Chang2022RealismForRealisticPeople}.
+
+The burden is thus not to explain why plurality persists despite one world as if plurality were an embarrassment. The burden is to explain why plurality does not weaken shared reality into mere coordination or framework-local success. The present paper accepts plurality fully. What it denies is the further claim that plurality therefore eliminates strong common targethood. One world does not imply one sufficient vocabulary. But many renderings do not imply weakened reality.
+
+\subsection{Objection 5: This is just perspectival realism with new rhetoric}
+
+A final objection is that the paper does not differ in substance from existing perspectival or plural realist positions. It may simply redescribe views already available in the literature while adding new terminology such as ``shared targethood,'' ``misfit,'' and ``condition of disclosure.'' If so, the contribution would be rhetorical rather than theoretical.
+
+This objection must be taken seriously because the paper is indeed close to those views and should not pretend otherwise. It inherits from perspectival and plural realist traditions the insistence that finite inquiry is conditioned, partial, and frequently irreducibly multiple. It also shares with those traditions a rejection of descriptive monism. So if the claim were that the paper introduces an entirely new metaphysical family, that claim would be implausible.
+
+Its actual claim to distinctiveness is narrower. The novelty lies in making shared reality itself into a \emph{condition of disclosure} through the linked structure of shared targethood, answerability, misfit, and correction. That is, the paper tries to say more explicitly what must be true of reality if perspectival plurality is to remain genuinely about one world rather than dissolving into local success conditions, overlap zones, or pragmatic coexistence. This is not a total break with adjacent views, but neither is it mere relabeling. It is an attempt to extract and stabilize a commitment that nearby views often rely upon without centering.
+
+\subsection{What remains vulnerable}
+
+These objections leave the paper with a clearer burden structure. The strongest remaining vulnerabilities are not whether the thesis should be maximal monism, but whether the threshold between weak overlap and strong shared targethood can be sharpened, and whether coherence can be given fuller content without collapsing into a much larger metaphysical system. Those pressures are real. But they do not, by themselves, defeat the paper's main result. They show instead where the argument remains most open to refinement and where future work must be concentrated.
+\section{Scope Conditions, Limits, and Residues}
+
+The theory advanced in this paper is intentionally bounded. That boundedness is not a weakness to be concealed but part of the paper's discipline. The argument aims to secure a specific ontological result under specific conditions: that finite disclosure, substantive disagreement, descriptive misfit, and correction presuppose a sufficiently shared, non-fragmented, and constraint-bearing reality. Its credibility depends in part on keeping that result sharply distinguished from stronger conclusions it does not claim to establish.
+
+\subsection{What the paper covers}
+
+The paper defends a limited but robust thesis. It argues that if finite renderings are genuinely disclosures of a world, and if disagreement, misfit, and correction are to make strong sense, then reality must be shared enough for renderings to answer to a common target field. In that respect, the paper secures a coherence-based unity thesis rather than a merely pragmatic account of coordination or overlap.
+
+The paper also clarifies several distinctions required to stabilize that result. It separates shared reality from one sufficient vocabulary. It distinguishes shared targethood from shared usage. And it argues that interoperability, overlap, or framework-local success are too weak to replace common targethood in cases where substantive correction is at issue. These are not incidental clarifications. They are part of what the paper actually establishes.
+
+\subsection{What the paper does not cover}
+
+The paper does not claim to provide:
+\begin{itemize}
+    \item a full proof of maximal, strict, or numerical monism,
+    \item a complete process ontology,
+    \item a comprehensive treatment of all anti-realist, pragmatist, or pluralist alternatives,
+    \item a full theory of consciousness, subjectivity, or experiential disclosure,
+    \item or a final account of how shared targethood behaves across every heterogeneous or weakly overlapping domain.
+\end{itemize}
+
+These absences are not accidental omissions from an otherwise complete system. They mark the boundary of the present argument. The paper is not trying to settle every surrounding metaphysical issue. It is trying to identify one condition under which finite disclosure makes strong sense.
+
+\subsection{Main residues}
+
+Several residues remain visible once the main argument is complete, and they should remain visible rather than being absorbed into rhetoric of completion.
+
+First, the exact relation between the shared-reality thesis defended here and stronger monist formulations remains open. The paper secures a coherence-based unity result, but it does not decide whether that result should later be strengthened into a more explicit doctrine of metaphysical oneness.
+
+Second, the boundary between weak overlap and genuine shared targethood still requires further refinement. The paper argues that once overlap becomes robust enough to support substantive correction, it already approaches the structure of common targethood. But finer-grained and more ambiguous cases remain underanalyzed.
+
+Third, the relation between the present thesis and a later processual articulation of reality remains underdetermined. The argument is compatible with a process ontology and may even point in that direction, but it does not yet establish that process is the correct final articulation of shared reality.
+
+Fourth, the concept of coherence, though given minimum content here, still invites fuller treatment. The paper says enough to prevent coherence from functioning as an empty placeholder, but not enough to count as a complete formal or metaphysical account.
+
+These are not peripheral gaps that can simply be ignored. They are part of the visible residue of the paper itself. A credible theory paper should leave such residue explicit.
+
+\section{Implications and Future Work}
+
+If the argument of this paper is right, several consequences follow for both upstream theory and downstream application.
+
+First, shared reality should be treated as upstream of later accounts of finite describability. If conditioned cuts, selective renderings, scoped adequacy, and residue are real features of disclosure, then they presuppose that there is one sufficiently shared target field being variously rendered. In that sense, the argument offered here provides a deeper ontological basis for later work on finite description.
+
+Second, the paper strengthens non-reductive pluralism. It shows how multiple renderings can remain legitimate, partial, and irreducible without surrendering strong common targethood. This matters not only for philosophy of science, but also for institutional analysis, social epistemology, and any framework dealing with heterogeneous but answerable forms of disclosure.
+
+Third, the argument opens a path toward a later process articulation of reality. If reality must be shared enough to support correction while finite disclosure remains non-exhaustive, then a processual account may eventually prove more adequate than a static picture organized around fully determinate, description-ready objects. But that further step requires its own argument and should not be smuggled in here as if already secured.
+
+Fourth, the framework identifies several concrete tasks for future work:
+\begin{itemize}
+    \item a more explicit formalization of shared targethood, misfit, and correction,
+    \item a sharper analysis of boundary cases involving overlap, fragmentation, and weak cross-rendering constraint,
+    \item a fuller comparison with perspectival realism, scientific pluralism, and domain-relative realism,
+    \item and downstream applications to model mediation, institutional judgment, and corrective ethics.
+\end{itemize}
+
+These are not merely optional extensions. They are the most natural next steps if the paper's core claim is right.
+
+\section{Conclusion}
+
+The main result of this paper is a disciplined argument for treating shared reality as a condition of disclosure. Finite renderings are partial, selective, and frequently plural. But if they are genuinely disclosures of a world rather than merely circulating local symbolic habits, then they must be answerable to a sufficiently shared and non-fragmented reality. Substantive disagreement, descriptive misfit, and correction make strong sense only on that condition.
+
+This result matters because it clarifies a relation that is often blurred in surrounding debates. One shared reality does not imply one sufficient vocabulary. Multiple finite renderings do not imply ontological fragmentation. Once those two points are kept distinct, the space between stronger realism and weaker coordination becomes easier to see and easier to defend.
+
+The paper therefore secures a modest but robust conclusion: reality must be common and constraint-bearing enough for multiple renderings to answer to one target field, even though no single finite rendering can be presumed to exhaust that field. That is the sense in which shared reality is not an optional metaphysical add-on to finite disclosure. It is one of its conditions.
+
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/one_reality/reality}
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+DOI:
+\href{https://doi.org/10.5281/zenodo.19076915}{10.5281/zenodo.19076915}
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}
+\end{document}

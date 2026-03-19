@@ -1,0 +1,848 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Embedded Process}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Embedded Process}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+\title{\textbf{Embedded Process}\\
+\large Finite Disclosure, Conditioned Cuts, and the Non-Collapse of Structural and Experiential Adequacy}
+\author{David T. Swanson}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Many contemporary disputes about mind, experience, science, and institutions are distorted by a false choice: either reality is ontologically one and a sufficiently structural description should eventually capture everything that matters, or experience, agency, and lived significance force some form of dualism, bifurcation, or two-aspect metaphysics. This paper argues that the choice is false. Reality is ontologically one, and for finite embedded beings such as ourselves it is most adequately disclosed under processual rather than static terms. Finite disclosure always proceeds through conditioned cuts shaped by standpoint, interface, level, purpose, and finitude, and these cuts jointly generate disclosure and residue. In some domains---specifically subject-process domains---no single finite cut can be presumed to preserve both structural organization and lived significance without loss. Structural adequacy and experiential adequacy therefore function as jointly necessary but non-collapsible lower bounds of adequate disclosure, without implying any bifurcation of being. The paper's central claim is not merely that experience matters, nor merely that all knowing is situated, but that finite disclosure itself generates non-collapsible adequacy conditions where lived significance is constitutively relevant to what must be adequately disclosed. A structurally powerful cut may still leave experientially relevant residue, while an experientially rich rendering may still fail to preserve enough structure for explanation, prediction, or intervention. The paper develops this framework, situates it against reductive monism, dualist and bifurcation views, process ontology, and situated knowledge, and shows how it clarifies questions in philosophy of mind, institutional representation, and model-mediated judgment, while leaving open whether a radically non-embedded rendering might represent the same reality differently.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Motivating Problem}
+
+A patient lies in a hospital bed. Around them, their situation has already been rendered several times. One rendering appears in the chart: vital signs, medication timings, prior diagnoses, risk indicators, lab values, procedure codes. Another appears in workflow: triage status, staffing needs, handoff sequence, discharge constraints. Another appears in administration: insurance category, eligibility rules, billing fields, authorizations, documentation requirements. These renderings are not fictional. Each preserves something real and operationally important. Yet none of them, by that fact alone, preserves what the situation is like for the patient: fear, pain, exposure, humiliation, disorientation, the practical labor of remaining intelligible inside a system while also suffering within it. Work on classification, institutional records, and epistemic injustice has repeatedly shown that systems may be procedurally coherent while still failing to carry what is lived from within \cite{BowkerStar1999,Fricker2007}.
+
+There is still only one reality here. There are not two patients, one structural and one experiential. But neither is there an obvious reason to think that one sufficiently strong structural rendering must already capture everything that matters about the case. This tension is not confined to hospitals. It recurs across philosophy of mind, scientific modeling, institutional judgment, and model-mediated systems more generally. If reality is one, it can seem that a sufficiently strong structural description should eventually say everything that matters. On that picture, mind, agency, burden, fear, humiliation, pain, practical orientation, and lived consequence are real only insofar as they can be fully absorbed into an adequate structural rendering. The alternative often appears no better. If structural description does not exhaust what matters, then perhaps reality must divide into two domains, two aspects, or two fundamentally different stuffs. The resulting pressure is familiar both from debates about subjectivity and point of view, and from broader worries about whether objective description can ever fully carry what is lived \cite{Nagel1974,Nagel1986,Levine1983,Chalmers1995}.
+
+This paper argues that both moves are too fast.
+
+The first confuses ontological unity with descriptive sufficiency. The second mistakes non-collapse in adequacy for plurality in being. Both errors become clearer once disclosure is no longer treated as transparent capture and is instead treated as finite, situated, and conditioned by the forms through which reality becomes describable at all \cite{Haraway1988,Polanyi1958,Nagel1986}. For finite embedded beings such as ourselves, reality is encountered not from nowhere, but from within. That does not by itself settle what reality would look like under some radically non-embedded rendering, if such a rendering were even coherent. It does mean that the terms under which reality is most adequately disclosed for beings like us may differ from the terms imagined from an impossible total standpoint.
+
+The motivating problem is therefore this: how can reality be ontologically one while finite descriptions of some domains still require more than one non-collapsible adequacy condition? Put differently, how can one world fail to imply one sufficient descriptive vocabulary without collapsing into dualism, bifurcation, or a disguised two-aspect view?
+
+\subsection{Central Questions}
+
+This paper is guided by four questions.
+
+First, what follows from treating reality as most adequately disclosed under processual rather than static terms for finite embedded beings?
+
+Second, what follows from treating disclosure as finite and cut-bound rather than transparent and exhaustive?
+
+Third, what distinguishes subject-process domains from other domains of description, such that omission of lived significance becomes a domain-relevant adequacy failure rather than a merely local incompleteness?
+
+Fourth, how can structural adequacy and experiential adequacy remain jointly necessary yet non-collapsible without implying any bifurcation of being?
+
+These questions are connected. The paper does not begin from the claim that experience matters and then search for a metaphysics spacious enough to contain it. It begins from a conjunction: ontological unity, finite conditioned disclosure, and the suspicion that in some domains adequacy fails to collapse even though ontology does not.
+
+\subsection{Main Proposal}
+
+The proposal defended here is \emph{Embedded Process}.
+
+Its central thesis is simple in form, though not in consequence. Reality is ontologically one, and for finite embedded beings such as ourselves it is most adequately disclosed under processual rather than static terms. Finite disclosure of that reality always proceeds through conditioned cuts shaped by interface, level, purpose, standpoint, and finitude. In subject-process domains, such cuts cannot be presumed to preserve both structural organization and lived significance without residue. Structural adequacy and experiential adequacy therefore function as jointly necessary but non-collapsible lower bounds of adequate disclosure, without implying any bifurcation of being.
+
+This is not another generic anti-reductionist complaint. The paper's distinctive claim is not merely that lived significance matters, nor merely that all knowing is situated. Its stronger claim is that in subject-process domains finite disclosure itself generates non-collapsible adequacy conditions. A cut that is structurally powerful may still leave experiential residue. A cut that preserves lived significance may still leave structurally relevant residue. The result is not two worlds, but one world disclosed under conditions that do not guarantee a single sufficient cut.
+
+The paper therefore does not argue for dualism. It does not claim that experience floats free of structure. It does not deny that experiential life depends on organization, embodiment, and constraint. It argues something narrower and more disciplined: in certain domains, adequacy fails to collapse even when ontology does not. It also leaves open whether a radically non-embedded rendering, if coherent, might represent the same reality differently. That possibility does not weaken the present argument, because the question here is not how reality must appear from nowhere, but how it is adequately disclosed for finite embedded beings in the domains they actually inhabit.
+
+\subsection{Roadmap}
+
+Section 2 situates the view among nearby alternatives and explains why the present proposal is not merely a redescription of familiar positions. Section 3 defines the paper's core terms and distinctions, moving from ontology to disclosure to adequacy. Section 4 presents the main theory and develops the central derivation from ontological unity and conditioned cuts to non-collapse of adequacy in subject-process domains. Section 5 explains why this theory is needed and identifies the confusions it resolves. Section 6 shows explanatory payoff across philosophy of mind, institutional mediation, and model-governed judgment, with particular attention to cases in which one reality is rendered through multiple cuts. Section 7 addresses the strongest objections. Section 8 states scope limits, unresolved burdens, and visible residue. Section 9 sketches implications and future work. Section 10 concludes. Appendix A provides compact provisional definitions, and Appendix B provides a concise derivation sketch.
+\section{Background and Rival Views}
+
+The view defended in this paper does not arise in an empty space. It is positioned against several recognizable pressures in contemporary metaphysics, philosophy of mind, and theories of description. The aim of this section is not to dismiss nearby views, but to situate the present proposal by showing what each gets right, what burden each leaves unmet, and why a different framing is needed. The paper's claim is neither that philosophy has ignored process, finitude, or experience, nor that it has lacked resources for criticizing reductive sufficiency. The problem is that these elements are often treated separately, whereas the present argument depends on the relation among them.
+
+\subsection{Reductive Structural Monism}
+
+A familiar monist impulse---visible in many forms of physicalism, functionalism, and structural naturalism---holds that if reality is ontologically one, then a sufficiently complete structural account should eventually subsume everything that matters. Experience, agency, value, and lived significance may currently resist tidy analysis, but on this picture they should in principle be captured by the right organizational, physical, computational, or dynamical description. In philosophy of mind, this pressure is especially visible in debates shaped by the explanatory-gap literature and by attempts to show how subjective life might be absorbed into a completed structural science \cite{Levine1983,Chalmers1995}.
+
+This family of views gets something important right. Reality is not split into two substances merely because different descriptive vocabularies exist. Experience is not, by itself, evidence for a second world. And any serious account of minded life must remain answerable to embodiment, organization, dependence, and constraint. These are real gains, and any view that ignores them will rightly look evasive.
+
+But reductive structural monism typically moves too quickly from ontological unity to descriptive sufficiency. It often assumes that if experience depends on structure, then structural adequacy must eventually exhaust adequate disclosure. That inference is stronger than the premises warrant. From the fact that experiential life depends on organization and embodiment, it does not follow that every adequacy-relevant feature of lived significance is already preserved by a structurally adequate rendering under every relevant cut, scope, and purpose. Nagel's well-known point that subjective phenomena are tied to a point of view, and Levine's claim that explanatory completeness leaves a gap with respect to qualia, together show why dependence alone does not straightforwardly settle adequacy \cite{Nagel1974,Levine1983}. What this position preserves is unity. What it risks flattening is adequacy.
+
+\subsection{Dualism, Bifurcation, and Two-Aspect Pressures}
+
+At the opposite pole are views that infer from irreducibility in description to irreducibility in ontology. If lived experience cannot be flattened into structural rendering without loss, then perhaps reality itself must contain two domains, two ingredients, or two fundamentally different aspects. Whether this takes the form of substance dualism, ontological bifurcation, or a more sophisticated two-aspect picture, the basic pressure is the same: if one vocabulary does not exhaust the real, perhaps reality itself must be internally divided. The enduring force of Nagel-style point-of-view arguments and Chalmers-style arguments about consciousness helps explain why this pressure remains philosophically live \cite{Nagel1974,Chalmers1995}.
+
+This family of views also gets something important right. It preserves the force of the intuition that lived significance is not simply noise to be abstracted away. It resists the habit of treating external tractability as the sole measure of what is real. It recognizes that something important is lost when first-person life is treated as merely decorative relative to third-person structure.
+
+But here too the inference is too fast. The failure of one vocabulary to exhaust another does not by itself establish two worlds. A difference in adequacy conditions is not yet a difference in being. This point matters especially for dual-aspect and neutral monist neighbors. Such views may avoid crude substance dualism while still treating structural and experiential as two aspects or faces of one underlying reality. The present paper moves differently. It does not treat structural and experiential as ontological aspects of being, but as adequacy constraints on disclosure in certain domains. What bifurcation views preserve is the force of non-collapse. What they risk overstating is its ontological consequence.
+
+\subsection{Process Views and Situated Knowledge}
+
+A different set of traditions improves the terrain without yet resolving the central problem. Process-oriented views reject static substance metaphysics by treating enduring entities as maintained patterns rather than inert bearers of fixed essence. Whitehead and Rescher are obvious reference points here, while more contemporary work on metastability shows how continuity can be maintained through organized change rather than through static substrate identity \cite{Whitehead1978,Rescher1996,TognoliKelso2014}. Process ontology helps explain why persistence need not imply immobile essence. Stability may itself be the achievement of ongoing organization.
+
+Situated approaches to knowledge reject the fantasy of a view from nowhere by emphasizing finitude, embodiment, perspective, and the conditions under which any disclosure becomes possible. Haraway's critique of disembodied objectivity, Polanyi's emphasis on tacit and personal knowledge, and Nagel's analysis of the tension between subjective standpoint and objective aspiration all reinforce the idea that knowing is never simply viewless transparency \cite{Haraway1988,Polanyi1958,Nagel1986}. These approaches help explain why disclosure cannot be treated as transparent or disembodied.
+
+Together, these traditions weaken two major temptations at once: the temptation to treat reality as fundamentally inert and the temptation to treat knowledge as if it arrived from outside the world altogether. Yet even taken together, these traditions do not yet yield the theory defended here. Process views tell us something about how reality is most adequately rendered for finite embedded beings, but they do not by themselves explain why structural and experiential adequacy fail to collapse in some domains. Situated views tell us that all disclosure is conditioned, but they do not by themselves specify which kinds of domains make that situatedness especially consequential. Process views preserve dynamism. Situated views preserve finitude. But neither, on its own, explains why one ontologically unified reality may still require multiple non-collapsible adequacy conditions under finite disclosure.
+
+\subsection{What Rival Views Miss}
+
+The basic difficulty with the surrounding terrain is therefore not that nearby views are simply wrong. It is that each captures one part of the problem while leaving the crucial relation among ontology, disclosure, and adequacy underarticulated.
+
+Reductive structural monism preserves ontological unity but tends to flatten adequacy into eventual structural sufficiency. Dualist, bifurcation, and two-aspect pressures preserve the force of non-collapse but risk overstating its metaphysical implication. Process views preserve dynamism but do not by themselves explain adequacy failure. Situated approaches preserve finitude but do not by themselves identify the domains in which finite disclosure predictably generates distinct adequacy pressures \cite{Whitehead1978,Rescher1996,Haraway1988,Nagel1974,Levine1983}.
+
+The present theory is meant to supply that missing relation. It preserves ontological unity without inferring descriptive sufficiency. It preserves non-collapse in adequacy without inferring bifurcation in being. And it explains the relation between the two by treating disclosure as finite, conditioned, and cut-bound, while identifying subject-process domains as cases in which omission of lived significance becomes a domain-relevant adequacy failure rather than a merely local incompleteness.
+
+The proposal is therefore not needed because philosophy has never noticed process, finitude, or experience. It is needed because these elements are usually treated separately, whereas the present argument depends on the structural relation among them. The paper's distinctive claim is not simply that reality is dynamic, nor simply that knowing is situated, nor simply that experience resists flattening. It is that for finite embedded beings, reality is most adequately disclosed under processual terms, that disclosure always proceeds through conditioned cuts, and that in subject-process domains those conditions generate non-collapsible lower-bound adequacy demands without requiring any split in being.
+\section{Core Definitions and Distinctions}
+
+The argument of this paper depends on a small set of terms that must be clear before the main theory can be stated. These terms do not function as a mere glossary. They organize the movement of the paper from ontology, to disclosure, to adequacy. They also mark an important limit on the paper's ambition. \emph{Embedded Process} does not claim to have secured a final God's-eye ontology of reality. Its narrower claim is that for finite embedded beings such as ourselves, reality is most adequately disclosed under processual rather than static terms. I therefore introduce the core vocabulary in that order.
+
+\subsection{Ontology: Ontological Unity, Processual Disclosure, and Metastable Pattern}
+
+The paper begins from \emph{ontological unity}. Reality is one. The argument does not begin from two substances, two worlds, or two irreducible domains of being. But that claim alone does not tell us how reality is most adequately rendered for beings like us.
+
+By \emph{processual reality}, I mean reality understood under processual rather than static terms: as organized transformation under constraint rather than as a collection of primitive inert substances. This does not mean that stability is unreal. It means that stability is better understood as maintained organization than as metaphysical stillness. The world is not first made of motionless units to which change is later added. Change, maintenance, and organization belong to how reality is most adequately disclosed for finite embedded beings. This is the broad reorientation associated with process philosophy, from Whitehead's account of becoming to Rescher's defense of process as metaphysical primitive \cite{Whitehead1978,Rescher1996}.
+
+That formulation should be read carefully. The paper does \emph{not} claim to have established that every possible rendering of reality, including some radically non-embedded rendering if such a thing were coherent, would have to present reality under processual terms. Its narrower and more disciplined claim is that process is the most adequate primitive for beings like us, who disclose reality from within time, change, embodiment, and maintained organization. Whether some impossible or radically non-embedded standpoint would render the same reality differently is left open here.
+
+A \emph{metastable pattern} is a recognizable continuity maintained across perturbation, turnover, and bounded change. Organisms, institutions, and persons are better understood this way than as static essence-bearers. They persist not by remaining unchanged, but by maintaining organized continuity through change. This is why process language matters here. Without it, persistence is too easily treated as evidence for some underlying inert core rather than as evidence for patterned maintenance. Contemporary work on metastability helps make this point more concrete by showing how persistence can emerge through regulated dynamical organization rather than through static identity \cite{TognoliKelso2014}.
+
+These notions provide the paper's ontological starting point. Reality is one, and for finite embedded beings it is most adequately disclosed under processual rather than primarily substantial terms. That still does not tell us how reality becomes available in practice. For that we need the vocabulary of disclosure.
+
+\subsection{Disclosure: Finite Rendering, Conditioned Cut, Scope, Residue, and Overextension}
+
+A \emph{disclosure} is a rendering of reality under finite conditions. It is not transparent possession of the real. It is reality made available through some standpoint, interface, level, and form. This point matters because the paper's argument does not turn on mere ignorance or accidental incompleteness. It turns on the structured conditions under which reality becomes describable at all. On this point the paper stands close to traditions that reject the fantasy of a disembodied, viewless epistemic standpoint and insist instead on situated, perspectival, and embodied knowing \cite{Haraway1988,Polanyi1958,Nagel1986}.
+
+For that reason, disclosure in this paper is treated as always finite and conditioned. What finite agents disclose is not reality as if seen from nowhere, but reality under determinate constraints. Those constraints include at least interface, level, purpose, and standpoint \cite{Haraway1988,Nagel1986}. In the present framework, disclosure is therefore never simply a mirror relation between mind and world. It is a structured rendering under finite conditions.
+
+A \emph{conditioned cut} is the structured selection-regime through which some domain becomes describable under those conditions. Every usable disclosure preserves some structure while suppressing, flattening, or backgrounding other structure. I use the term \emph{cut} because weaker language such as ``simplification'' or ``abstraction'' is not enough. A cut does not merely leave things out. It determines what can appear, what can travel, what can be compared, and what kind of adequacy the resulting representation can even aspire to.
+
+A disclosure is therefore always \emph{scoped}. It remains adequate only within some bounded regime of use, level, interface, and purpose. Adequacy is never free-floating. It is always adequacy under conditions.
+
+A disclosure also leaves \emph{residue}: what is omitted, flattened, backgrounded, merged, or badly carried relative to the cut through which the domain has been rendered. Residue is not a mystical outside. It is the structured remainder generated by a particular way of making some part of reality available.
+
+From this follows the category of \emph{overextension}. Overextension occurs when a representation is granted authority outside the scope within which it remains adequate. Many failures in practice are not failures of total falsehood. They are failures of overextended adequacy claims. A representation works somewhere, and is therefore treated as though it works everywhere. The present paper treats that inference as a major source of confusion.
+
+These disclosure terms matter because the paper's central adequacy claim cannot be understood apart from them. Structural and experiential adequacy are not free-floating types of success. They are ways a disclosure may or may not remain adequate under a given cut.
+
+\subsection{Adequacy: Subject-Process, Structural Adequacy, and Experiential Adequacy}
+
+A \emph{subject-process} is a self-maintaining, world-coupled, metastable process-pattern for which lived significance is constitutively relevant to adequate disclosure. This should be treated as a constrained working classifier rather than as a fully derived final category. The theory does not claim to have solved the complete metaphysics of subjectivity. It claims something narrower: that some domains are such that omission of lived significance produces domain-relevant adequacy failure.
+
+This definition is therefore narrower than ``complex process.'' A weather system may be dynamic and self-organizing, but it is not thereby a subject-process in the relevant sense. The point is not just complexity, feedback, or dynamism. The point is whether omission of lived significance creates domain-relevant adequacy loss. A domain should therefore be treated as a subject-process domain when a purely structural rendering predictably loses information relevant to understanding, interpreting, or responding to the domain as the kind of thing it is.
+
+A process should be treated as a subject-process when at least the following conditions obtain in working form:
+\begin{itemize}
+    \item self-maintenance,
+    \item self-individuation,
+    \item ongoing world-coupling,
+    \item endogenous stake-structure,
+    \item and domain-relevant lived significance.
+\end{itemize}
+
+These conditions do not yet amount to a full derivation of subjectivity from process ontology. They are meant to discipline the category enough for the adequacy claim that follows.
+
+A representation is \emph{structurally adequate} when, under a given cut and within a given scope, it preserves enough of the organization, relation, dynamics, causality, and constraint-structure of its target for the relevant explanatory, predictive, or interventional task.
+
+A representation is \emph{experientially adequate} when, under a given cut and within a given scope, it preserves enough of the lived significance of a subject-process to support interpretation, response, or judgment without systematic distortion. The pressure behind this concept is familiar from philosophy of mind: an account may be objective, explanatory, and structurally rich while still failing to preserve what a state or condition is like for the being that lives it \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+That second definition should be read carefully. Experiential adequacy does not mean merely adding feelings to an otherwise complete model. It concerns whether a representation preserves what is lived \emph{as lived} when that lived significance is relevant to the domain and task. This is why the category matters. A structurally impressive rendering may still be experientially inadequate. Conversely, an experientially rich rendering may still be structurally inadequate for some explanatory or interventional purpose. The theory is not anti-structural. Its claim is that, in subject-process domains, adequacy cannot be presumed to collapse into one dimension without residue.
+
+Structural and experiential adequacy should also be understood as a \emph{lower bound}, not as a final adequacy taxonomy for every possible domain. The paper's present claim is not that these are the only adequacy axes conceivable. It is that in subject-process domains they already fail to collapse into one another, and that this is enough for the theory's main result.
+
+Experiential adequacy includes at least three recurring dimensions:
+\begin{itemize}
+    \item \textbf{phenomenal adequacy:} preservation of what the subject-process undergoes or what-it-is-like,
+    \item \textbf{agential adequacy:} preservation of practical orientation, reasons, situated action, and intelligibility from within,
+    \item \textbf{valuational-burden adequacy:} preservation of stakes, humiliation, fear, burden, readability costs, or lived consequence where those matter to the case.
+\end{itemize}
+
+These are not three substances or three worlds. They are recurring subdimensions of experiential adequacy. They identify some of the main ways in which lived significance can matter to whether a disclosure is adequate.
+
+\subsection{Load-Bearing Distinctions}
+
+Several distinctions organize the rest of the paper.
+
+The first is the distinction between \emph{being} and \emph{disclosure}. Reality may be one even when no single description exhausts it. Ontological unity therefore does not entail descriptive sufficiency. This distinction blocks one of the paper's main targets: the move from monism to the assumption that one type of rendering must eventually say everything that matters.
+
+The second is the distinction between \emph{ontological dependence} and \emph{descriptive sufficiency}. Experiential life may depend on organization, embodiment, and constraint without thereby being exhaustively preserved by every structurally adequate rendering. This distinction will matter later when the paper argues for dependence without elimination.
+
+The third is the distinction between \emph{subject-process} and \emph{complex process}. Not every dynamic or self-organizing process qualifies for the theory's central adequacy claim. The category is meant to be restricted to those domains in which lived significance is constitutively relevant to adequate disclosure.
+
+The fourth is the distinction between \emph{adequacy constraints} and \emph{ontological aspects}. Structural and experiential are treated here as constraints on adequate disclosure in subject-process domains, not as two metaphysical ingredients or aspects of reality. Their non-collapse therefore does not by itself imply two substances, two worlds, or even two ontological aspects in any strong sense. It implies only that one ontologically unified reality may not be adequately disclosed by one sufficient cut in every domain \cite{Nagel1974,Levine1983}.
+
+These distinctions do most of the paper's disciplinary work. The first prevents unity from collapsing into sufficiency. The second prevents dependence from collapsing into reduction. The third prevents the domain claim from expanding into vagueness. The fourth prevents non-collapse from collapsing into bifurcation.
+\section{Main Theory}
+
+The theory developed here has a simple aim but a difficult burden. It must explain how reality can remain ontologically one while adequacy fails to collapse in some domains. That burden cannot be met by asserting either that experience is reducible to structure or that irreducibility in description implies plurality in being. The argument instead proceeds in stages: first by clarifying the ontological picture, then by clarifying the structure of finite disclosure, then by identifying a special class of domains, and finally by showing why adequacy in those domains cannot be presumed to collapse into one sufficient cut.
+
+A compact schematic form of the theory can be stated in advance. Let \(R\) denote one reality. Let a conditioned cut be represented by
+\[
+C = C(s,i,\ell,p,f),
+\]
+where \(s\) is standpoint, \(i\) interface, \(\ell\) level, \(p\) purpose, and \(f\) finitude or resource-bound condition. Let the result of applying that cut to some target domain \(T\) be
+\[
+C(T) = \langle \rho,\Delta \rangle,
+\]
+where \(\rho\) is the resulting representation and \(\Delta\) is the residue generated by that cut. The basic claim of the theory is that for some targets \(T\), specifically subject-process domains, adequacy cannot be treated as one undifferentiated success relation. In those domains, at minimum, both structural adequacy and experiential adequacy become relevant, and neither can be presumed to collapse into the other. The rest of this section explains why.
+
+\subsection{One Reality, Processually Disclosed}
+
+The ontological starting point of the theory is monism: reality is one. More specifically, the paper argues that for finite embedded beings such as ourselves, reality is most adequately disclosed under processual rather than primarily substantial terms. The world is not best rendered as a heap of static primitives to which change is later added. It is more adequately rendered as organized transformation under constraint, within which persistence appears as maintained pattern. In this respect the theory stands within a broadly process-metaphysical lineage, while also drawing support from contemporary metastability research that treats continuity as an achievement of dynamical organization rather than as a sign of inert substrate identity \cite{Whitehead1978,Rescher1996,TognoliKelso2014}.
+
+That formulation matters because ``process'' here does not mean mere flux or the trivial claim that things change. It means that organization, maintenance, and transformation are more basic than the picture of inert units later connected by motion. A person, organism, or institution persists not by remaining unchanged beneath appearances, but by reproducing and maintaining an organized pattern through ongoing change. Stability is real, but it is the stability of sustained order, not metaphysical stillness \cite{Whitehead1978,Rescher1996,TognoliKelso2014}.
+
+At the same time, the claim is intentionally disciplined. The paper does not need to prove that every coherent rendering of reality, including some radically non-embedded rendering if such a thing were possible, would also have to present reality under processual terms. Its narrower claim is enough: for beings like us, disclosing reality from within time, embodiment, and finite perspective, process is the most adequate primitive. That is the level at which the present theory operates.
+
+This ontological commitment does important negative work. The theory is not trying to create room for lived significance by adding a second substance, a second realm, or a second ontological ingredient. The task is harder and more interesting than that. The task is to explain why one ontologically unified reality, disclosed under finite embedded conditions, may still require more than one non-collapsible adequacy condition in some domains.
+
+\subsection{Finite Disclosure Through Conditioned Cuts}
+
+The second major commitment is that disclosure is always finite and conditioned. We do not grasp reality from nowhere. We disclose it from within the world, through interfaces, at levels, for purposes, under resource and perspective constraints. Reality does not simply present itself in fully usable form. It becomes available through determinate modes of access and rendering. This anti-view-from-nowhere orientation is familiar from situated knowledge, tacit knowledge, and point-of-view critiques of idealized objectivity \cite{Haraway1988,Polanyi1958,Nagel1986}.
+
+For that reason, description is never just a passive mirror. Every disclosure proceeds through a conditioned cut. That cut does not merely subtract detail from a pre-given totality. It selects, formats, and stabilizes some features strongly enough to make them describable, usable, and transportable. In doing so, it also produces residue: what is omitted, backgrounded, flattened, merged, or badly carried by the representation.
+
+This point needs to be stated strongly because much confusion begins here. Descriptive partiality is not merely accidental. It is not simply what happens when finite knowers fail to reach a transparent ideal. It is built into the conditions under which finite disclosure becomes possible at all. If a representation is to be usable, it must be selective. If it is selective, then what it preserves and what it leaves as residue are jointly produced by the same cut.
+
+The formal sketch above can now be read more concretely. If \(T\) is some target domain, then
+\[
+C(T)=\langle \rho,\Delta \rangle
+\]
+means that a cut yields both a representation \(\rho\) and a residue \(\Delta\). The theory's point is not merely that \(\Delta\) exists. It is that \(\rho\) and \(\Delta\) are generated together. There is no representation without selective preservation, and no selective preservation without remainder.
+
+This has a direct consequence for adequacy. Adequacy is never adequacy in the abstract. It is adequacy of a representation produced under a cut, within a scope, for some level and purpose. Once that is recognized, the question is no longer whether a representation captures reality simpliciter, but what it preserves, what it suppresses, and whether the resulting disclosure remains adequate to the domain and task at hand.
+
+\subsection{Subject-Process as a Special Domain}
+
+Not every domain is a subject-process domain. Some domains can be adequately disclosed for many purposes through overwhelmingly structural renderings alone. Others cannot. The present theory therefore does not claim that every object in the world demands two parallel vocabularies or two equal descriptive regimes. Its stronger and narrower claim is that some domains make lived significance constitutively relevant to adequate disclosure.
+
+A subject-process domain is one in which omission of lived significance produces domain-relevant inadequacy. This does not mean that lived significance is ontologically independent of structure. It does not mean that experience floats free of embodiment, organization, or constraint. It means only that in these domains the kind of process at issue cannot be adequately disclosed if what is lived as lived is systematically erased. The pressure behind this claim is already visible in work emphasizing the point-of-view character of subjectivity and the difficulty of carrying first-person significance through purely objective renderings \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+This point matters because the theory would collapse into vagueness if ``subject-process'' meant only a complex, dynamic, or self-organizing process. A weather system may be dynamic. A market may be adaptive. A bureaucracy may be recursive. None of these is thereby a subject-process in the relevant sense. What matters is not complexity alone, but whether the process is such that lived significance is constitutively relevant to what it is and to how it must be adequately understood.
+
+A process should therefore be treated as a subject-process when at least the following conditions obtain in working form:
+\begin{itemize}
+    \item self-maintenance,
+    \item self-individuation,
+    \item ongoing world-coupling,
+    \item endogenous stake-structure,
+    \item and domain-relevant lived significance.
+\end{itemize}
+
+These conditions do not yet amount to a full derivation of subjectivity from process ontology. They are not offered as a complete science of mindedness. But they do constrain the entry conditions for the theory's central adequacy claim. They tell us when omission of lived significance should count not merely as a regrettable incompleteness, but as a failure in the adequacy of disclosure itself.
+
+A second schematic handle is useful here. Let
+\[
+\mathrm{SP}(T)
+\]
+mean that \(T\) is a subject-process domain. Then the theory's restricted ambition can be expressed simply: it is only when \(\mathrm{SP}(T)\) holds that the non-collapse result is claimed as necessary. The theory is not universal in a flat way. It is domain-sensitive.
+
+\subsection{Why Adequacy Does Not Collapse}
+
+We can now state the core argumentative pressure more directly. If all finite disclosure proceeds through conditioned cuts, then no disclosure arrives unselected. If some domains are subject-process domains, then lived significance is part of what must be preserved for adequate disclosure in those domains. It follows that a cut may be structurally powerful while still leaving out something adequacy-relevant, and that something may be precisely what is lived, suffered, feared, navigated, valued, or endured from within. Conversely, a disclosure that is rich in lived significance may still fail to preserve enough organizational, causal, or dynamical structure for explanation, prediction, or intervention. This is the pressure behind the familiar sense that objective description and lived reality do not straightforwardly collapse into one another, even where one remains fully committed to ontological unity \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+This is the point at which the main theory can be stated in compressed form.
+
+\begin{enumerate}
+    \item Reality is ontologically one, and for finite embedded beings it is most adequately disclosed under processual terms.
+    \item Finite disclosure always proceeds through conditioned cuts.
+    \item Conditioned cuts preserve some structure while generating residue.
+    \item In subject-process domains, lived significance is constitutively relevant to adequate disclosure.
+    \item Therefore a cut that preserves structural organization may still leave experientially relevant residue.
+    \item Conversely, a cut that preserves lived significance may still leave structurally relevant residue.
+    \item Therefore structural adequacy and experiential adequacy are jointly necessary but non-collapsible lower bounds of adequate disclosure in subject-process domains.
+    \item Because this result concerns disclosure under finite conditions, it does not imply ontological bifurcation.
+\end{enumerate}
+
+This is the center of the theory.
+
+A compact quasi-formal statement of the result can now be given. Let \(A_S(\rho,T)\) mean that representation \(\rho\) is structurally adequate for target \(T\), and let \(A_E(\rho,T)\) mean that \(\rho\) is experientially adequate for \(T\). Then the claim is not that
+\[
+\forall T \; (A_S \leftrightarrow A_E),
+\]
+nor that
+\[
+\forall T \; (\neg A_S \leftrightarrow \neg A_E).
+\]
+Rather, the paper claims the more restricted result:
+\[
+\mathrm{SP}(T) \;\Rightarrow\; \text{adequate disclosure of } T \text{ cannot be presumed to reduce to } A_S \text{ alone}.
+\]
+More strongly, in subject-process domains:
+\[
+\mathrm{SP}(T) \;\Rightarrow\; A^{*}(T) \supseteq A_S(\rho,T)\wedge A_E(\rho,T),
+\]
+where \(A^{*}(T)\) names the lower-bound adequacy condition relevant to the domain. This should be read as a structural sketch, not as a finished calculus. Its point is simply to give a second descriptive handle on the paper's main result: in subject-process domains, adequacy has at least two non-collapsible dimensions.
+
+The non-collapse claim should therefore be read carefully. It does not mean that every domain demands two equal vocabularies. It does not mean that every structural rendering is symmetrical with every experiential one. It does not mean that all conflicts among descriptions are of the same type. It means only that in subject-process domains no finite cut can be presumed in advance to secure both structural and experiential adequacy without residue. The point is not multiplicity for its own sake. The point is that finite disclosure of these domains predictably generates more than one necessary adequacy demand.
+
+\subsection{Dependence Without Elimination}
+
+At this stage, the most obvious reductionist reply becomes unavoidable. Even if adequacy does not collapse at the level of description, does not lived significance still depend on organization and embodiment? And if it does, why is that not enough to restore structural sufficiency in the end?
+
+The present view fully allows that lived experience depends on organization and embodiment. There is no attempt here to float the experiential free of the structural. No difference in what is lived occurs without some difference in the organization of the process that lives it. In that sense, dependence is real and non-negotiable.
+
+But dependence is not elimination. More sharply, three things must be distinguished.
+
+First, there is \emph{ontological dependence}: the claim that experiential life does not exist independently of organization and embodiment.
+
+Second, there is \emph{explanatory dependence}: the claim that understanding experiential life requires attention to the organization, dynamics, and constraints of the process in which it occurs.
+
+Third, there is \emph{adequacy sufficiency}: the much stronger claim that a structurally adequate representation therefore already preserves everything needed for fully adequate disclosure in every relevant domain.
+
+The present theory grants the first two claims and rejects the third. That rejection is not evasive. It blocks an illicit slide that is extremely common in surrounding debates. From the fact that experiential life depends on organization, it does not follow that every adequacy-relevant experiential fact is already preserved by a structurally adequate rendering under every relevant cut, scope, and purpose. This is exactly the terrain on which explanatory-gap arguments continue to exert pressure: even where ontological and explanatory dependence are granted, descriptive sufficiency does not automatically follow \cite{Levine1983,Chalmers1995}.
+
+The point can be stated more cleanly. One may grant that no experiential difference occurs without some organizational difference while still denying that structural adequacy, as such, exhausts adequate disclosure. A representation may preserve enough organizational structure for one explanatory or interventional purpose while still failing to preserve what is lived as lived in a way relevant to another purpose. That gap is not evidence of a second substance. It is evidence that adequacy does not reduce as quickly as dependence does.
+
+This can be given a schematic form as well. Let \(E\) denote experiential difference and \(O\) organizational difference. The theory is compatible with
+\[
+E_1 \neq E_2 \Rightarrow O_1 \neq O_2,
+\]
+while rejecting the stronger sufficiency claim that organizational adequacy alone determines all adequacy-relevant experiential content under every cut. In other words, ontological or causal dependence does not license adequacy collapse.
+
+This is why the theory insists on dependence without elimination. Experience depends on one ontologically unified reality disclosed under processual terms. Experiential adequacy depends on structural conditions. But neither dependency licenses the conclusion that experiential adequacy is dispensable.
+
+\subsection{Non-Collapse Without Bifurcation}
+
+The anti-dualist guardrail of the theory is therefore straightforward but indispensable. Structural and experiential are not two substances. They are not two ontological aspects in the sense of two ingredients composing the real. They are adequacy constraints on disclosure in subject-process domains.
+
+The failure of those constraints to collapse does not imply two worlds any more than the existence of multiple non-equivalent models of one process implies multiple realities. The point is not that being has divided. The point is that finite disclosure of one reality can remain non-exhaustive along more than one necessary dimension. In this respect the present theory attempts to preserve the force of non-collapse without endorsing the stronger metaphysical inferences often drawn from it in debates about consciousness and subjectivity \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+This is the place where the distinction between being and disclosure does most of its work. If one confuses the two, non-collapse in adequacy immediately looks like bifurcation in ontology. But once they are distinguished, the picture becomes clearer. Monism states that reality is one. It does not state that one finite cut must already preserve everything adequacy requires in every domain. The present theory therefore preserves ontological unity while denying descriptive flattening.
+
+A final schematic contrast helps here. The theory denies that
+\[
+A_S \not\leftrightarrow A_E
+\]
+forces
+\[
+R = R_S \cup R_E
+\]
+for two distinct ontological domains \(R_S\) and \(R_E\). The paper's point is instead:
+\[
+R \text{ is one, while adequacy under finite disclosure is non-collapsible in some domains.}
+\]
+This is not a proof in any strict formal sense. It is a compact way of showing the structure of the claim: plurality in adequacy does not entail plurality in being.
+
+\subsection{Reflexive Coupling}
+
+A further pressure enters once the domain is not merely a subject-process domain but also a reflexively coupled one. Reflexive coupling occurs when description feeds back into the domain's ongoing organization, self-understanding, or governance.
+
+This matters because some representations do not remain external reports. They enter the process they describe. A diagnosis, classification, score, institutional record, or model output may reshape behavior, self-conception, treatment, expectation, or opportunity. In such cases, adequacy failure is not merely contemplative error. It becomes part of the domain's ongoing dynamics. The cut does not merely disclose the process. It helps reorganize it. This kind of feedback-sensitive relation between classification and classified domain is well captured by cybernetic and looping-effect traditions \cite{Bateson1972,Pask1975,Hacking1995}.
+
+A simple schematic form is again useful. If a representation \(\rho\) is fed back into the domain it represents, then instead of
+\[
+T \xrightarrow{C} \rho
+\]
+we may have
+\[
+T \xrightarrow{C} \rho \xrightarrow{F} T',
+\]
+where \(F\) is a feedback path and \(T'\) is the now-modified domain. In such cases, the residue of the original cut is no longer merely contemplative remainder. It can become operationally consequential.
+
+This point is especially important for institutional and model-mediated contexts. A representation that is structurally tractable but experientially inadequate may still become action-guiding, administratively decisive, or self-confirming. The result is not only bad description but a domain reshaped under an inadequate rendering of itself.
+
+Still, reflexivity must be constrained. The present theory does not claim that reflexive coupling explains every descriptive limit whatsoever. It matters only in feedback-responsive domains where descriptions can alter what they describe. Reflexivity is therefore not the master explanation of the whole theory. It is a sharpening pressure that becomes especially important once subject-process domains are embedded within institutions, classifications, and operational systems that can act back upon them \cite{Bateson1972,Pask1975,Hacking1995}.
+\section{Why This Theory Is Needed}
+
+\subsection{Why Existing Framing Is Not Enough}
+
+The surrounding debate is not empty or confused in any simple sense. The problem is that its dominant framings repeatedly force a false choice. Either one preserves ontological unity by treating structural description as the eventual measure of everything that matters, or one preserves the force of lived significance by moving too quickly toward bifurcation, dualism, or reified aspect language. In both cases, something important is kept in view, but the relation among the relevant pieces is lost. The first tendency is visible in reductionist and structurally ambitious accounts of mind and explanation; the second is visible wherever persistent non-collapse in description is taken to require a split in being \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+What is missing is a framework that can say all of the following at once:
+\begin{itemize}
+    \item reality is ontologically one,
+    \item for finite embedded beings it is most adequately disclosed under processual rather than static terms,
+    \item finite disclosure is always conditioned by cuts,
+    \item some domains make lived significance constitutively relevant to adequate disclosure,
+    \item and adequacy therefore need not collapse even when ontology does.
+\end{itemize}
+
+That conjunction is the paper's central structural gain. The theory is not needed because philosophy has never noticed process, finitude, or experience. It is needed because these elements are usually treated separately, whereas the present argument depends on the relation among them. Without that relation, monism tends to flatten adequacy, anti-reductionism tends to drift toward bifurcation, and situated knowledge tends to remain too general to explain why some domains generate a distinctive non-collapse in adequacy \cite{Whitehead1978,Rescher1996,Haraway1988,Polanyi1958,Nagel1986}.
+
+This point is especially important given the paper's deliberately limited metaphysical ambition. \emph{Embedded Process} does not need to prove that every possible rendering of reality would disclose it under processual terms. It needs only the narrower claim that for beings like us, reality is most adequately rendered that way, and that once disclosure is understood under those finite embedded conditions, the problem of adequacy becomes more structured than the surrounding debate usually allows. That is why the present framework is needed: not because its ingredients are wholly unprecedented, but because their relation has not been made explicit enough.
+
+\subsection{What Confusions It Resolves}
+
+The theory is needed because several recurring confusions survive even in sophisticated nearby views.
+
+First, it resolves the confusion between ontological unity and descriptive sufficiency. One reality does not imply one sufficient descriptive vocabulary. A monist ontology can still leave room for multiple non-collapsible adequacy demands under finite disclosure. This is precisely what tends to be obscured when the explanatory ambitions of structural description are allowed to stand in for a proof of descriptive exhaustiveness \cite{Levine1983,Chalmers1995}.
+
+Second, it resolves the confusion between dependence and elimination. Experience may depend on organization and embodiment without becoming descriptively dispensable. Dependence tells us something important about what experience is not independent of; it does not yet tell us that structural adequacy alone exhausts adequate disclosure. This is one of the main lessons suggested by explanatory-gap arguments and by point-of-view-based critiques of objective sufficiency \cite{Nagel1974,Levine1983}.
+
+Third, it resolves the confusion between non-collapse and bifurcation. Failure of adequacy to collapse is not yet evidence for two worlds, two substances, or two ontological aspects. It may instead be evidence that one world is being disclosed under conditions that do not guarantee one sufficient cut. The paper's distinction between being and disclosure is meant to block exactly this over-rapid metaphysical inference \cite{Nagel1986,Haraway1988}.
+
+Fourth, it resolves the confusion between local adequacy and total authority. A representation that works under one cut and scope may still become misleading when granted authority beyond those conditions. Many practical and theoretical failures arise not because a representation is useless everywhere, but because it is overextended. This pattern is especially visible in classification systems, institutional records, and model-mediated forms of judgment \cite{BowkerStar1999,ONeil2016,Eubanks2018,ObermeyerEtAl2019}.
+
+These confusions matter because they are not merely verbal. They shape how experience is treated in philosophy of mind, how subjects are rendered in institutions, and how model-mediated systems come to possess authority over domains they do not adequately disclose \cite{Fricker2007,BowkerStar1999,Hacking1995}. The theory is therefore needed not only to clarify a metaphysical dispute, but to clarify the structure of errors that repeatedly arise when one cut is mistaken for the whole of what reality permits us to say.
+
+A compact schematic form of these confusions may also help. The paper rejects the inference pattern
+\[
+R \text{ is one} \;\Rightarrow\; \exists !\,V \text{ such that } V \text{ is sufficient for all adequate disclosure of } R,
+\]
+where \(V\) would be one final descriptive vocabulary. It also rejects the converse error:
+\[
+A_1 \not\leftrightarrow A_2 \;\Rightarrow\; R = R_1 \cup R_2,
+\]
+where plurality in adequacy is taken to imply plurality in being. The theory's point is precisely that both inferences fail.
+
+\subsection{Why the Structural Gain Is Real}
+
+The present theory therefore does more than restate that ``experience matters'' or that ``all knowledge is situated.'' Taken by themselves, those claims are too weak to carry the burden of the paper. They identify important pressures, but they do not yet explain why those pressures take the specific form they do. Process philosophy can tell us that stability is maintained through change; situated epistemology can tell us that knowledge is finite and embodied; philosophy of mind can tell us that first-person life resists easy absorption into objective description. But none of those claims alone explains why one ontologically unified reality, disclosed under finite embedded conditions, may generate multiple non-collapsible adequacy conditions \cite{Whitehead1978,Rescher1996,Haraway1988,Nagel1974,Levine1983}.
+
+The real gain lies in the relation the theory establishes among ontological unity, processual disclosure, conditioned cuts, subject-process domains, and non-collapsible adequacy. The paper does not merely append lived significance to an otherwise structural picture, nor does it merely warn that all knowledge is partial. It explains why, in some domains, finite cuts generate predictable residue along structural and experiential axes, and why that residue is not accidental to the conditions of disclosure but built into them.
+
+That is what gives the paper's adequacy claim real necessity rather than merely rhetorical force. The point is not simply that a better theorist should remember to include experience. The point is that in subject-process domains no finite cut can be presumed in advance to preserve both structural organization and lived significance without residue. Once that is seen, the central thesis of the paper appears less as an intuition in need of defense and more as the natural consequence of treating one reality as disclosed under finite, conditioned, and embedded terms.
+
+A second descriptive handle makes the gain clearer. Let \(T\) be a target domain, \(C(T)=\langle \rho,\Delta\rangle\) a conditioned cut yielding representation \(\rho\) and residue \(\Delta\), and let \(\mathrm{SP}(T)\) indicate that \(T\) is a subject-process domain. Then the theory's distinctive gain is not merely the claim that \(\Delta \neq \varnothing\) for finite knowers. It is the stronger and more structured claim that
+\[
+\mathrm{SP}(T) \;\Rightarrow\; A^{*}(T) \supseteq A_S(\rho,T)\wedge A_E(\rho,T),
+\]
+where \(A_S\) and \(A_E\) mark structural and experiential adequacy respectively, and \(A^{*}(T)\) names the lower-bound adequacy condition relevant to the domain. In plain language: some domains do not merely leave something out under finite disclosure; they generate more than one necessary adequacy demand. That is the paper's real structural gain.
+\section{Applications and Explanatory Payoff}
+
+A theory paper earns its keep not only by stating a framework, but by showing that the framework clarifies domains that otherwise remain conceptually distorted. The present theory is meant to do that kind of work. Its payoff lies in showing how one ontologically unified reality, disclosed under finite embedded conditions, can be rendered through multiple conditioned cuts, some of which are structurally powerful yet still inadequate in domains where lived significance is constitutively relevant. The following applications are not exhaustive. They are meant to show the theory operating across several settings in which the relation among ontology, disclosure, and adequacy becomes especially visible. They are tests of explanatory payoff, not part of the kernel proof itself.
+
+\subsection{Philosophy of Mind}
+
+The most obvious application is philosophy of mind. A structurally rich account of neural, bodily, and environmental organization may be indispensable to any serious understanding of minded life. A person does not float free of embodiment, causal organization, or dynamic constraint. If the mind is real, it is real as part of one world rather than as an ontologically detached addition to it.
+
+But indispensability is not the same as sufficiency. If the target domain includes what is lived, undergone, suffered, navigated, anticipated, or borne from within, then a purely structural rendering may still leave experientially relevant residue even while remaining powerful in other respects. A model may preserve causal organization, behavioral regularity, environmental coupling, and neural dependence while still failing to preserve what a state is like for the subject who lives it, how it reorganizes the subject's practical world, or what burdens and stakes it imposes from within. This is one way of restating the enduring pressure behind point-of-view arguments and explanatory-gap arguments in philosophy of mind \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+This does not prove dualism, nor does it show that structure is somehow unreal or secondary. What it shows is that the domain places pressure on adequacy. One can preserve one world while denying that a single finite structural cut must therefore exhaust adequate disclosure of subjectivity. The point is not that structural description fails everywhere. It is that in subject-process domains structural adequacy cannot simply be assumed to absorb experiential adequacy without remainder \cite{Nagel1974,Levine1983}.
+
+A compact schema makes the point clearer. If \(T\) is a subject-process domain, then the claim is not that structural description is worthless, but that
+\[
+\mathrm{SP}(T)\;\Rightarrow\;A^{*}(T)\supseteq A_S(\rho,T)\wedge A_E(\rho,T),
+\]
+where \(A_S\) and \(A_E\) denote structural and experiential adequacy respectively. In plain terms: when the domain is minded, lived, and self-maintaining in the relevant way, adequacy has at least two non-collapsible lower-bound demands.
+
+\subsection{Institutional Representation}
+
+The theory also clarifies institutional representation. Institutions routinely act through records, forms, scores, categories, profiles, and procedural classifications. These are structurally useful renderings. They allow routing, coordination, standardization, comparison, storage, and decision-making across scale. Without them, large institutions would quickly become unworkable.
+
+But when the represented domain is a subject-process domain, structural usefulness does not guarantee full adequacy. A hospital record may preserve clinically relevant information while still failing to preserve pain as lived, fear as lived, or humiliation as lived. A welfare file may preserve administratively relevant information while failing to preserve burden, confusion, exposure, or the practical labor required to remain legible to the institution. A disciplinary report in a school may preserve rule-violation, timing, and procedural status while failing to preserve the student's own orientation, confusion, fear, or sense of being handled by an order they do not fully understand. Work on classification systems and epistemic injustice helps illuminate why formally coherent representations can still fail the people they organize \cite{BowkerStar1999,Fricker2007}. More recent work on automated administration shows how such failures can become technologically intensified \cite{Eubanks2018}.
+
+The point is not that structure is illegitimate, nor that institutions should abandon records and categories in favor of unstructured immediacy. The point is that structural authority becomes presumptively suspect when it is overextended into domains where lived significance is also adequacy-relevant. A representation may be useful for coordination and still fail as a full rendering of the case. That failure becomes more serious once the representation is no longer treated as a local administrative instrument but as the thing itself \cite{BowkerStar1999,Fricker2007}.
+
+The theory's contribution here is upstream. It does not by itself deliver a full politics or ethics of institutions. What it does supply is a clearer explanation of why institutional simplification predictably generates friction. The problem is not only that bureaucratic systems are sometimes unfair. It is that they operate through cuts whose structural strengths are purchased by selective omissions, and those omissions become domain-relevant when the target is a subject-process rather than a merely administrable object.
+
+\subsection{Model-Mediated Judgment}
+
+The framework also helps diagnose model-mediated judgment more generally. A score, prediction, benchmark, or formal representation may be structurally adequate for one task while experientially inadequate for another. Problems arise when a model that is adequate under one cut and scope is granted wider authority than it can bear.
+
+This is especially visible in domains where outputs do not remain merely descriptive but become action-guiding. A system may sort, rank, flag, or recommend under conditions where what it preserves is sufficient for narrow procedural use. But once that same output affects treatment, opportunity, self-understanding, or future classification, the problem changes. The question is no longer merely whether the model works in a technical sense. The question becomes whether the authority attached to the model outruns the adequacy of the cut that produced it. This pattern is visible in critiques of predictive scoring, automated inequality, and health-management algorithms \cite{ONeil2016,Eubanks2018,ObermeyerEtAl2019}.
+
+This is where the theory's notion of overextension becomes especially helpful. Many practical failures are not failures of total falsehood. They are failures of scope. A model may be locally strong and globally misleading. And where the representation feeds back into the represented domain, reflexive coupling turns descriptive inadequacy into an ongoing structural force. The model does not merely misdescribe the domain; it begins to reorganize the domain under an inadequate rendering of it. Hacking's account of looping effects is especially useful here, because it shows how classifications can become active ingredients in the domains they classify \cite{Hacking1995}.
+
+A simple sketch makes the point vivid. Instead of
+\[
+T \xrightarrow{C} \rho
+\]
+we may have
+\[
+T \xrightarrow{C} \rho \xrightarrow{F} T',
+\]
+where \(C\) is the conditioned cut, \(\rho\) the resulting representation, and \(F\) a feedback path by which the representation alters the domain it purports merely to describe. In such cases, an inadequately scoped model does not remain a detached epistemic artifact. It becomes part of the world's ongoing organization.
+
+\subsection{Worked Case: Patient and Hospital}
+
+Consider again a patient in a hospital.
+
+There is one reality here, not two. There is one patient-situation: one body in pain, one person under treatment, one set of unfolding clinical and institutional processes. But that one situation is rendered through multiple cuts. One cut is biomedical and clinical. Another is workflow-oriented. Another is administrative and billing-oriented. Another is the patient's own lived situation: pain, fear, uncertainty, exposure, practical disorientation, or humiliation.
+
+These cuts do not simply compete as though one must be fake if another is real. Each preserves something important. The clinical cut preserves medication schedules, diagnosis history, vital signs, risk markers, and intervention pathways. The workflow cut preserves timing, sequencing, staffing constraints, handoff demands, and procedural coordination. The administrative cut preserves eligibility, authorization, billing status, documentation requirements, and institutional accountability. These are all real disclosures of one situation. Studies of institutional records and classification systems help explain how such renderings become operationally indispensable while still carrying hidden exclusions and background assumptions \cite{BowkerStar1999}.
+
+But there is also the lived cut, and it is not an optional embellishment. The patient may be in pain and unsure whether anyone fully understands that pain. They may hear fragments of conversation that determine their treatment without being able to follow them. They may sign forms while frightened, exhausted, medicated, or ashamed. They may be reduced, from the institutional side, to values, fields, thresholds, authorizations, and coded statuses, while still undergoing the situation as terror, confusion, vulnerability, dependency, or practical collapse. None of that creates a second world. It shows what the other cuts do not fully carry. The broader problem here is not only clinical but epistemic: a system may register a case in technically coherent form while still failing to register the lived significance of that case for the person who must endure it \cite{Fricker2007}.
+
+The clinical record may be structurally adequate for medication routing, procedure tracking, or intervention planning. The administrative record may be structurally adequate for coverage and payment operations. But neither of these is thereby experientially adequate. Neither necessarily preserves what the situation is like for the patient, what burdens it imposes, how their practical world has narrowed, or how being handled through institutional categories may itself become part of what the case now is. If those omissions are irrelevant to the task, then they remain residue without immediately undermining adequacy. But if the domain is being judged, interpreted, or acted upon as a subject-process domain, then omission of those features becomes a genuine adequacy failure rather than a mere tolerated simplification.
+
+At the same time, the patient's lived report may be experientially rich while not yet structurally sufficient for every clinical intervention. A person's account of pain, fear, or disorientation may be indispensable to adequate treatment while still failing to determine dosage, procedural sequence, or technical diagnosis on its own. This symmetry matters. The theory is not anti-structural. It does not oppose structure to experience as though one must crowd out the other. It argues instead that in this kind of case no single finite cut should be presumed to secure adequacy without residue across every relevant dimension.
+
+The case can be sketched compactly as follows. Let \(T_p\) denote the patient-situation. Then we have at least:
+\[
+C_{\text{clinical}}(T_p)=\langle \rho_c,\Delta_c\rangle,\qquad
+C_{\text{admin}}(T_p)=\langle \rho_a,\Delta_a\rangle,\qquad
+C_{\text{lived}}(T_p)=\langle \rho_l,\Delta_l\rangle.
+\]
+Each cut yields a real but partial disclosure. None is simply false. But neither does any one of them automatically exhaust what adequacy requires. What the example demonstrates is not plural worlds, but plural cut-dependent renderings of one world, with different residues attached to each.
+
+That is precisely what \emph{Embedded Process} is built to explain. There is one ontologically unified reality. It is disclosed through multiple conditioned cuts. Some of those cuts are structurally strong, some experientially rich, and none automatically exhaustive. In subject-process domains, adequacy does not collapse simply because ontology does not divide.
+\section{Objections and Replies}
+
+A theory of this kind should not survive only easy objections. If the argument is to be more than a careful redescription of familiar pressures, it must withstand the strongest likely challenges. The objections below are therefore stated in a deliberately forceful form. In several cases, the right reply is not simple defense but qualification, narrowing, or clarification.
+
+\subsection{Objection 1: The Theory Is Really About Disclosure, Not Reality}
+
+The first objection is that the theory begins with ontology but ends by making disclosure do all the real work. The decisive concepts seem to be cut, scope, residue, adequacy, and overextension. If those are the concepts carrying the argument, then perhaps the ontological claim is ornamental. The paper may present itself as a theory of reality while actually being a theory of representation.
+
+This objection identifies a real risk. If the distinction between being and disclosure is not maintained carefully, the theory can indeed slide into the appearance that ontology is little more than a preface and that all substantive content lies in the account of finite access. Concerns of this kind are not idle, especially in landscapes shaped by situated-knowledge and anti-view-from-nowhere arguments, where the line between ontological claim and epistemic condition can easily blur \cite{Haraway1988,Nagel1986}.
+
+But the conclusion still does not follow. \emph{Embedded Process} does not claim that disclosure creates reality, nor that reality is nothing over and above the conditions under which it is rendered. Its ontological claim remains prior: reality is one. What the paper adds is the narrower thesis that for finite embedded beings such as ourselves, reality is most adequately disclosed under processual rather than static terms. The disclosure account does not generate ontological unity. It explains how finite descriptions of one reality operate and why adequacy non-collapse can arise without metaphysical bifurcation. Ontology sets the target; disclosure explains the conditions under which the target becomes accessible.
+
+The point can be stated more sharply. If the theory were purely epistemological, then its central result would be that we happen to require multiple descriptions because our access is limited. The present theory claims something stronger. It claims that for subject-process domains, finite disclosure under conditioned cuts predictably generates multiple non-collapsible adequacy demands. That is not a replacement of ontology by epistemology. It is an account of how one reality is disclosed under finite conditions.
+
+The objection therefore presses the theory to keep the being/disclosure distinction explicit. It does not show that the distinction collapses.
+
+\subsection{Objection 2: This Is Just Structural Monism with Temporary Explanatory Lag}
+
+A second objection is more reductive. If experience depends on organization and embodiment, then why not say plainly that the structural story is the real story and everything else is explanatory lag, phenomenological decoration, or current epistemic limitation? On this view, the theory may look like structural monism with a temporary caution label attached.
+
+This is one of the strongest objections the theory faces, because it attacks the central non-collapse claim without resorting to dualism. It says, in effect, that the paper has not shown anything more than a currently incomplete structural science. This is exactly the kind of pressure that motivates explanatory-gap arguments and more general worries about whether point-of-view phenomena can be straightforwardly absorbed into objective description \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+The reply is that the objection assumes what is at issue. The theory does not deny dependence. It does not deny that experience depends on organization, embodiment, and constraint. What it denies is the stronger inference from dependence to descriptive sufficiency. Dependence tells us that experiential life does not float free of structure. It does not yet establish that a structurally adequate rendering therefore preserves everything needed for adequate disclosure in every relevant domain.
+
+This is why the distinction between dependence and elimination matters so much. A domain may be structurally constituted while still not be adequately disclosed by one structurally powerful cut under every relevant purpose, level, and scope. The fact that there is no experiential difference without some organizational difference does not show that all adequacy-relevant experiential facts are already preserved by structural adequacy as such. That is precisely the gap Levine marks, and it is one reason Nagel's point-of-view argument continues to matter even for non-dualists \cite{Nagel1974,Levine1983}.
+
+The objection would succeed only if structural adequacy could be shown to entail adequacy simpliciter in subject-process domains. That is precisely what the paper argues cannot be assumed. So the criticism has force only by presupposing the sufficiency claim under dispute.
+
+\subsection{Objection 3: This Is Dualism in Disguise}
+
+A third objection runs in the opposite direction. Once two non-collapsible adequacy conditions are admitted, the view may be functionally dualist whether it says so or not. One can refuse the word \emph{dualism} while still reproducing its structure under a new vocabulary. If structural and experiential are irreducible to one another, why are they not effectively two domains, two aspects, or two ontological layers?
+
+This objection is powerful because many views that wish to avoid dualism end up reintroducing it in disguised form. Merely renaming the poles does not solve the problem. The persistence of this pressure is part of what has made the philosophy-of-mind terrain so unstable between reductionist flattening and metaphysical duplication \cite{Nagel1974,Chalmers1995}.
+
+The reply is that the objection works only if adequacy conditions must map directly onto ontological kinds. But that is exactly what the theory denies. Structural and experiential are not posited as two ingredients of being. They are not two substances. They are not even two ontological aspects in a strong metaphysical sense. They are constraints on what counts as adequate disclosure in certain domains under finite conditions.
+
+Their non-collapse is therefore a claim about disclosure, not about ontological composition. One reality may require more than one non-collapsible adequacy condition without containing more than one kind of being. The analogy is not perfect, but it is sufficient: one process may admit multiple non-equivalent models without thereby becoming multiple realities. The non-collapse of disclosure does not force the bifurcation of ontology.
+
+Still, the objection identifies a genuine vulnerability. The theory must keep the distinction between adequacy constraints and ontological aspects explicit at every major turn. If that distinction becomes blurred, the view will indeed begin to look like dualism in softened language.
+
+\subsection{Objection 4: Subject-Process Is Too Vague to Carry the Argument}
+
+A fourth objection targets the theory's main domain marker. The category of subject-process may seem underdefined, strategically convenient, or suspiciously selective. Without a sharper criterion, it risks becoming a hand-picked label for the cases in which the author wants experience to matter most.
+
+This objection has force. If subject-process is not constrained, then the paper's central claim risks becoming circular: experiential adequacy matters in the domains where experiential adequacy matters.
+
+The correct response is therefore not denial but discipline. The theory proposes working entry conditions: self-maintenance, self-individuation, world-coupling, endogenous stake-structure, and domain-relevant lived significance. These conditions do not yet amount to a full derivation of subjectivity from process ontology. But they do make the category more than a mere gesture. They identify a restricted class of domains in which omission of lived significance predictably produces adequacy failure.
+
+The category is therefore best understood as a constrained quasi-primitive. It is not fully derived, but neither is it arbitrary. Border cases will remain, and further refinement is needed. But that is a burden of sharpening the classifier, not a reason to discard the category altogether.
+
+\subsection{Objection 5: Why Privilege Structural and Experiential Adequacy?}
+
+A fifth objection is that the theory may be arbitrarily privileging two adequacy axes. Why think structural and experiential are the right lower bound? Why not ethical, aesthetic, political, legal, or social adequacy as equally fundamental? Perhaps the paper has simply selected the pair most useful for its intended conclusion.
+
+This objection is important because it tests whether the theory is identifying a genuine lower bound or merely imposing a convenient taxonomy.
+
+The best reply is modest rather than totalizing. The paper need not claim that structural and experiential are the only adequacy axes possible in every domain. It claims only that they are a lower bound in subject-process domains. Structural adequacy alone is not enough, and experiential adequacy is not reducible to it without loss. Additional axes may later have to be introduced, especially in institutionally thick or normatively complex domains.
+
+That concession does not weaken the main result. The paper does not need a final adequacy taxonomy. It needs only the narrower claim that in subject-process domains structural and experiential adequacy already fail to collapse into one another. That lower-bound claim is enough for the theory's present purposes.
+
+\subsection{Objection 6: The Process Claim Overreaches}
+
+A sixth objection targets the theory's process language more directly. Even if process is a useful way for finite beings like us to render reality, why think reality itself is processual in any robust sense? Might process simply be our best embedded disclosure format rather than reality's final form? If so, perhaps the paper still overclaims whenever it sounds like a strong process ontology.
+
+This objection should be granted in part, because it identifies exactly the place where unnecessary critique can arise. The theory does not need to prove that every coherent rendering of reality, including some radically non-embedded rendering if such a thing were possible, would also disclose reality under processual terms. Its claim is narrower and more disciplined: for finite embedded beings such as ourselves, reality is most adequately disclosed under processual rather than static terms.
+
+That qualification is not a retreat from the theory's core. It is a clarification of scope. The paper's central result concerns adequacy under finite disclosure in subject-process domains. That result does not depend on ruling out every imaginable non-embedded rendering. It depends only on showing how reality is disclosed for beings like us and why, under those conditions, adequacy fails to collapse in some domains.
+
+The objection therefore improves the theory by forcing a cleaner statement of its ontological modesty. The process claim should be read as a disclosure-privileged ontological orientation for finite embedded beings, not as an unwarranted declaration that the final structure of reality has been settled from nowhere.
+
+\subsection{Objection 7: Reflexive Coupling Explains Too Much}
+
+A seventh objection is that reflexive coupling threatens to become an all-purpose solvent. Once descriptions can affect what they describe, perhaps every limitation can be redescribed as reflexive. If so, reflexivity stops clarifying anything and becomes a universal fallback explanation for every failure of representation.
+
+That would indeed be a failure. A concept that explains everything too quickly usually explains very little.
+
+The theory therefore restricts reflexive coupling to feedback-responsive domains where descriptions enter behavior, governance, treatment, institutional handling, or self-understanding. Reflexivity is not a universal explanation of descriptive limitation. It is a distinct pressure that matters in some domains and not in others. A weather model, for example, may disclose a storm without thereby altering the storm in the sense relevant here. By contrast, a diagnosis, score, classification, or institutional record may reorganize the very subject-process domain it purports merely to describe. This more limited claim is supported by cybernetic traditions and by Hacking's account of looping effects, both of which emphasize that some descriptive practices become causally active in the domains they classify \cite{Bateson1972,Pask1975,Hacking1995}.
+
+The objection is therefore answered only if reflexive coupling remains tightly scoped. It is not the master explanation of the whole theory. It is a further pressure that sharpens the stakes once disclosure feeds back into the domain disclosed.
+
+\subsection{Objection 8: The Theory Smuggles in Normativity}
+
+A final objection is that the paper presents itself as ontological and disclosure-theoretic while quietly importing moral or political conclusions. To say that structural-only authority is ``suspect'' may seem to smuggle in a prior normative stance under the cover of adequacy language.
+
+This objection should be taken seriously, because many theories drift from description into evaluation without clearly marking the transition.
+
+The reply is that the paper makes only a thin downstream claim. Once one grants that lived significance is part of what must be adequately disclosed in subject-process domains, a representation that systematically erases it becomes inadequate in a domain-relevant way. The negative evaluation follows from the adequacy claim itself. It does not require a hidden moral axiom beyond the theory's own terms. Work on epistemic injustice and classificatory harm helps show how such inadequacies can become practically serious without forcing us to collapse the present paper into a full moral theory \cite{Fricker2007,BowkerStar1999}.
+
+That said, the paper should not pretend that adequacy and normativity are identical. The argument here is limited. It shows why structural-only authority becomes presumptively suspect in certain domains when overextended beyond its scope. It does not yet provide a full ethics, politics, or institutional program. The normative consequence is real, but it is thin, derivative, and explicitly downstream of the ontological and disclosure-theoretic argument.
+
+The theory therefore survives the objection only by remaining disciplined: enough normative consequence to be honest about what follows, but not so much that the paper secretly turns into a moral theory it has not yet earned.
+\section{Scope Conditions, Limits, and Residues}
+
+A theory of this kind becomes less credible, not more, if it presents itself as universally explanatory. The present argument is intentionally narrower than that. Its task is not to explain everything that matters about mind, institutions, or mediated judgment. Its task is to state and defend one specific structural claim: for finite embedded beings, one ontologically unified reality may require non-collapsible adequacy constraints under finite disclosure in subject-process domains. That claim has real consequences, but it also has clear scope limits.
+
+\subsection{Scope Conditions}
+
+The theory applies where three conditions jointly matter:
+\begin{itemize}
+    \item reality is most adequately disclosed under processual rather than static substantial terms for finite embedded beings,
+    \item disclosure is finite and conditioned by cut, scope, interface, level, purpose, and standpoint,
+    \item and the domain at issue is a subject-process domain in which lived significance is constitutively relevant to adequate disclosure.
+\end{itemize}
+
+For that reason, the framework is especially relevant where the target domain involves embodied minded life, lived vulnerability, mediated representation, or feedback-responsive systems of judgment, treatment, and classification. It is strongest where structural renderings are operationally powerful yet still plausibly incomplete in ways that matter to interpretation, response, or authority.
+
+The paper is not, however, a claim about every domain equally. Some domains may be adequately handled by overwhelmingly structural cuts for many purposes. The argument does not deny this. It denies only the stronger inference that ontological unity therefore guarantees one sufficient cut across all domains. The theory is thus domain-sensitive rather than universal in any flat sense.
+
+The same point also applies to the paper's process language. The argument does not require the stronger claim that every possible rendering of reality, including some radically non-embedded rendering if such a thing were coherent, would also have to disclose reality under processual terms. Its narrower claim is enough: for finite embedded beings such as ourselves, process is the most adequate primitive under which reality is disclosed.
+
+\subsection{Principled Limits of the Paper}
+
+Some limits of the argument are principled rather than accidental. They arise from the kind of theory this is.
+
+First, the paper is an upstream ontological and disclosure-theoretic argument. It is not meant to serve as a full ethics, a complete politics, or a finished institutional theory. It explains why certain downstream problems arise, not how every one of them should be resolved.
+
+Second, the paper is not a full science of consciousness. It does not attempt to derive subjectivity from first principles or to solve every explanatory problem associated with minded life. Its claim is narrower: subject-process domains generate non-collapsible adequacy pressures under finite disclosure.
+
+Third, the paper does not offer a universal adequacy calculus. It argues that adequacy is cut-bound, scoped, and non-collapsible in some domains, but it does not pretend to provide a general metric that would settle every adequacy dispute in a formal way.
+
+Fourth, the paper does not claim to settle the final metaphysical form of reality from nowhere. It is concerned with how reality is most adequately disclosed for finite embedded beings, not with closing off every imaginable non-embedded rendering in advance.
+
+These limits are not signs that the theory has failed to complete itself. They are part of what it means for the theory to remain non-totalizing and properly upstream. A paper that tried to do all of those jobs at once would likely become less disciplined, not more.
+
+\subsection{Current Research Gaps}
+
+Other limits are not principled in the same way. They mark places where the theory still needs strengthening.
+
+First, the exact criterion for subject-process remains sharper than in earlier drafts but not yet fully grounded. The entry conditions now constrain the category, but they do not amount to a complete account of why some process-patterns count as subjects in the relevant sense.
+
+Second, experiential adequacy is more disciplined than before, but still not fully formalized. The distinctions among phenomenal, agential, and valuational-burden adequacy are clearer, yet the theory still lacks a more exact account of how these dimensions are to be compared, weighted, or operationalized across domains.
+
+Third, the relation between structural and experiential adequacy has been clarified, but not mathematized in any finished sense. The paper explains why they fail to collapse under finite disclosure in subject-process domains, but it does not yet provide a formal model of that non-collapse.
+
+Fourth, the theory's relation to broader questions of mental causation, consciousness, and formal epistemology remains incomplete. The present framework is meant to clarify the terrain on which those issues appear, not yet to close them.
+
+Fifth, the status of radically non-embedded rendering remains deliberately open. The paper brackets that question rather than pretending to resolve it, but doing so leaves a visible philosophical remainder concerning how far embedded process language should be treated as ontological, disclosure-relative, or both.
+
+These are genuine research gaps. They are not fatal to the current argument, but they do mark where the theory is still under construction.
+
+\subsection{Visible Residue}
+
+The theory therefore leaves visible residue in a strong sense. It does not merely defer generic future work. It leaves behind specific unresolved tensions and unfinished tasks.
+
+Among the most important are:
+\begin{itemize}
+    \item the need for a more exact account of subject-process,
+    \item the need for a sharper formal or quasi-formal treatment of adequacy,
+    \item the need for a more explicit account of how structural and experiential residue interact across domains,
+    \item the need for a clearer articulation of how the theory should connect to downstream frameworks without either collapsing into them or pretending to replace them,
+    \item and the need for a more disciplined statement of how process language functions when the paper leaves radically non-embedded renderings open.
+\end{itemize}
+
+These residues are not defects to be hidden. They are part of the theory's present frontier. Making them visible is not a concession of weakness, but part of the paper's discipline. A theory that claims to explain one reality under finite conditions should not pretend to have eliminated all remainder from its own account.
+\section{Implications and Future Work}
+
+If the framework developed here is broadly right, its consequences extend beyond the immediate dispute between reductive monism and dualism. The paper's central claim is not only that one ontologically unified reality can generate non-collapsible adequacy constraints under finite disclosure, but that several surrounding debates must be re-posed once that possibility is taken seriously. The point is not merely that finite beings know partially. It is that for finite embedded beings, reality is most adequately disclosed under processual rather than static terms, and that in some domains this disclosure generates more than one necessary adequacy demand.
+
+The first implication is metatheoretical. Monist theories should stop assuming that ontological unity automatically yields descriptive sufficiency. One world need not imply one adequate cut. That point does not weaken monism. It disciplines it. It blocks the tendency to move too quickly from ``there is one reality'' to ``there must therefore be one sufficient descriptive vocabulary.'' If the present argument is right, the real pressure point is not whether reality divides, but whether finite disclosures of one reality can be presumed to collapse into one adequacy regime across every relevant domain \cite{Nagel1986,Levine1983,Chalmers1995}.
+
+The second implication concerns philosophy of mind. The familiar opposition between reductionism and dualism may be partly distorted by a failure to distinguish ontology from adequacy. If that distinction is not kept explicit, the debate repeatedly forces a false choice: either structural description must eventually say everything that matters, or lived significance must signal some deeper metaphysical split. The present framework suggests a different framing. The relevant question is not only what kind of reality there is, but what kind of adequacy conditions finite disclosure of subject-process domains must satisfy. That shift does not solve every problem in philosophy of mind, but it does reorganize the terrain on which those problems appear \cite{Nagel1974,Levine1983,Chalmers1995}.
+
+The third implication concerns institutions, classification systems, and model-mediated forms of judgment. If structural and experiential adequacy can fail to collapse in subject-process domains, then systems that operate through records, scores, categories, and profiles should be more explicit about scope, residue, and the risk of overextension. A representation may be locally adequate for routing, prediction, comparison, or intervention while still becoming misleading when granted broader authority. The present paper does not yet provide a full theory of institutional correction or ethical design, but it does clarify why such systems are structurally vulnerable to treating one cut as if it exhausted the reality on which they act \cite{BowkerStar1999,Fricker2007,ONeil2016,Eubanks2018,ObermeyerEtAl2019}.
+
+A further implication concerns the status of process language itself. If the paper is right, then process should be treated not as a final God's-eye verdict on reality, but as the most adequate primitive under which reality is disclosed for finite embedded beings. That qualification matters. It allows the theory to remain ontologically serious without pretending to have ruled out every imaginable radically non-embedded rendering in advance. In that sense, the paper's process claim is both strong and disciplined: strong enough to orient disclosure for beings like us, disciplined enough not to mistake that orientation for exhaustive closure.
+
+Several directions for future work follow from this.
+
+One direction is formal. The framework could be sharpened by developing a more explicit operator account of cuts, residue, scope, and adequacy. The current paper has argued that these are real structural features of finite disclosure, but it has not yet provided a full formal treatment of how they interact. Even a partial formalization would strengthen the view considerably.
+
+A second direction concerns subject-process classification. The present paper offers constrained entry conditions, but those conditions still need further grounding. Future work should refine the criteria for subject-process domains and explain more clearly how self-maintenance, world-coupling, stake-structure, and lived significance hang together. Here process ontology, metastability research, and situated accounts of knowledge may prove especially useful in sharpening the relation between organized persistence and domain-relevant lived perspective \cite{Whitehead1978,Rescher1996,TognoliKelso2014,Haraway1988,Polanyi1958}.
+
+A third direction concerns adequacy itself. The relation between structural and experiential adequacy has been clarified conceptually, but future work should test how far they can be comparatively modeled without collapsing one into the other. This could involve quasi-formal work, case-based comparison, or even limited empirical and diagnostic applications in domains where subject-processes are institutionally mediated. Work on looping effects, cybernetics, and classificatory feedback may be especially useful here because such domains make adequacy failure operational rather than merely theoretical \cite{Bateson1972,Pask1975,Hacking1995}.
+
+A fourth direction concerns the boundary between embedded and radically non-embedded rendering. The present paper leaves that boundary open rather than pretending to settle it. Future work could ask whether process remains merely the best disclosure primitive for beings like us, or whether stronger ontological claims can be justified without reintroducing the very overreach the theory warns against. That question should be approached carefully, because it marks the line between a disciplined disclosure-oriented ontology and a premature claim to metaphysical finality.
+
+A fifth direction is architectural. The present framework can be connected more explicitly to broader projects concerning constrained describability, institutional mediation, ethics, and epistemic design. But those downstream projects should remain downstream. The contribution of this paper is upstream: it clarifies the ontological and disclosure-theoretic conditions that make those later problems intelligible. Its role is not to replace those theories, but to make clearer why they are needed and what kind of reality they are responding to.
+
+The main future task, then, is not to make this framework explain everything. It is to develop it further without sacrificing the discipline it recommends: sharper criteria, clearer scope, stronger formal handles where possible, and visible residue where not.
+\section{Conclusion}
+
+\subsection{Main Result}
+
+The main result of this paper is a sharper account of how ontological unity can coexist with non-collapsible adequacy conditions under finite disclosure. The paper has argued that reality is one, but that for finite embedded beings it is most adequately disclosed under processual rather than static terms. It has also argued that disclosure is never transparent possession of the real, but always proceeds through conditioned cuts shaped by standpoint, interface, level, purpose, and finitude. In subject-process domains, such cuts cannot be presumed to preserve both structural organization and lived significance without residue. Structural adequacy and experiential adequacy therefore function as jointly necessary but non-collapsible lower bounds of adequate disclosure, without implying any bifurcation of being.
+
+This result matters because it clarifies a relation that is often blurred in surrounding debates. Ontological unity is a claim about being. Adequacy is a claim about disclosure under conditions. Once those are kept distinct, it becomes possible to say something stronger and more disciplined than either reductionist sufficiency or dualist division allows. One reality need not imply one sufficient cut. In that sense, the paper's contribution is not to reject the pressures identified by philosophy of mind, situated epistemology, or process ontology, but to show how they can be held together without collapsing into either structural flattening or metaphysical duplication \cite{Whitehead1978,Rescher1996,Haraway1988,Nagel1974,Levine1983}.
+
+\subsection{Broader Significance}
+
+The broader significance of the theory is that it blocks a false choice. We do not have to choose between structural sufficiency and metaphysical division. We can instead say: one world, finite embedded disclosure, conditioned cuts, real residue, and domain-specific adequacy non-collapse.
+
+That shift matters not only for metaphysics and philosophy of mind, but also for any domain in which representations become operationally authoritative. Once it is clear that some domains cannot be presumed to be adequately disclosed by one structurally powerful rendering alone, it also becomes clearer why overextension, institutional misfit, and model-mediated distortion recur so persistently. The point is not that structure is unreal or illegitimate. The point is that adequacy can fail to collapse even where ontology does not divide. This is one reason the framework has relevance beyond foundational theory, including for classification systems, institutional records, and model-mediated governance \cite{BowkerStar1999,Fricker2007,ONeil2016,Eubanks2018,ObermeyerEtAl2019}.
+
+Just as importantly, the paper has tried to remain disciplined about its own scope. It has not argued that process must be the final form of every possible rendering of reality. It has argued something narrower: for beings like us, reality is most adequately disclosed under processual rather than static terms, and once that embedded condition is taken seriously, adequacy in some domains cannot be presumed to collapse into one sufficient descriptive regime. That qualification does not weaken the result. It makes the result more defensible.
+
+\subsection{Final Claim}
+
+The final claim of the paper is therefore this:
+
+\begin{quote}
+Embedded Process is the thesis that reality is ontologically one, but that for finite embedded beings it is most adequately disclosed under processual terms, and that finite disclosure of subject-process domains proceeds through conditioned cuts that cannot be presumed to preserve both structural organization and lived significance without residue. Structural and experiential adequacy therefore remain jointly necessary yet non-collapsible lower bounds of adequate disclosure, without implying any bifurcation of being.
+\end{quote}
+
+The paper's most compact result can be stated even more simply: one reality does not imply one sufficient cut.
+
+If that is right, the task is not to escape mediation or multiply worlds. It is to disclose one world more honestly under finite conditions.
+
+\appendix
+
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/process_mono/mono}
+\section*{Rights and Contact}
+
+\noindent Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+\noindent DOI: \href{https://doi.org/10.5281/zenodo.19042695}{10.5281/zenodo.19042695}
+
+\noindent For correspondence, comments, or citation inquiries: \href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}.
+\end{document}

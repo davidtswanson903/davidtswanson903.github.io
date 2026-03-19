@@ -1,0 +1,800 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Structure in Reality}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Structure in Reality}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\title{\textbf{Structure in Reality}\\
+\large Organized Articulation, Constraint, and the Disclosure-Relevance of Real Form}
+\author{David T. Swanson}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Many theories rely on the notion of structure while leaving its status unclear. At different moments, structure is treated as a feature of description, a vague name for formal order, or a surrogate for reality as such. These alternatives each capture something important, but none explains cleanly how finite renderings can be partial yet answerable: how they can misfit what they render, be corrected in light of that misfit, and remain non-arbitrary without exhausting what they disclose. This paper argues for a more disciplined account. Structure is the organized, constraint-bearing articulation of reality: that in reality which is sufficiently differentiated, related, organized, and stable across admissible transformation for finite disclosure to be answerable rather than arbitrary. Structure is therefore real and disclosure-relevant without being identical either to any one rendering or to reality as a whole. The paper clarifies the load-bearing moments of structure---distinction, relation, organization, constraint, and invariance---and argues that finite renderings succeed by partially preserving structure rather than inventing what they render wholesale. On that basis, it explains how misfit and correction are possible, why formalization can be especially powerful where transportable invariances are strong, and how one shared reality can support many non-equivalent renderings without collapsing into either descriptive arbitrariness or one final exhaustive vocabulary. The paper does not defend a complete structuralist metaphysics, a full process ontology, or a final taxonomy of structural kinds. Its narrower aim is to establish structure as a real, bounded, and theoretically indispensable object of inquiry.
+\end{abstract}
+\pagebreak
+\section{Introduction}
+
+\subsection{Motivating Problem}
+
+Many theories rely on the notion of \emph{structure} while leaving its status unclear. Scientific models are said to preserve structure across idealization, scale shift, and redescription; institutional records, scores, and classifications are said to capture the structure of a case strongly enough for coordination or intervention; and formal or mathematical systems are often treated as especially powerful because they disclose stable, transportable structural features of their domains. Yet in each of these settings the term itself often remains underdefined. It is made to do substantial philosophical work even when its meaning is left largely implicit. \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP,BowkerStar1999SortingThingsOut}
+
+This is not merely a terminological inconvenience. If the status of structure remains unclear, then the ontology presupposed by theories of modeling, formalization, classification, and mediated representation also remains unclear. The issue is not just what our descriptions happen to preserve, but what reality must be like if finite descriptions are to preserve anything real rather than merely stabilizing useful internal order. Until that point is clarified, a number of familiar theoretical distinctions remain unstable: between misfit relative to reality and mere local inconvenience, between correction and replacement, and between plural disclosure of one world and arbitrary variation across schemes.
+
+The pressure on the concept of structure tends to pull in at least three unsatisfactory directions.
+
+First, structure is sometimes treated as little more than a property of description. On this view, to speak of structure is simply to speak of whatever a model, language, classification, or formalism happens to preserve. That thought captures something real: descriptions do preserve selective features of what they disclose. But if structure is only a feature of description, then it becomes difficult to explain why a rendering can genuinely misfit reality, why correction can be more than internal scheme revision, or why finite disclosure can be answerable to something not exhausted by its own descriptive products. \cite{Chakravartty2011ScientificRealismSEP,FriggNguyen2021ScientificRepresentationSEP}
+
+Second, structure is sometimes inflated into a total surrogate for reality as such. On this stronger temptation, reality is treated as if it were simply structure, full stop, or as if one shared reality should therefore admit one privileged descriptive horizon. That move preserves the thought that structure is real and load-bearing, but it risks flattening descriptive plurality, obscuring remainder, and making it too easy to slide from one reality to one sufficient vocabulary. \cite{Ladyman1998WhatIsStructuralRealism,Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism}
+
+Third, structure is often weakened into vague pattern-talk. A domain is said to have structure whenever it exhibits some order, regularity, or repeatability. But that language is too thin unless it is sharpened. Mere pattern-talk does not yet distinguish organized articulation from accidental resemblance, deep constraint from surface repetition, or preservable form from local similarity.
+
+These distortions matter because real theoretical stakes depend on how the term is handled. A scientific model may preserve some relations of a system while omitting others and yet still count as disclosing something real. An institutional record may preserve enough of a case for routing or adjudication while still flattening features that matter to the case. A formal system may latch onto especially stable invariances and therefore travel with unusual power across domains, even though it does not thereby exhaust what it renders. In each of these cases, the language of structure is doing substantive work. The problem is that the work is often done without a sufficiently clear account of what structure itself must be. \cite{FriggHartmann2025ModelsScienceSEP,FriggNguyen2021ScientificRepresentationSEP,BowkerStar1999SortingThingsOut}
+
+The aim of this paper is to address that problem directly. Its guiding claim is that structure should be treated neither as a mere feature of description nor as a total synonym for reality. What is needed instead is a more disciplined account of structure as a reality-side object: real enough to ground answerability, determinate enough to support misfit and correction, and bounded enough not to collapse one world into one final descriptive form.
+
+\subsection{Central Question}
+
+The central question of this paper is:
+
+\begin{quote}
+What is structure in reality, such that finite renderings can latch onto it, misfit it, and sometimes correct themselves relative to it?
+\end{quote}
+
+This question is narrower than a general defense of realism and more basic than disputes about which model, formalism, or vocabulary is best. The paper does not ask first whether inquiry reaches reality in some unrestricted sense. It asks what reality must be like if finite rendering is to be answerable in the stronger sense: if some renderings preserve more than others, if failure can be reality-relative rather than merely internal to a scheme, and if correction can be more than replacement. If those stronger notions are to make disciplined sense, then structure cannot remain a loose metaphor. It must name something real and theoretically tractable. \cite{Chakravartty2011ScientificRealismSEP,FriggNguyen2021ScientificRepresentationSEP}
+
+\subsection{Main Proposal}
+
+The paper's central proposal is the following:
+
+\begin{quote}
+Structure is the organized, constraint-bearing articulation of reality. It is real rather than merely projected, disclosure-relevant rather than inert, and non-exhaustive of reality rather than identical with reality as a whole. Finite renderings succeed by partially preserving structure under determinate conditions.
+\end{quote}
+
+More fully, the paper argues that structure is what in reality remains sufficiently differentiated, related, organized, and stable across admissible transformation for finite disclosure to be answerable rather than arbitrary. A rendering does not succeed because it invents order wholesale, nor because it mirrors reality in full, but because it preserves some articulation of reality under determinate conditions of purpose, level, interface, and scope. Structure is therefore what renderings latch onto when they succeed, even though no rendering exhausts it.
+
+\subsection{Distinctive Contribution}
+
+The paper's contribution is a disciplined middle position between several familiar alternatives. It rejects a purely descriptivist treatment of structure, on which structure is nothing over and above what successful representations happen to preserve. That view can explain scheme-relative usefulness, elegance, or operational success, but it struggles to explain stronger reality-relative misfit and correction. It also rejects stronger structural totalisms on which reality is simply structure without remainder. Those views preserve realism about structure, but they sit less comfortably with selective disclosure, descriptive plurality, and the standing possibility that no one rendering exhausts what is being disclosed. Finally, it rejects vague pattern-talk, which is too thin to distinguish deep, constraint-bearing organization from surface regularity.
+
+What the paper offers instead is a bounded realist account of structure. That account is meant to explain four things at once.
+
+First, it explains \emph{answerability}. If reality exhibits real structure, then renderings can succeed or fail relative to something not exhausted by themselves.
+
+Second, it explains \emph{misfit}. A rendering can preserve some structure while distorting, flattening, or omitting other structure that matters to reality as rendered under the conditions at issue.
+
+Third, it explains \emph{correction}. If renderings answer to real structure, then revision can be more than internal reorganization or pragmatic replacement.
+
+Fourth, it explains \emph{plurality without arbitrariness}. Many non-equivalent renderings can disclose one reality because each preserves some structure under determinate conditions without exhausting reality as a whole. \cite{Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism,Ludwig2021ScientificPluralismSEP}
+
+The claim, then, is not merely that structure is an important word. It is that clarifying structure helps explain how finite renderings can be both partial and answerable, how one reality can support many legitimate disclosures, and why descriptive plurality need not collapse into either arbitrariness or one final exhaustive scheme.
+
+\subsection{Roadmap}
+
+Section 2 situates the proposal against nearby but insufficient ways of treating structure, including descriptivist, diffuse, and totalizing framings. Section 3 introduces the paper's core definitions and distinctions and clarifies the status of its load-bearing vocabulary. Section 4 develops the main theory and argues that structure is best understood as organized, constraint-bearing articulation in reality. Section 5 explains why this account is needed and what confusions it resolves in debates about description, formalization, mediation, and preservation. Section 6 shows the framework's explanatory payoff across scientific modeling, formal disclosure, institutional representation, and processually maintained entities. Section 7 addresses the strongest objections. Section 8 states the paper's scope conditions, limits, and visible residues. Section 9 sketches implications and future work. Section 10 concludes.
+
+\section{Background and Rival Framings}
+
+The question pursued in this paper does not arise in isolation. It sits near several familiar ways of talking about structure, each of which captures something important while leaving the central issue underdescribed. The problem is not that these neighboring framings are simply false. It is that each tends to collapse one distinction the present argument needs to keep clear: between structure and description, between structure and reality-as-a-whole, or between structure and mere pattern. This section clarifies those pressures and locates the paper's position more precisely.
+
+\subsection{Structure as Mere Description}
+
+One familiar temptation is to treat structure as nothing over and above what descriptions, models, theories, or formalisms happen to preserve. On this view, talk of structure is ultimately shorthand for representational success: what a language marks, what a model carries forward, what a theory organizes, or what a classificatory regime renders tractable. Structure is therefore not a reality-side object in any robust sense. It is instead a feature of how finite describers impose order, preserve relations, or stabilize intelligibility within representational practice. \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP}
+
+This temptation is not groundless. Descriptions do indeed preserve selectively under determinate conditions. A scientific model may preserve causal or dynamical relations while ignoring local detail. A map may preserve navigational layout while omitting material composition. An institutional file may preserve those features of a case required for routing, classification, or adjudication. Representational practices are therefore not passive mirrors; they actively shape what becomes visible, comparable, and transportable. Any account of structure that ignored this would be naive. \cite{FriggNguyen2021ScientificRepresentationSEP,BowkerStar1999SortingThingsOut}
+
+But the descriptivist reduction remains too weak. A descriptivist can explain scheme-relative usefulness, internal coherence, elegance, or operational success. What such a view explains less well is stronger reality-relative failure. Why is one model not merely less useful than another, but wrong about the domain it purports to disclose? Why is one file not merely thinner than another, but distortive of the case? Why can correction be more than replacement of one workable scheme by another? \cite{Chakravartty2011ScientificRealismSEP}
+
+These questions generate real pressure. Practices of misfit and correction seem to require more than description-relative structure. They seem to require that renderings answer to something real enough to resist them, constrain them, and sometimes expose their inadequacy. If structure is reduced wholly to what descriptions preserve, then answerability weakens, because what is disclosed risks collapsing into the descriptive product itself. The result is not merely a thinner ontology. It is a weaker account of why failure and correction are possible at all.
+
+\subsection{Structure as the Whole of Reality}
+
+A second temptation moves in the opposite direction. Here structure is treated not as a mere feature of description but as the whole of reality itself. On this stronger structuralist picture, to ask what reality is is simply to ask what structure there is. Structure becomes the final ontological vocabulary, and the distinction between reality and its structural articulation either disappears or becomes trivial. Positions in and around structural realism often supply the pressure behind this move, especially where the reality of structure is emphasized against both descriptivism and naive substance-based pictures. \cite{Ladyman1998WhatIsStructuralRealism,Chakravartty2011ScientificRealismSEP}
+
+This framing also captures something important. Structure is not merely projected by descriptions. Reality is not a formless substrate waiting passively for conceptual imposition. Distinctions, relations, invariances, and constraints are not fictional. They are load-bearing features of what renderings answer to when they succeed. Any serious theory of disclosure has to grant at least that much.
+
+But the stronger identification of reality with structure in toto introduces a different problem. Once structure becomes the whole of reality without remainder, it becomes harder to explain why finite renderings remain selective, why no one rendering exhausts another, and why disclosure is conditioned by scope, level, purpose, interface, and transformation. The risk is not only metaphysical overreach. It is also descriptive flattening. If reality simply \emph{is} structure full stop, then it becomes too easy to treat one favored structural rendering as if it stood closer to exhaustive disclosure than finite conditions actually warrant.
+
+This pressure appears in at least two forms. First, the view can slide toward the thought that one reality should eventually admit one privileged structural horizon, even if present inquiry has not yet reached it. Second, it makes it harder to account for selective preservation, plurality of renderings, and remainder. Even if what different renderings disclose is structural in a broad sense, that concession does not yet explain why disclosure remains non-exhaustive or why different renderings preserve different articulations of one reality. A theory that identifies reality and structure too quickly therefore risks obscuring the very phenomena it should help clarify. \cite{Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism,Ludwig2021ScientificPluralismSEP}
+
+The present paper therefore accepts realism about structure while rejecting the inference from realism about structure to exhaustivism about structure. It grants that structure is real and disclosure-relevant, but denies that this forces the conclusion that reality is nothing but structure or that one rendering must eventually exhaust all that structure makes available.
+
+\subsection{Structure as Vague Pattern-Talk}
+
+A third framing weakens the concept in another direction. Instead of treating structure as merely descriptive or as identical with the whole of reality, it treats structure as a loose synonym for pattern, order, or regularity. On this view, to say that something has structure is only to say that it is not wholly chaotic or undifferentiated.
+
+This usage has rhetorical convenience, but it is too weak for the work the present paper needs structure to do. Pattern-talk by itself does not distinguish shallow repetition from organized articulation, accidental recurrence from constraint-bearing order, or surface similarity from preserved form. It can register that something is arranged somehow, but not what makes that arrangement load-bearing for disclosure, preservation, and correction.
+
+For that reason, pattern-talk needs sharpening. A serious account of structure must say more about how distinctions are organized, how relations are maintained, what invariances persist across transformation, and how constraints shape what can occur and what can be rendered. Without those further determinations, the notion of structure remains too indeterminate to explain answerability, misfit, correction, or the plurality of finite renderings of one reality. Pattern is part of the terrain, but it is not yet the object.
+
+\subsection{The Paper's Position}
+
+The position defended in this paper moves between these alternatives. It rejects the reduction of structure to a mere property of description, because finite renderings appear genuinely answerable to something beyond themselves. It rejects the immediate identification of structure with the whole of reality, because finite disclosure remains selective, scoped, and non-exhaustive. And it rejects vague pattern-talk, because the concept of structure must be sharp enough to explain why some renderings succeed, why others misfit, and how correction is possible.
+
+The paper's positive proposal is therefore that structure is \emph{real, disclosure-relevant, and non-exhaustive}. It is real in that it belongs to reality rather than being merely projected by description. It is disclosure-relevant in that finite renderings succeed by partially preserving it under determinate conditions. And it is non-exhaustive in that structure is not simply identical with reality as a whole in a way that erases plurality of renderings or the non-total character of finite disclosure.
+
+More precisely, the paper treats structure as the organized, constraint-bearing articulation of reality: what remains sufficiently differentiated, related, organized, and stable across admissible transformation for finite renderings to latch onto it, misfit it, and sometimes correct themselves relative to it. This account is meant to preserve answerability without collapsing into one final descriptive horizon, and to preserve plurality without weakening reality into mere framework-local order.
+
+The question, then, is not whether structure exists, but what account of it best explains answerable yet non-exhaustive rendering. The remainder of the paper argues that structure is best understood neither as a feature of description nor as an exhaustive surrogate for reality, but as a bounded reality-side object that makes selective preservation, misfit, and correction intelligible.
+\section{Core Definitions and Distinctions}
+
+This section fixes the paper's core vocabulary. The aim is not terminological expansion for its own sake, but ontological and disclosure-theoretic discipline. The argument depends on distinguishing reality from its renderings, organized articulation from descriptive convenience, and invariant form from both vague pattern-talk and total metaphysical flattening. The terms introduced here should be read as a \emph{provisional explanatory decomposition} of structure adequate to the burden of this paper, not as a final and unrevisable metaphysical inventory. Some are closer to strict primitives than others; all are included because the argument cannot proceed without the explanatory work they do.
+
+\subsection{Reality}
+
+\emph{Reality} is the shared, constraint-bearing field of disclosure. It is what renderings purport to disclose, what can resist inadequate description, and what makes correction more than internal revision within a symbolic or practical scheme. The term is used here in a disciplined but minimal realist sense. The paper does not attempt a complete metaphysics of everything real. It requires only the stronger-than-pragmatic claim that disclosure answers to something not exhausted by the rendering itself. \cite{Chakravartty2011ScientificRealismSEP,Putnam1983RealismReason}
+
+This is not meant as a full defense of metaphysical realism. It is the minimum realist commitment required for strong answerability. The present argument needs no more ambitious claim than that there is a shared reality whose articulation is not created by the rendering that attempts to disclose it.
+
+This definition matters because the paper's account of structure is reality-first rather than description-first. Structure is not introduced as a feature of language, model-building, or formalism alone. It is introduced as belonging to reality insofar as reality is articulated strongly enough to constrain what can occur and what can be rendered.
+
+\subsection{Articulation}
+
+\emph{Articulation} names reality insofar as it is not undifferentiated fullness but exhibits differentiable, trackable, and organized form. The term is useful because it avoids two opposite errors. It avoids the thought that reality is simply a raw substrate onto which order is projected. And it avoids the premature claim that reality is already fully capturable in one complete formal vocabulary.
+
+Articulation therefore marks reality as renderable without implying total descriptive availability. It is the general condition under which distinction, relation, organization, and invariance can be real rather than merely imposed. In the present framework, \emph{structure} is a more determinate specification of articulation, not a synonym for it. Articulation names the broader renderability of the real; structure names articulation once it is sufficiently organized, constrained, and stable to support preservable form.
+
+\subsection{Distinction}
+
+A \emph{distinction} is a real articulable difference within reality. Distinctions make it possible to pick out, separate, compare, track, and identify features, states, regions, or processes of the real. Without real distinction, no disclosure could succeed, because nothing could count as discriminable from anything else.
+
+Distinction should not be confused with absolute separation. To distinguish is not necessarily to isolate into self-subsistent atoms. It is enough that there be a real differentiability such that one feature, process, or state is not simply the same as another. Distinction is therefore among the theory's most basic conditions of structure.
+
+\subsection{Relation}
+
+A \emph{relation} is a real mode of connectedness, dependence, ordering, interaction, or co-determination among distinguishable features, regions, or processes. If distinction prevents reality from collapsing into featureless sameness, relation prevents it from collapsing into a mere heap of disconnected differences.
+
+Relation is stronger than mere adjacency or coexistence. Two items may stand side by side without entering into any load-bearing relation relevant to disclosure. A relation, by contrast, helps determine how distinguishable features hang together, constrain one another, transform together, or compose larger organized wholes. \cite{LadymanRoss2007EveryThingMustGo}
+
+\subsection{Organization}
+
+\emph{Organization} is the patterned arrangement or maintained articulation of distinctions and relations such that they form an intelligible order rather than a scattered aggregate. Organization is what allows distinctions and relations to compose structures rather than remaining a loose collection of disconnected features.
+
+This concept matters because structure is not exhausted by the mere existence of differences and connections. There must also be some patterned ordering or maintained articulation that makes those differences and relations cohere into a disclosure-relevant whole. Organization therefore marks the difference between a structured domain and a mere heap.
+
+The paper does not settle whether organization is strictly primitive or partly analyzable in terms of distinction, relation, and constraint. For present purposes it functions as a load-bearing moment of the account. The argument needs organization because without it one can have difference and connection without yet having preservable form.
+
+\subsection{Constraint}
+
+\emph{Constraint} is the reality-imposed shaping or limitation of what states, transformations, or disclosures are possible. Constraint is not merely negative blockage. It is also what gives organization and articulation their load-bearing character. A domain is structured not only because it contains differences and relations, but because not everything can be combined, transformed, or disclosed in any arbitrary way.
+
+Constraint is therefore central to the paper's account of structure. It is what makes structure answerable and non-arbitrary. A rendering succeeds or fails partly because reality constrains what can count as a faithful preservation of organized form. \cite{Wimsatt2007ReEngineeringPhilosophyBiology}
+
+It is possible that later work will show constraint to be even more fundamental than the present exposition fully acknowledges. The current paper does not need to settle that question. It needs only the weaker claim that without constraint, organization risks collapsing into accidental arrangement and disclosure into unconstrained redescription.
+
+\subsection{Invariance}
+
+\emph{Invariance} is the preservation of relevant form across admissible transformation. It is what remains stable enough for something structural to be tracked as the same organized feature under change, redescription, rescaling, coordinate shift, or lawful variation. \cite{Cassirer1953SubstanceFunction,Nozick2001Invariances}
+
+Invariance does not mean absolute sameness in every respect. It means that some relevant organization is preserved strongly enough across transformation for reidentification, comparison, and correction to be possible. Invariance is therefore one of the main reasons structure can be disclosed by multiple finite renderings without collapsing into mere descriptive projection.
+
+\subsection{Transformation}
+
+A \emph{transformation} is any change, redescription, reparameterization, variation, scaling, or reordering under which invariance is tested. The term matters because invariance is unintelligible without some domain of transformation relative to which preservation can be assessed.
+
+Transformation need not mean only temporal change in the world. It may also include shifts of representation, model form, institutional schema, coordinate system, or descriptive perspective. What matters is that something has changed and that one can still ask whether some relevant organization has remained stable through that change.
+
+In the present framework, transformation functions less as a coequal primitive than as a necessary test-space for invariance. The paper includes it explicitly because preservable form cannot be understood without some account of what counts as change relative to which preservation is meaningful.
+
+\subsection{Structure}
+
+\emph{Structure} is the organized, constraint-bearing articulation of reality. More fully, structure is reality insofar as reality exhibits distinctions, relations, organizations, and invariances strong enough to constrain what can occur, what can be preserved, and what finite renderings can latch onto when disclosure succeeds.
+
+This is the paper's central definition. Structure is not merely what descriptions happen to preserve, though descriptions may preserve it. It is not simply identical with reality as a whole, though it belongs to reality. And it is not just vague pattern-talk, because it is specified through organized articulation, invariance, and constraint. Structure is what makes reality disclosure-relevant without implying that reality is exhausted by any one disclosure of it.
+
+\subsection{Rendering}
+
+A \emph{rendering} is any finite description, model, record, schema, map, classification, or formal representation through which some aspect of reality is made available for interpretation, comparison, intervention, or communication. Renderings are the products of finite disclosure. They preserve some structure strongly enough for use while necessarily doing so under determinate conditions of scope, level, purpose, and form. \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP}
+
+This concept matters because the paper is not offering a theory of structure in abstraction from representation. It is offering a theory of what finite renderings preserve when they succeed, and what they fail to preserve when they misfit.
+
+\subsection{Adequacy}
+
+\emph{Adequacy} is the success of a rendering relative to the portion of reality being rendered, the task at hand, and the operative scope. A rendering is adequate when it preserves enough of the relevant structure of reality for the purpose at hand under the conditions in which it is being used. \cite{Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism}
+
+Adequacy is therefore not exhaustiveness. A rendering may be adequate in one respect or domain without exhausting all that is real about what it renders. One reality does not imply one sufficient rendering, and adequacy remains indexed to what structure has been relevantly preserved under determinate conditions.
+
+\subsection{Misfit}
+
+\emph{Misfit} is failure of a rendering relative to reality as rendered under determinate conditions. A rendering misfits when it omits, distorts, flattens, or misorganizes structure relevant to the domain, task, or scope at issue. Misfit is not merely local inconvenience, internal awkwardness, or aesthetic dissatisfaction. It is reality-relative inadequacy.
+
+This concept is load-bearing because it helps show why structure cannot be reduced to a property of description alone. If renderings can genuinely misfit reality, then they are answerable to something beyond their own internal organization.
+
+\subsection{Correction}
+
+\emph{Correction} is revision in light of reality-relative misfit. A rendering is corrected when it is revised because it failed, in some relevant respect, to preserve or disclose structure adequately. Correction is therefore stronger than simple replacement. Not every new rendering corrects an old one; some merely differ in purpose, convenience, or format. Correction specifically names revision under the pressure of reality-relative failure.
+
+This term matters because correction reveals one of the central consequences of the paper's ontology. If structure is real and disclosure-relevant, then renderings are not merely exchangeable symbolic products. They remain vulnerable to improvement and failure relative to reality.
+
+\subsection{Load-Bearing Distinctions}
+
+Several distinctions organize the rest of the paper and prevent the core thesis from collapsing into weaker or stronger neighboring positions.
+
+The first is the distinction between \emph{structure} and \emph{description}. Structure is not identical with the language, model, or schema through which it is rendered. A description may disclose structure, distort it, or fail to preserve enough of it. \cite{FriggNguyen2021ScientificRepresentationSEP}
+
+The second is the distinction between \emph{structure} and \emph{reality-as-whole}. Structure belongs to reality and is load-bearing for disclosure, but it is not simply a synonym for all of reality in every respect. This distinction keeps the paper from collapsing into exhaustive structural totalism.
+
+The third is the distinction between \emph{structure} and \emph{formalization}. Formal systems may latch onto structure with unusual power, especially where transportable invariances are strong, but structure is not reducible to any one formal language or notation. \cite{Cassirer1953SubstanceFunction,Shapiro2000ThinkingAboutMathematics}
+
+The fourth is the distinction between \emph{structure} and \emph{vague pattern}. Pattern-talk becomes theoretically useful only when sharpened by organized articulation, relation, invariance, and constraint.
+
+The fifth is the distinction between \emph{invariance} and \emph{absolute sameness}. Invariance concerns preservation of relevant form across admissible transformation, not identity in every respect. \cite{Nozick2001Invariances}
+
+The sixth is the distinction between \emph{organization} and a \emph{heap}. A heap may contain distinguishable elements, but organization requires patterned arrangement or maintained articulation strong enough to matter for disclosure.
+
+The seventh is the distinction between \emph{one reality} and \emph{one sufficient vocabulary}. A shared, structured reality does not imply that one final rendering exhausts it. This distinction will remain central throughout the paper, especially in resisting the slide from realism to descriptive monism. \cite{Ludwig2021ScientificPluralismSEP,Massimi2022PerspectivalRealism}
+
+\section{Main Theory}
+
+\subsection{Field-Level Characterization}
+
+\emph{Structure in Reality} is a theory of the ontological condition of answerable rendering. Its object is not one specific modeling practice, one regional ontology of science, one institutional classificatory regime, or one philosophy of mathematics. Its object is more basic: that in reality by virtue of which finite renderings can disclose something real, fail relative to what they purport to disclose, and sometimes be corrected.
+
+This matters because many downstream accounts already rely on structure while leaving its status unclear. If structure is treated only as a feature of description, answerability weakens into scheme-internal coherence or local usefulness. If structure is identified too quickly with reality as such, selective preservation, descriptive plurality, and non-exhaustiveness become harder to explain without flattening. The present theory aims to avoid both outcomes. It treats structure as real enough to constrain rendering, but not as identical with any one rendering or simply identical with reality as a whole. \cite{Chakravartty2011ScientificRealismSEP,FriggNguyen2021ScientificRepresentationSEP}
+
+The paper's central claim can therefore be stated compactly: structure is the organized, constraint-bearing articulation of reality that makes answerable finite rendering possible. The task of this section is to show why that claim is needed and why a thinner account of reality-side articulation is not enough.
+
+\subsection{Reality Must Be Articulated}
+
+If finite disclosure is to be possible at all, reality cannot be pure undifferentiated fullness. A rendering may be partial, selective, and conditioned, but it still purports to disclose something. Distinct renderings may disagree. Some may misfit what they purport to disclose. Some may be corrected. None of this makes strong sense if reality contains no articulable difference, no trackable connectedness, and no preservable organization.
+
+This claim should be understood carefully. It is not that reality must arrive already packaged in the exact terms our descriptions employ. Nor is it that every articulation in reality is equally available to finite rendering. The weaker and more defensible point is enough: reality must exhibit some organized articulability independently of any one local rendering if disclosure, disagreement, misfit, and correction are to be more than internal rearrangements within symbolic practice. \cite{Putnam1983RealismReason,Chakravartty2011ScientificRealismSEP}
+
+The force of the argument is straightforward. If reality were wholly without articulation, then no distinction between better and worse disclosure could get a grip. A rendering could not fail relative to reality, because there would be no structured reality for it to fail against. One could still speak of convenience, utility, or local coherence, but not of answerable disclosure in the stronger sense. By the same reasoning, if reality did not retain some differentiable and preservable form across transformation, then correction would collapse into arbitrary replacement and disagreement into mere competition among symbolic schemes.
+
+The minimal conclusion is therefore this: if finite rendering is to be more than internal symbolic management, reality must be discriminable, connectable, and preservable in some respects independently of the rendering. That is the articulation claim. The remaining task is to show why this minimal articulation must be developed into the richer account of structure proposed here.
+
+\subsection{Structure as Organized, Constraint-Bearing Articulation}
+
+Not every articulation is already structure in the sense this paper needs. Mere multiplicity is too weak. Mere variation is too weak. Mere describability in the thinnest possible sense is too weak. The question is not just whether reality is articulated at all, but what sort of articulation can support preservable form, reality-relative misfit, and correction.
+
+The proposal defended here is that structure is \emph{organized, constraint-bearing articulation}. More explicitly, structure requires at least the coordinated presence of distinction, relation, organization, constraint, and invariance across admissible transformation. These are not arbitrary additions to a thin articulation claim. They mark what is needed for articulation to become disclosure-relevant in the stronger sense. \cite{Cassirer1953SubstanceFunction,Nozick2001Invariances}
+
+A merely differentiated reality would still be too weak. Distinction is necessary because without real articulable difference there is nothing to pick out, compare, or preserve. But distinction alone yields only plurality. It does not yet yield a structured domain of disclosure.
+
+Relation is required because without real connectedness, dependence, ordering, or interaction, reality would collapse into a plurality of isolated fragments. But relation alone is still insufficient. Connectedness without further ordering may remain too loose to support stable preservation.
+
+Organization is required because distinctions and relations must hang together in patterned form rather than as a mere aggregate. It is organization that makes a domain intelligible as more than a heap. But even organization is not enough if it is merely accidental or locally noticed.
+
+Constraint is therefore required because organization must shape what can occur, what can vary together, and what can count as faithful preservation. Constraint distinguishes load-bearing organization from accidental arrangement. It is what makes preservation answerable rather than arbitrary.
+
+Finally, invariance is required because without some preservation of relevant form across admissible transformation, no finite rendering could track the same structured feature across redescription, scaling, or change. Invariance is what lets selective preservation remain preservation of one articulated reality rather than merely a convenient restatement under shifting schemes.
+
+This sequence matters. Distinction without relation yields fragmentation. Relation without organization yields loose connectedness without structured form. Organization without constraint leaves accidental order insufficiently disciplined. Constraint without invariance leaves nothing stably trackable. The point is not that the list is beyond revision. The point is that a thinner reality-side articulation will not yet explain preservable form. Structure appears where these moments hang together strongly enough to support selective but answerable disclosure.
+
+That is why the present account is richer than a generic realism about world-resistance. Mere resistance tells us that reality is not simply made by our renderings. It does not yet tell us what in reality is being preserved when renderings succeed, or why preservation can remain stable across transformation. The fuller account is needed because the paper's object is not bare resistance, but preservable articulation.
+
+\subsection{Why Structure Is Real Rather Than Merely Descriptive}
+
+The central burden of the theory is to show that structure is real rather than merely a feature of descriptions. That burden matters because a descriptivist account of structure initially appears tempting. We encounter structure only through renderings. Models, records, maps, equations, classifications, and formal systems are what explicitly preserve order, relation, and invariance. One might therefore conclude that structure is simply whatever such renderings happen to organize.
+
+That conclusion is too weak. If structure were only what descriptions preserve, then strong misfit would become difficult to explain. A rendering might differ from another rendering. It might be less useful, less elegant, or less operationally successful. But it would be harder to say that it had failed relative to reality as rendered under determinate conditions. Correction would then collapse toward internal scheme-revision rather than reality-relative improvement. \cite{FriggNguyen2021ScientificRepresentationSEP}
+
+A descriptivist can explain practice-relative success and even disciplined stabilization within a community of inquiry. What such a view explains less well is why those standards themselves remain answerable to reality rather than merely to practice-internal coherence. If a model is wrong, and not merely less useful, then it must have failed relative to an organized articulation of reality not constituted by the model itself.
+
+The stronger alternative is that renderings succeed or fail because they answer to organization in reality not exhausted by themselves. A model preserves some relations because those relations are there to be preserved. A record omits salient features because those features belong to reality whether or not the record carries them forward. A formal system tracks an invariant because some relevant form remains stable across the transformation at issue. In each case, the rendering does not invent structure wholesale. It latches onto it, selectively and conditionally.
+
+This does not mean that descriptions are passive mirrors. They remain finite, conditioned, and cut-bound. They select, simplify, and stabilize. But their selectivity makes sense as disclosure rather than fabrication only if there is real organized articulation to be selected from, preserved partially, and sometimes distorted. Structure is therefore not reducible to descriptive procedure, even though it is encountered only through finite descriptive acts.
+
+The reality of structure is thus secured not by magical direct access, but by the very possibility of reality-relative answerability. Renderings can succeed, misfit, and be corrected because they are not the sole source of the structure they purport to disclose.
+
+\subsection{Why Structure Is Disclosure-Relevant}
+
+If structure is real, the next question is why it matters specifically for disclosure. The answer proposed here is that finite renderings succeed by partially preserving structure under determinate conditions. What a rendering discloses is not reality in unconstrained totality, but some organized articulation preserved strongly enough for the rendering's task, level, and scope. \cite{FriggHartmann2025ModelsScienceSEP,Giere2006ScientificPerspectivism}
+
+This is why structure is disclosure-relevant rather than metaphysically inert. It is what renderings latch onto when they succeed, what they fail to preserve when they misfit, and what allows correction to be more than arbitrary replacement. Answerability depends on structure because renderings are evaluated relative to whether they preserve relevant distinctions, relations, organizations, constraints, or invariances of reality under the conditions that define their use.
+
+This point also clarifies why cuts, scope, and partial preservation matter. A finite rendering does not disclose all structure equally. It preserves some organization strongly enough for one purpose, at one level, through one interface, while leaving other organization weakly carried, compressed, backgrounded, or omitted. Structure is therefore the positive content of answerable disclosure: what is really there to be preserved. Misfit is the negative side: failure relative to that preservable organization. Correction becomes intelligible because finite renderings can be revised under the pressure of what they failed to carry adequately.
+
+The theory therefore links structure directly to four downstream notions. It links structure to answerability because renderings answer to real organized articulation. It links structure to misfit because renderings can fail to preserve relevant organization. It links structure to correction because such failures can warrant revision. And it links structure to plurality because different renderings may preserve different structural features of one reality under different conditions without collapsing into arbitrariness.
+
+\subsection{Why Structure Is Not the Whole of Reality}
+
+A major guardrail is needed at this point. From the fact that structure is real and disclosure-relevant, it does not follow that structure is simply the whole of reality without remainder. That stronger conclusion would move too quickly from a bounded ontology of preservable articulation to exhaustive structural totalism.
+
+The paper rejects that move for three reasons.
+
+First, structure is introduced here as reality \emph{insofar as} reality exhibits organized articulation. That is already a bounded formulation. It marks a real aspect of the world, but not necessarily everything that could be said about the real in every register.
+
+Second, finite disclosure proceeds through selective rendering. Even if structure is what renderings latch onto when they succeed, no single rendering exhausts the full structural articulation of reality under all conditions. One reality does not imply one sufficient vocabulary. This point would become difficult to maintain if structure were simply treated as a synonym for the whole of reality plus one ideal exhaustive language of it. \cite{Massimi2022PerspectivalRealism,Ludwig2021ScientificPluralismSEP}
+
+Third, the paper does not identify current formal expressibility with reality's full articulability. Formal systems may latch onto especially stable and transportable structural features, but the fact that structure is real does not mean it is already fully captured in any one extant formalism, model class, or descriptive regime. \cite{Shapiro2000ThinkingAboutMathematics,Cassirer1953SubstanceFunction}
+
+This is the point at which the present view parts company with stronger structural realist temptations. It inherits from structural realism the insistence that relations, invariances, and organized dependencies are genuinely real and not merely projected. What it refuses is the further inference from realism about preservable articulation to exhaustivism about reality. The reality of structure does not force the conclusion that reality is nothing but structure, nor that one privileged structural rendering must eventually displace all others.
+
+For these reasons, the theory remains non-totalizing. Structure is real enough to ground answerability, but bounded enough not to collapse reality into one privileged descriptive horizon. This is not a retreat from realism about structure. It is part of what keeps that realism disciplined.
+
+\subsection{Processually Maintained Structure}
+
+The relation between structure and process requires care. A common temptation is to treat them as opposites: structure as static arrangement, process as change or flow. That opposition is too crude. Much of what matters structurally in reality is not fixed once and for all as inert arrangement, but dynamically sustained through ongoing organization.
+
+For that reason, the present theory treats \emph{processually maintained structure} as a central possibility. An organized system may preserve invariances not by remaining unchanged in every respect, but by maintaining relevant form through turnover, perturbation, redescription, or temporal transformation. What persists is not necessarily a frozen arrangement of parts, but an organized pattern carried through change. \cite{Whitehead1978ProcessReality,Rescher1996ProcessMetaphysics,TognoliKelso2014MetastableBrain}
+
+This claim should be kept bounded. The paper does not require a fully completed process metaphysics. It does not need to show that every true ontology must be explicitly process-first in the strongest sense. It needs only the more modest claim that structure and process are not simple opposites, and that much real structure is dynamically sustained rather than statically given.
+
+This clarification matters because it explains how invariance can coexist with change, why rendering can track real organization across transformation, and why structure should not be mistaken for mere immobility. A reality of organized articulation may include structures that are stable precisely through maintained process rather than despite it. Process is often how structure persists, and structure is often what process maintains.
+
+\subsection{Plurality of Renderings Without Arbitrariness}
+
+Once structure is understood as real, disclosure-relevant, and non-exhaustive, the possibility of multiple finite renderings becomes easier to explain. One shared reality may support many non-equivalent renderings because each preserves structure partially under different conditions of level, purpose, interface, scope, or transformation. This plurality is not a defect to be eliminated by one final exhaustive scheme, nor does it imply that all renderings are merely arbitrary projections. \cite{Massimi2022PerspectivalRealism,Chang2022RealismForRealisticPeople}
+
+The reason is straightforward. If structure is richer than any one finite rendering, then distinct renderings may each preserve genuine organization while remaining non-equivalent. One may foreground causal dependence, another comparative scale, another institutional operability, another especially transportable formal invariance. These differences need not imply many realities. They may instead reflect multiple partial preservations of one articulated reality.
+
+This point matters because it clarifies how shared reality and descriptive plurality coexist. Renderings can disagree because they answer to one structured reality. They can also remain legitimately different because no one rendering is sufficient for all purposes, levels, or scopes. Plurality without arbitrariness is therefore a direct consequence of the theory rather than an external concession.
+
+Plurality is not relativism because evaluation remains possible. Renderings can still be compared by adequacy to task and scope, by the dependencies they preserve or miss, by the kinds of misfit they induce, and by their openness to correction. Different renderings may preserve different structural features, but they do not thereby become unconstrained or immune to reality-relative assessment.
+
+The same point also blocks one-final-scheme realism. Even if reality is one and structure is real, it does not follow that one vocabulary exhausts the whole of what structured articulation permits to be rendered. The theory therefore supports many finite renderings of one world without collapsing into either descriptive monism or anti-realist fragmentation.
+
+\subsection{Compact Structural Schema}
+
+The theory can be summarized schematically.
+
+Let \(W\) denote a region or field of reality. Let \(C\) denote a conditioned cut under which \(W\) is rendered. Let \(R=C(W)\) denote the resulting rendering. Let \(\sigma\) denote the structure of \(W\) preserved by \(R\) under \(C\).
+
+Then disclosure can be represented schematically as:
+\[
+\mathrm{Disc}(R,W,\sigma \mid C)
+\]
+meaning that rendering \(R\) discloses some preserved structure \(\sigma\) of \(W\) under cut \(C\).
+
+Because \(R\) is finite and selective, it does not exhaust \(W\). Misfit therefore remains possible:
+\[
+\mathrm{Misfit}(R,W)
+\]
+not because \(R\) is detached from \(W\), but because \(W\)'s organized articulation is not exhausted by \(R\)'s preservation of \(\sigma\).
+
+Correction then becomes intelligible as revision under reality-relative misfit:
+\[
+\mathrm{Corr}(R_1,R_2 \mid W)
+\]
+where \(R_2\) corrects \(R_1\) relative to the same region of reality \(W\).
+
+This schema is not offered as a complete formalization of the ontology. It is a compact way of displaying relations already argued for conceptually: reality is articulated, structure is what finite renderings partially preserve when they succeed, misfit is possible because that structure is not exhausted by any one rendering, and plurality of renderings does not imply arbitrariness because they remain answerable to one shared reality.
+\section{Why This Theory Is Needed}
+
+\subsection{The Missing Upstream Object}
+
+A wide range of theories depend on structure while leaving it underdefined. Scientific modeling presupposes that models preserve relations, dependencies, or invariances in the world rather than merely generating internally ordered symbolic products \cite{FriggHartmann2025ModelsScienceSEP,FriggNguyen2021ScientificRepresentationSEP}. Accounts of finite description presuppose that conditioned renderings disclose some real organization rather than only scheme-relative convenience. Theories of residue presuppose that what is left out is remainder \emph{of} a structured portion of reality rather than an arbitrary outside. Formal and mathematical disclosure presuppose that some forms are especially transportable because they latch onto stable organization not exhausted by any one inscription or notation \cite{Cassirer1953SubstanceFunction,Shapiro2000ThinkingAboutMathematics}. Theories of mediated representation likewise presuppose that files, records, scores, and classifications preserve some structure of what they render while flattening or omitting other parts \cite{BowkerStar1999SortingThingsOut}.
+
+In all of these cases, \emph{structure} is doing real explanatory work. But it is often doing so in an unstable way. Sometimes it is treated as though it were nothing more than a feature of description. Sometimes it is treated as though it were simply reality itself under a more sophisticated name. Sometimes it functions as a vague placeholder for ``pattern'' without a clear account of what distinguishes real, answerability-supporting structure from merely noticed regularity. The result is that many theories inherit a term they need but cannot fully stabilize from within their own local aims.
+
+That is why a theory of structure is needed at an upstream level. Its task is not to replace theories of modeling, formalization, mediation, or finite description. Its task is to clarify an ontological condition those theories already presuppose. If structure remains unclear, then preservation, omission, distortion, misfit, and correction remain unclear with it. A theory of structure is therefore not an ornamental abstraction added after the substantive work is done. It is part of what makes that work conceptually disciplined in the first place.
+
+\subsection{What Confusions It Resolves}
+
+The first confusion concerns \emph{structure versus description}. If structure is reduced to whatever descriptions preserve, then answerability weakens. A rendering may still be elegant, useful, or internally coherent, but it becomes harder to say that it has failed relative to something beyond itself. The present theory blocks that collapse by treating structure as real organized articulation that renderings may partially preserve, distort, or fail to preserve.
+
+The second confusion concerns \emph{structure versus total reality}. If structure is simply equated with all of reality, then selective preservation, non-exhaustiveness, and descriptive plurality become harder to explain. One begins to lose a disciplined account of why no single rendering exhausts what it renders, why remainder is unsurprising, and why one world does not imply one sufficient vocabulary. The present theory resolves this by treating structure as reality insofar as reality exhibits organized, constraint-bearing articulation, while refusing to identify that articulation with exhaustive metaphysical closure.
+
+The third confusion concerns \emph{formal strength versus ontological reality}. Formal systems often preserve especially transportable invariances, and this helps explain their unusual power. But formal power alone does not show that structure is merely formal, nor that what is most mathematically tractable is therefore all that is real. The present theory separates these issues. It explains why formalization can be disclosure-powerful without turning reality into a projection of formal grammar alone. \cite{Cassirer1953SubstanceFunction,Shapiro2000ThinkingAboutMathematics}
+
+The fourth confusion concerns \emph{one reality versus one vocabulary}. A shared reality may constrain multiple renderings without collapsing them into one final descriptive scheme. This is one of the paper's central payoffs. It clarifies how plurality of renderings can be genuine without becoming arbitrary, and how realism about structure need not entail descriptive monism. \cite{Massimi2022PerspectivalRealism,Chang2022RealismForRealisticPeople}
+
+The fifth confusion concerns \emph{misfit versus internal scheme failure}. A rendering may be awkward, inconsistent, or locally unhelpful for reasons that remain wholly intra-schematic. Strong misfit is different. It is failure relative to reality as rendered under determinate conditions. That stronger notion requires real structure beyond the rendering itself. The present theory explains why such misfit is intelligible and why correction can therefore be more than internal reorganization or replacement. \cite{FriggNguyen2021ScientificRepresentationSEP}
+
+Taken together, these clarifications matter because they block three recurrent slides: into descriptivism, into structural totalism, and into vague pattern-talk. The theory resolves those confusions by giving structure a more exact ontological and disclosure-theoretic role.
+
+\subsection{Why the Gain Is Real}
+
+The gain of the theory is real because it gives firmer grounding to several downstream objects without claiming to replace the more local theories that study them.
+
+First, it strengthens accounts of \emph{finite description}. If finite renderings succeed by partially preserving real organized articulation, then description is neither transparent capture nor arbitrary projection. It becomes intelligible as selective disclosure of an articulated world. \cite{FriggHartmann2025ModelsScienceSEP,FriggNguyen2021ScientificRepresentationSEP}
+
+Second, it strengthens accounts of \emph{the cut}. A cut is no longer merely a convenient way of speaking about omission, abstraction, or formatting. It becomes the structured regime by which some articulation of reality is preserved under determinate conditions while other articulation is left as remainder. Without a prior account of structure, the cut risks becoming purely methodological language. With one, it becomes ontologically anchored.
+
+Third, it strengthens accounts of \emph{residue}. Residue is not just whatever a model leaves out. It is remainder relative to a prior field of organized articulation. This matters because it distinguishes residue from mere ignorance, accidental error, or vague appeals to what lies ``outside'' a representation.
+
+Fourth, it strengthens accounts of \emph{formal disclosure}. Mathematics, modeling, and formal systems become intelligible not as detached symbol games nor as exhaustive mirrors, but as especially powerful regimes for preserving transportable structural invariances. The theory therefore explains why formalization can be both genuinely world-disclosive and non-exhaustive. \cite{Cassirer1953SubstanceFunction,Shapiro2000ThinkingAboutMathematics}
+
+Fifth, it strengthens accounts of \emph{mediated representation}. Records, scores, files, categories, models, and institutional renderings can be understood as preserving some structure of reality as administratively rendered while failing to preserve all of it. This is what makes answerability, overextension, and correction diagnosable in stronger terms than mere workflow failure or internal inconsistency. \cite{BowkerStar1999SortingThingsOut}
+
+The gain is therefore not merely terminological. The paper does not just offer a cleaner word for familiar intuitions. It supplies a more exact object for later theories when they speak of preservation, omission, distortion, overextension, and correction. That is the sense in which the gain is real: it makes downstream claims about rendering and reality more sharply intelligible than they remain under weaker alternatives.
+
+\section{Applications and Explanatory Payoff}
+
+A theory this upstream earns its place only if it clarifies real cases more sharply than weaker alternatives do. The point of the present account is not to replace domain-specific theories of modeling, mathematics, institutions, or living systems. Its narrower task is to explain what finite renderings preserve when they succeed, why they can genuinely misfit what they render, and how multiple renderings can remain answerable to one reality without collapsing into one final descriptive scheme. The following cases therefore function as tests rather than ornaments. They ask whether the paper's account of structure explains something that thinner descriptivism, vague pattern-talk, or structural totalism explain less well.
+
+\subsection{Scientific Modeling}
+
+Scientific models do not invent the world wholesale. They preserve some organization strongly enough for explanation, prediction, intervention, or comparison. \cite{FriggHartmann2025ModelsScienceSEP,FriggNguyen2021ScientificRepresentationSEP} A climate model, an epidemiological model, and a population model may differ in variables, resolution, idealization strategy, and purpose, but they are not thereby sealed symbolic worlds. They remain renderings of one region of reality insofar as they preserve real distinctions, relations, and invariances belonging to that region.
+
+This helps explain why scientific plurality need not collapse into arbitrariness. Different models may preserve different structural features of the same portion of reality. One model may capture coarse dynamical regularities useful for forecasting, while another captures finer-grained mechanisms relevant to intervention. One may be strong under aggregation, another under local heterogeneity. Their difference does not imply that one must be wholly fictive, nor that only one final model could in principle count as genuinely world-disclosive. What matters is whether each rendering preserves enough of the relevant organized articulation for the task and scope at issue. \cite{Giere2006ScientificPerspectivism,Massimi2022PerspectivalRealism,Chang2022RealismForRealisticPeople}
+
+The present theory clarifies why this is possible. If structure is real, organized, and constraint-bearing, then multiple models can partially preserve it under different conditions without thereby becoming merely subjective or merely conventional. That is what makes cross-model comparison intelligible. One model can omit a dependence another captures, exaggerate a regularity another bounds more carefully, or succeed only within a narrower regime than originally assumed. These are not merely internal model-to-model contrasts. They are comparisons relative to one articulated portion of reality.
+
+A merely descriptivist account can explain model-relative usefulness, elegance, or tractability. What it explains less cleanly is why two models can disagree \emph{about the same region of reality} in a way that is not exhausted by their differing local purposes. The present theory explains that stronger claim because both models remain answerable to structured features of the same reality even when they preserve different parts of it.
+
+The explanatory gain is therefore precise. The theory explains both why scientific models can be genuinely answerable and why no single model need exhaust the reality it renders. Models disclose by selective preservation, and it is precisely this selective preservation rather than transparent total capture that makes scientific disclosure possible.
+
+\subsection{Formal and Mathematical Disclosure}
+
+Formal and mathematical systems are especially powerful where transportable invariances are strong. They preserve relations, symmetries, dependencies, and transformation-stable forms in ways that are unusually portable across contexts. \cite{Cassirer1953SubstanceFunction,Shapiro2000ThinkingAboutMathematics} This gives them a distinctive kind of reach. A formally expressed relation can often travel farther, be reused more reliably, and support clearer comparison than a thicker qualitative rendering of the same domain.
+
+But this power should not be misunderstood. Mathematics and formalization are not structure itself. They are one family of regimes for disclosing especially stable and transportable structural features. A formal system succeeds where some region of reality contains invariances strong enough to survive disciplined abstraction into symbolic form. That is why formal methods can be extraordinarily powerful without being exhaustive. Their strength comes from selectively preserving what remains stable under admissible transformation, not from duplicating the whole of reality.
+
+This distinction matters because formal success is often overread. When a domain yields elegant formal treatment, it becomes tempting to treat the formalization as the reality, or to assume that whatever resists formal transport is therefore unreal, secondary, or merely subjective. The present theory blocks that move. Formalization is disclosure-powerful precisely because it latches onto real structure; but its power depends on selectivity, on privileging what can be rendered invariantly and transported cleanly across transformations.
+
+A weaker view can certainly say that formal systems are effective tools. What it struggles to explain as clearly is why their effectiveness is sometimes more than pragmatic convenience. The present theory explains formal power as selective world-latching: formal systems travel so well because they preserve especially stable structure, not because they replace the world with syntax. At the same time, that same account blocks formal totalism. Formal success does not imply that whatever matters in reality must already be fully capturable in symbolic form.
+
+The result is a more disciplined account of mathematical and formal disclosure. Formal systems are not detached games, because they can genuinely disclose organized articulation in the real. But neither are they final surrogates for reality as such. They are strongest where structure is highly preservable in symbolic form, and correspondingly weaker where reality resists that kind of preservation.
+
+\subsection{Institutional and Administrative Representation}
+
+Institutional systems act through files, scores, records, categories, forms, dashboards, and thresholds. These are not inert bureaucratic decorations added after a case is already fully known. They are the operative renderings through which cases become manageable, comparable, routable, and governable. \cite{BowkerStar1999SortingThingsOut} A patient record, a benefits file, a risk score, or a school profile does not simply mirror what it renders. It preserves some structure strongly enough for institutional use while flattening, backgrounding, or omitting other structure.
+
+The present theory clarifies what such renderings latch onto. They do not operate on pure fiction. They preserve real distinctions and relations in the relevant region of reality: eligibility states, documented events, diagnostic markers, procedural status, measured indicators, or institutionally recognized classifications. Without some real structure there would be nothing for the file, score, or record to organize at all. This is why institutional representations can guide action, sometimes effectively and sometimes with enormous consequence.
+
+Consider a benefits file. It may preserve dates of application, income thresholds, household status, medical certifications, prior determinations, and procedural deadlines. Those are not imaginary features. They are real distinctions and relations in the case as administratively rendered, and they matter for coordination. But the same file may flatten unstable work conditions, transportation difficulty, caregiving burden, fear, confusion about forms, or the practical cost of repeated verification. The problem is not that the file is unreal. It is that it preserves an administratively usable structure while failing to carry forward all of the structure that may matter to the life being governed.
+
+This is where the theory gains genuine diagnostic power. It explains why institutional records can be both reality-latching and distortive at once. They preserve structure, but selectively. That selective preservation is what makes them usable, and also what makes overextension, misfit, and correction possible. Files, scores, and records are therefore neither transparent windows nor arbitrary impositions. They are finite renderings of structured cases under institutional constraint.
+
+This also marks a point of discrimination from weaker alternatives. A merely descriptivist account can say that institutions use simplified schemes. What it struggles to explain cleanly is why a file can \emph{misrepresent} a case rather than merely redescribe it in a thinner vocabulary. The present theory explains that stronger claim because the file is answerable to structured features of reality that exceed what the file preserves. That is why the file can be operationally effective and still wrong in a stronger sense than local incompleteness alone.
+
+\subsection{Processually Maintained Entities}
+
+The theory also clarifies domains in which what is being rendered is not best understood as an inert thing but as a maintained pattern. Organisms, persons, institutions, and ecosystems often persist not by remaining unchanged beneath variation but by maintaining organized continuity through change. \cite{Whitehead1978ProcessReality,Rescher1996ProcessMetaphysics,TognoliKelso2014MetastableBrain} Their identity is not well captured by the picture of a static object to which motion or history is later added. They are better understood as processually maintained entities.
+
+This matters because it shows that structure and process are not simple opposites. If structure were identified only with frozen arrangement, then any process-oriented ontology would seem to undermine realism about structure. But that conclusion is too quick. Much of the most important structure in reality is dynamically sustained. What persists across time often does so because distinctions, relations, and constraint-patterns are actively maintained rather than statically given once and for all.
+
+An organism is a clear example. What makes it one organized being through metabolic turnover, environmental exchange, injury, and repair is not inert sameness in every respect, but a maintained articulation of parts, functions, relations, and constraints. Similar claims hold for institutions and ecosystems. Their structure is real, but real as ongoing organization rather than as motionless substrate. Invariance here does not mean total unchanged identity. It means preservation of relevant form across admissible transformation.
+
+This strengthens the paper's central claim. Structure need not compete with process. Structure is often what process maintains, and process is often how structure persists. Once this is seen, the theory can account for both stability and change without reducing one to the other.
+
+\subsection{What These Cases Show}
+
+Taken together, these cases show that the theory has real explanatory payoff.
+
+First, it explains \emph{answerability}. Scientific models, formal systems, institutional records, and processual renderings can succeed or fail because they preserve aspects of one articulated reality rather than merely circulating within self-contained schemes.
+
+Second, it explains \emph{selective preservation}. No rendering carries everything. Each preserves some organized articulation strongly enough for its task while leaving other structure weakly carried, backgrounded, or omitted.
+
+Third, it explains \emph{cross-rendering comparison}. Different models, records, or formalisms can be compared because they are not merely different symbolic products. They are different preservations of one structured reality.
+
+Fourth, it explains \emph{correction}. Revision can be more than convenience or replacement because a rendering can misfit the organization it purports to disclose.
+
+Fifth, it explains \emph{plurality without arbitrariness}. One shared reality can support many non-equivalent renderings because finite disclosure is selective, while those renderings remain non-arbitrary because they answer to real structure rather than to convention alone.
+
+That is the section's main result. A disciplined concept of structure makes it possible to say, with more precision than weaker alternatives allow, what finite renderings preserve, what they leave behind, how they can be compared, and why they remain answerable even when no single one exhausts the real.
+\section{Objections and Replies}
+
+A theory this upstream should survive more than sympathetic reading. It should survive pressure at its most vulnerable points. The objections below press exactly those points: the apparent vagueness of ``structure,'' the worry that the view merely redescribes familiar positions, the threat of collapse into structural totalism, the status of the core vocabulary, the relation between process and structure, and the charge of relativism. In each case, the aim is not to deny the pressure but to show why it does not defeat the paper's central claim.
+
+\subsection{Objection 1: Structure Is Too Vague}
+
+A natural first objection is that ``structure'' is too loose a term to bear serious ontological weight. Philosophers often invoke structure, pattern, or form precisely where greater precision is needed. If the present paper does the same, then it merely replaces one obscurity with another. On that reading, the theory amounts to little more than a gesture toward organization without saying clearly what in reality is being identified.
+
+This objection would be decisive if the paper relied on bare pattern-talk. But the account developed here is more determinate than that. Structure is not introduced as whatever vaguely recurs, nor as whatever a theorist finds elegant. It is articulated through a more structured set of moments: distinction, relation, organization, constraint, and invariance across admissible transformation. Those moments do not eliminate all further questions, but they do narrow the object substantially. They show, at minimum, that structure is not mere repetition, not a heap, and not just any describable regularity.
+
+More importantly, the burden of the paper is clarification rather than reductive elimination. At this level, the question is not whether structure can already be reduced without remainder to some deeper inventory. The question is whether it can be identified sharply enough to support answerability, misfit, correction, and plurality of renderings of one reality. The present account is meant to meet that burden. It does not offer a final metaphysical completion of structure, but it gives the term enough content to do explanatory rather than merely decorative work.
+
+\subsection{Objection 2: Structure Is Just What Descriptions Preserve}
+
+A second objection is that the theory reverses the order of explanation. Perhaps ``structure'' is nothing over and above what descriptions, models, formalisms, and classifications happen to preserve well. On this view, structure is not a feature of reality but a retrospective label for successful descriptive stabilization. If so, the paper collapses into a more careful descriptivism.
+
+This objection captures something real: descriptions do preserve under determinate conditions, and the forms of preservation available to them matter greatly. But the conclusion still does not follow. To define structure solely in terms of what descriptions preserve would undercut the very notions of answerability, misfit, and correction the paper is trying to explain. A rendering could then differ from another rendering, be more useful, or be more coherent by some internal measure. What would become harder to explain is stronger reality-relative failure: why one rendering is not merely different from another, but wrong about what it renders.
+
+A purely descriptivist view can explain practice-relative success and even disciplined stabilization within inquiry. What it explains less cleanly is why those standards themselves remain answerable to reality rather than merely to practice-internal coherence. If a model, file, or formal rendering can be corrected because it failed to preserve something that mattered in what it rendered, then reality must contain organization not constituted by the rendering alone.
+
+The present theory therefore insists on the opposite order. Descriptions can preserve structure because reality is already articulated in a way that makes preservation, failure, and revision possible. Structure is not inferred from preservation as though the rendering manufactured its own world of reference. Rather, preservation is intelligible because renderings latch onto an already organized, constraint-bearing reality. The paper does not deny that structure is always disclosed under conditions. It denies that disclosure exhausts what structure is.
+
+\subsection{Objection 3: This Is Just Structural Realism}
+
+A third objection is comparative. The paper may appear to say nothing substantially new, but only to restate a familiar structural realist position in different terms. If the core claim is simply that inquiry tracks structural features of the world, then perhaps the view belongs straightforwardly inside existing structural realism and does not merit separate treatment.
+
+The present paper is indeed close to some structural realist intuitions, and it should not pretend otherwise. It agrees that successful renderings latch onto something real, that relations and invariances are especially important, and that the world is not exhausted by the vagaries of description. In that sense, the paper is not hostile to structural realism.
+
+Its distinctiveness lies in its boundedness. The view defended here is more guarded than stronger structural realist doctrines. It does not claim that only structure is real, that reality is exhausted by structure, or that one can move directly from the reality of structure to a complete structural totalism. Its aim is narrower: to clarify what structure must be if finite renderings are to remain answerable to reality while preserving the distinction between structure and reality as a whole. The paper is therefore adjacent to structural realism, but not identical with its maximal forms. It inherits realism about relations, invariances, and organized dependencies; it rejects the slide from realism about preservable articulation to exhaustivism about reality.
+
+\subsection{Objection 4: If Structure Is Real, Then Structure Is Everything}
+
+A fourth objection presses exactly that point. Once one grants that structure is real, disclosure-relevant, and load-bearing, why stop there? Why not say plainly that structure is the whole of reality? Otherwise the view may seem unstable: either structure is real enough to matter, in which case it should be metaphysically exhaustive, or it is not, in which case the theory overstates its importance.
+
+This objection identifies a real temptation, but the inference is too quick. The paper's claim is that structure is real insofar as reality exhibits organized articulation through distinction, relation, constraint, and invariance. That is already a substantial claim. It does not follow that all of reality is therefore exhausted by what is best described as structure alone. Reality may exceed what current structural vocabularies preserve, and it may include aspects of determinacy or significance not well captured by treating structure as the whole without remainder.
+
+The present theory is therefore deliberately non-totalizing. It defends the reality of structure, not exhaustive structural totalism. This is why it keeps sharp the distinction between structure and reality-as-whole. Structure names one deeply important way reality is articulated and made disclosable. It does not follow that whatever is real is therefore exhausted by structural vocabulary under all conditions. That stronger claim would require a much larger metaphysical argument than the one attempted here.
+
+\subsection{Objection 5: The Primitive Set Is Arbitrary}
+
+A fifth objection concerns the paper's core vocabulary. Why these terms rather than others? Why distinction, relation, organization, constraint, and invariance? Why not add process, scale, field, or interaction as equally primitive? Or, conversely, why not reduce the list even further? Without a stronger derivation, the core set may seem selected rather than earned.
+
+This objection is partly right. The paper does not claim that its current vocabulary is an untouchable final inventory. The set is best understood as a provisional explanatory decomposition rather than as a frozen metaphysical table. These moments are foregrounded because together they explain what a rendering would need to preserve in order to disclose structure in the relevant sense. Distinction makes pick-out possible; relation blocks disconnected plurality; organization prevents reduction to a heap; constraint marks real limitation and shaping; invariance explains trackability across transformation.
+
+That said, the paper should remain open to revision here. Some terms may later prove more basic than the current exposition allows, while others may turn out to be derivative. Process may deserve stronger integration. Scale and composition may require more explicit treatment. The present theory does not collapse if that happens. Its burden is to identify a disciplined working decomposition adequate to the explanatory tasks at hand, not to declare an irreversible final inventory from the outset.
+
+\subsection{Objection 6: Process Makes Structure Secondary}
+
+A sixth objection says that the theory cannot have it both ways. If process is primary, then structure must be secondary, derivative, or even merely apparent. A process-oriented ontology may therefore seem to undermine the paper's attempt to treat structure as real and load-bearing. If what is fundamental is becoming, transformation, and flux, then perhaps ``structure'' is only a temporary freezing of what is more basically processual.
+
+This objection depends on treating process and structure as simple opposites. The paper rejects that assumption. Much of what matters structurally is not statically given but dynamically maintained. An organism, institution, or ecosystem often persists not by remaining unchanged in every respect but by sustaining organized continuity through change. In such cases, process does not make structure unreal or secondary in the dismissive sense. It helps explain how structure persists at all.
+
+The relation is therefore better stated this way: process is often how structure is maintained, and structure is often what process maintains. The paper does not need a completed process metaphysics to secure that point. It needs only the weaker and more defensible claim that dynamically sustained organization is still real structure. Once that is granted, process no longer demotes structure into illusion. It clarifies one major mode of structural reality.
+
+\subsection{Objection 7: Many Renderings Means Relativism}
+
+A final objection targets the paper's pluralism. If one reality can support many non-equivalent renderings, perhaps the theory collapses into relativism after all. Once multiple models, records, perspectives, and formalisms are all allowed, what prevents the view from reducing to the claim that any rendering is as good as any other under its own conditions?
+
+This objection would succeed if plurality erased answerability. But that is exactly what the paper denies. Many renderings do not imply that renderings are unconstrained, incomparable, or merely local inventions. They imply only that one reality can be preserved selectively under different conditions. Because structure is real and disclosure-relevant, renderings remain answerable to what they render. That is why misfit remains possible, why correction remains meaningful, and why one rendering can outperform another for a given task, level, or scope.
+
+Plurality therefore does not erase evaluation. It complicates it. Different renderings may preserve different structural features and so remain differently adequate under different conditions. But this is not relativism in the strong sense. It is a disciplined pluralism grounded in one structured reality rather than in disconnected local worlds. Renderings remain assessable by adequacy to task and scope, by the dependencies they preserve or miss, by the kinds of misfit they induce, and by their openness to correction.
+
+Taken together, these replies clarify the paper's position more sharply. The theory is neither vague pattern-talk, nor descriptivism, nor maximal structural realism, nor structural totalism, nor relativism. It is a more bounded claim: structure is real, organized, constraint-bearing articulation in reality, and finite renderings succeed by selectively preserving it without exhausting it.
+
+\section{Scope Conditions, Limits, and Residues}
+
+A paper at this level should be judged not only by what it explains, but by whether it controls its own reach. The present argument is deliberately general, but not unlimited. Its task is to clarify what structure in reality must be if finite renderings are to be answerable, corrigible, and non-arbitrary. That task is substantial. It is not a license to convert the paper into a complete metaphysics, a finished theory of process, or a universal account of every kind of order. The limits below are therefore part of the theory itself rather than external cautions added afterward.
+
+\subsection{Scope Conditions}
+
+The framework is strongest wherever the central problem takes the following form: a finite rendering preserves some features of reality, omits or flattens others, and yet remains answerable to what it renders. In practice, this gives the theory its greatest force in five settings.
+
+First, it is strongest in cases of \emph{finite disclosure} as such, where the basic question is how any rendering can succeed without transparent capture. The theory is built for that level of analysis.
+
+Second, it is especially useful in \emph{model comparison}, where multiple renderings of one region of reality preserve different features under different scales, aims, or methods. Here the paper explains how comparison is possible without presuming one final exhaustive scheme.
+
+Third, it is strong in cases of \emph{formalization}, where mathematical or formal systems appear especially powerful because they preserve highly transportable invariances. The theory helps explain both that power and its limits.
+
+Fourth, it bears directly on debates in \emph{scientific realism, perspectivism, and pluralism}, where the central problem is how one reality can support many finite renderings without collapsing either into one final vocabulary or into arbitrary fragmentation.
+
+Fifth, it is useful wherever theories of description, representation, modeling, administration, or persistence rely on ``structure'' while leaving its status unclear. In such cases, the present paper clarifies what those theories are presupposing when they appeal to structure as though its meaning were already settled.
+
+The framework is correspondingly weaker where none of these pressures are active. If a discussion does not concern answerable rendering, preservable form, cross-rendering comparison, or reality-relative correction, then the paper's object may simply not be central to the issue.
+
+\subsection{What the Paper Does Not Claim}
+
+The paper does not provide a completed metaphysics of all reality. It does not supply one final taxonomy of structural kinds valid across every domain and scale. It does not claim that reality is nothing but structure, nor that whatever is real must therefore be fully articulable in structural terms. It does not deliver a complete process ontology, even though it argues that much structure is dynamically maintained rather than statically given. And it does not offer a universal formal metric of structure that would settle every comparative question across scientific, institutional, experiential, and formal domains.
+
+These non-claims matter because the paper's result is narrower than any of those stronger ambitions. What it argues is that structure is real, disclosure-relevant, and non-exhaustive; that finite renderings succeed by selectively preserving it; and that this helps explain answerability, misfit, correction, and plurality without arbitrariness. The paper would overreach if it tried to turn that result into a total metaphysics in one step.
+
+\subsection{Open Problems}
+
+Several important problems remain open.
+
+The first concerns the \emph{exact status of the core vocabulary}. The present decomposition into distinction, relation, organization, constraint, invariance, and transformation is explanatorily strong, but not obviously final. Further work may show that some items are derivative, that others should be added, or that the relations among them can be made more exact.
+
+The second concerns the \emph{relation between structure and process}. The paper argues that structure and process are not simple opposites and that much structure is dynamically maintained. But it does not yet settle whether process is ontologically prior, co-primitive, or simply indispensable for describing many real structures.
+
+The third concerns the \emph{relation between structure and experience or value}. The present argument is intentionally restrained here. It leaves open how far experiential, normative, or valuational realities should be treated as structural, as partially structural, or as requiring some more complex account.
+
+The fourth concerns \emph{multi-scale composition}. Structures at different scales do not obviously compose in one simple way. It remains open how local structures, global structures, nested organizations, and cross-scale invariances should be related without flattening one level into another.
+
+The fifth concerns \emph{formalization}. The paper argues that formal systems are especially powerful where transportable invariances are strong, but it does not yet determine how much of structure can be formalized uniformly across domains, or where formalization must remain local, partial, or plural.
+
+These are not peripheral technicalities. They mark the current frontier of the theory.
+
+\subsection{Residues of the Theory Itself}
+
+The theory leaves remainder of its own, and that remainder should remain visible.
+
+It leaves open how far structure reaches into the whole of reality. It leaves open whether the present vocabulary is minimal, redundant, or incomplete. It leaves open whether process should ultimately be treated as part of the core decomposition or as a major mode of structural maintenance. It leaves open how structural articulation relates to lived significance, value, and normativity in domains where those become adequacy-relevant. And it leaves open how much structural reality can be brought under one unified formal treatment without distortion.
+
+This is not a defect to hide. A paper arguing that finite renderings are selective and non-exhaustive should not pretend to exempt itself from that condition. The present theory is itself one finite rendering of reality that it does not claim to exhaust. Its remainder is therefore not an embarrassment but part of its discipline. One mark of a credible theory is that it states not only what it secures, but also what it leaves unresolved.
+\section{Implications and Future Work}
+
+The argument of this paper is upstream in both its scope and its consequences. It does not merely add one more term to familiar debates. It clarifies a condition many other theories rely upon without making fully explicit: finite renderings can be answerable only because they preserve real structure under determinate conditions. Once that condition is stated more clearly, several implications follow.
+
+\subsection{Implications for Upstream Theory}
+
+The first implication is methodological and ontological. Later theories of finite description, conditioned selection, residue, adequacy, and correction cannot leave ``structure'' as an undefined placeholder. If renderings are said to preserve, omit, distort, or overextend, then there must be some clearer account of what is being preserved, omitted, distorted, or overextended.
+
+The present paper supplies that account in a bounded form. It argues that finite renderings do not merely generate useful inscriptions or internally ordered schemes. They preserve organized, constraint-bearing articulation in reality under limited conditions. This strengthens the basis on which later theories can distinguish reality from rendering, disclosure from remainder, and adequacy from mere local usefulness. It does not settle every downstream dispute, but it gives those disputes a clearer object.
+
+\subsection{Implications for Process and Persistence}
+
+A second implication concerns persistence through change. If structure is not merely static arrangement but organized, constraint-bearing articulation, then persistence need not be understood as the endurance of an inert thing beneath alteration. It can instead be understood as the maintenance of relevant form across transformation.
+
+This makes maintained-pattern views of persistence more intelligible. Organisms, persons, institutions, and ecosystems can be understood as dynamically sustained organizations rather than as fixed substrates to which change is merely added. The paper does not thereby establish a complete process metaphysics. Its narrower contribution is to show why process and structure should not be treated as opposites. Process often helps explain how structure persists, and structure often identifies what process maintains.
+
+\subsection{Implications for Formal Disclosure}
+
+A third implication concerns mathematics and formal modeling. The theory helps explain why formal systems can be exceptionally powerful without thereby exhausting reality. Their power lies in the disciplined preservation of highly transportable invariances, stable relations, and transformation-resistant forms. Where a domain contains such features strongly enough, formal rendering can travel farther and compare more cleanly than thicker qualitative description.
+
+This gives a more exact interpretation of formal success. Mathematics is not structure itself, and formalization is not reality in symbolic duplicate. Formal systems are powerful because they preserve certain structural features with unusual stability and precision. Their success therefore reveals something real about the world while remaining selective rather than exhaustive. That distinction matters, because it blocks the familiar overreading in which formal tractability is mistaken for total capture.
+
+\subsection{Implications for Mediated Representation}
+
+A fourth implication concerns mediated representation. Records, models, scores, classifications, and administrative schemas do not operate on emptiness. They preserve some structure of what they render while backgrounding, compressing, or omitting other structure. The present theory clarifies both sides of that fact. It explains what such renderings latch onto when they succeed, and why they remain vulnerable to distortion, misfit, and overextension.
+
+This matters because practical systems often confuse operational usefulness with sufficient disclosure. A record or score may preserve enough structure for routing, comparison, or intervention and still fail as a fuller rendering of what it organizes. The theory therefore gives a stronger basis for saying both why mediated representations can be powerful and why they remain corrigible. Their authority is reality-latching, not self-authorizing.
+
+\subsection{Future Work}
+
+Several directions for future work follow directly from the present argument.
+
+The first is to sharpen the core decomposition. The current vocabulary of distinction, relation, organization, constraint, invariance, and transformation is explanatorily strong, but not obviously final. Further work should clarify which of these are strictly primitive, which are derivative, and whether additional terms are required.
+
+The second is to develop the relation between structure, selective preservation, and remainder more explicitly. If structure is what renderings preserve when they succeed, then later work should say more clearly how preservation is organized and what follows from the fact that no finite rendering preserves all relevant articulation equally.
+
+The third is to strengthen the account of invariance and preservation across transformation. The present paper offers a conceptual rather than a fully formal treatment. Future work could give a more explicit account of how preserved form differs across scientific, formal, institutional, and other domains.
+
+The fourth is to clarify the relation between structure and process. The paper argues that much structure is dynamically maintained, but leaves open whether process should be treated as co-primitive, more fundamental, or simply indispensable for describing many real structures.
+
+The fifth is to clarify the relation between structure and experiential or normative domains. The present theory is intentionally upstream, but later work must ask how far experience, value, burden, and normativity are structurally preservable, where they require more than structural vocabulary alone, and how adequacy should be understood where such features become central.
+
+These tasks do not displace the present result. They extend it along the lines the paper itself makes newly visible.
+
+\section{Conclusion}
+
+\subsection{Main Result}
+
+The main result of this paper is a more disciplined account of what structure in reality must be if finite renderings are to disclose something real without either inventing what they render or exhausting it. Structure has been treated here neither as a mere feature of description, nor as a vague synonym for pattern, nor as a total surrogate for reality as such. It has been treated instead as the organized, constraint-bearing articulation of the real: reality insofar as reality exhibits distinctions, relations, organization, and invariances strong enough to constrain what can occur, what can be preserved across transformation, and what finite renderings can successfully disclose.
+
+This result matters because it secures a middle position stronger than descriptivism and weaker than structural totalism. Finite renderings succeed by selectively preserving real structure under determinate conditions. But no such preservation licenses the conclusion that one rendering, one formalism, or one vocabulary exhausts reality in full. The paper's central achievement is therefore to stabilize structure as real, disclosure-relevant, and non-exhaustive.
+
+\subsection{Broader Significance}
+
+The broader significance of the theory lies in the balance it makes possible. Structure is real enough to ground answerability: renderings can succeed, misfit, and be corrected because they answer to organized articulation not exhausted by their own internal form. Structure is bounded enough to avoid totalization: one need not say that reality is nothing but structure, nor that one sufficient vocabulary must therefore capture everything real. And structure is strong enough to explain how multiple finite renderings can still be renderings of one shared world rather than merely neighboring local constructions.
+
+That balance matters both philosophically and practically. It clarifies why later theories of description, preservation, adequacy, and correction require a more exact object than vague pattern-talk can provide. It also clarifies why models, records, scores, and formal systems can be both powerful and corrigible. They preserve real structure, but only partially and under conditions. In that sense, the theory explains how plurality of renderings need not collapse into arbitrariness, and how one reality need not collapse into one exhaustive descriptive horizon.
+
+\subsection{Final Claim}
+
+\begin{quote}
+Structure in reality is the organized, constraint-bearing articulation of the real that finite renderings partially preserve when they succeed. It is therefore real without being reducible to any rendering, and disclosure-relevant without collapsing into one final exhaustive vocabulary.
+\end{quote}
+
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/structure/structure}
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+DOI:
+\href{https://doi.org/10.5281/zenodo.19117270}{10.5281/zenodo.19117270}
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}
+
+\end{document}

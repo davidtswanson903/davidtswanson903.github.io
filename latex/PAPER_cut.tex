@@ -1,0 +1,815 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={The Cut}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{The Cut}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+% ---------- Title ----------
+\title{\textbf{The Cut}\\
+\large Selection, Disclosure, and the Structured Conditions of Finite Description}
+\author{David T. Swanson}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Many discussions of description, modeling, abstraction, and representation rely on selective rendering while leaving the structure of that selectivity underdescribed. Features are said to be simplified, omitted, idealized, encoded, aggregated, or formatted, yet the operator through which a world-fragment becomes describable often remains implicit. This paper argues that finite description proceeds through a \emph{cut}: a structured selection-regime induced by a describing system under determinate interface, purpose, level, and capacity conditions. A cut does not merely leave things out. It shapes what distinctions can appear, what relations can stabilize, what form a world-fragment must enter in order to become representable, what can travel as a reusable representation, and what remains as residue. The paper develops the cut as a distinct theoretical object rather than a loose synonym for omission, abstraction, idealization, coarse-graining, or encoding. On that basis, it explains why disclosure and residue are jointly generated, why adequacy is always cut-relative and scope-indexed, why representations inherit both power and limit from the cuts that formed them, and how one shared reality can support many non-equivalent renderings without collapsing into arbitrariness. The paper does not offer a complete theory of representation, a full metric of adequacy, or a universal typology of cuts across all domains. Its narrower aim is to clarify the cut as a constitutive operator of finite description and to show why that clarification matters for scientific modeling, quantified representation, institutional records, and model-mediated systems.
+\end{abstract}
+\pagebreak
+\section{Introduction}
+
+\subsection{Motivating Problem}
+
+Finite description is always selective, but the structure of that selectivity is often left underdescribed. Scientific models preserve some relations while suppressing others. Administrative files preserve some features of a case while flattening others. Formal systems preserve some invariances while excluding what cannot enter their grammar. In each of these settings, one can say that a representation simplifies, abstracts, idealizes, encodes, aggregates, or formats. But these neighboring terms do not yet tell us what kind of operation is taking place when a world-fragment becomes describable for a finite describing system. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep,bowker_star_sorting_things_out}
+
+This is not a minor terminological inconvenience. If the structure of selective rendering remains unclear, then several related notions remain unclear with it: what exactly a representation preserves, why some remainder is structurally inevitable, how scope conditions arise, why overextension is such a persistent failure mode, and how many distinct renderings can still answer to one shared reality. It is easy to say that a model or record leaves things out. It is harder to say what structured regime makes the resulting disclosure possible in the first place.
+
+A familiar response is to treat selectivity as a secondary defect layered onto otherwise transparent description. On this picture, description first aims at complete capture and only later suffers omission because describers are finite. Another response is to treat selective rendering as too heterogeneous for unifying theory: abstraction here, idealization there, measurement elsewhere, encoding somewhere else again. The first response understates how deeply selection belongs to finite description; the second obscures what these apparently different operations structurally share.
+
+The present paper argues that both responses are too weak. Finite description does not first receive a complete world-fragment and then subtract from it. It renders through a structured regime that determines what can appear, what can stabilize, what form preserved structure must take, and what must remain weakly carried, backgrounded, or excluded.
+
+That regime is what this paper calls \emph{the cut}.
+
+\subsection{Central Question}
+
+The paper is guided by one central question:
+
+\begin{quote}
+What is the cut, such that finite description can preserve some structure of a world-fragment in usable form while leaving other structure as residue?
+\end{quote}
+
+This question is narrower than a general theory of representation and more specific than the familiar claim that all models simplify. It asks not merely whether finite description is selective, but what kind of operator that selectivity is.
+
+\subsection{Main Proposal}
+
+The paper's central proposal is:
+
+\begin{quote}
+A cut is the structured selection-regime through which a world-fragment becomes describable for a finite describing system under determinate interface, purpose, level, and capacity conditions. It does not merely omit. It jointly shapes what can appear, what can be preserved, what grammar the world-fragment must enter in order to become representable, and what remains as residue.
+\end{quote}
+
+More fully, the paper argues that a cut is a constitutive operator of finite disclosure. It is not identical with a representation, though representations are its products. It is not merely a name for omission, because it determines preserved form as well as exclusion. And it is not merely interface, purpose, or level in isolation, because it is induced by their joint operation under finite conditions.
+
+\subsection{Roadmap}
+
+Section 2 situates the proposal against nearby ways of thinking about selectivity, including omission, abstraction, idealization, encoding, coarse-graining, and framing. Section 3 introduces the paper's core definitions and distinctions. Section 4 develops the main theory of the cut. Section 5 explains why this theory is needed and what confusions it resolves. Section 6 shows explanatory payoff across scientific modeling, quantified representation, institutional administration, and model-mediated systems. Section 7 addresses the strongest objections. Section 8 states scope conditions, limits, and visible residues. Section 9 sketches implications and future work. Section 10 concludes. Two brief appendices provide provisional definitions and a compact formal sketch.
+\section{Background and Rival Views}
+
+The claim of this paper is not that selective rendering is newly discovered. The claim is that the operator through which selective rendering becomes possible remains underdescribed. A number of neighboring concepts capture genuine aspects of the phenomenon. The task of this section is to show both why those concepts matter and why none of them, by itself, is sufficient for the present burden. The cut is introduced only if it explains something that omission, abstraction, idealization, coarse-graining, interface, framing, encoding, or perspective cannot explain as well on their own.
+
+\subsection{The Cut as Mere Omission}
+
+One common way of handling selective description is to treat it as omission. On this view, a representation is what remains after some features have simply been left out. This captures something real. Finite descriptions do leave things out. But omission language alone is too weak for the work required here. It tells us that some features are absent, but not what structured regime made other features preservable, comparable, reusable, or portable in the first place.
+
+A model that omits friction, a file that omits lived context, and a metric that omits qualitative heterogeneity do not merely share absence. They share a more structured mode of selection in which some distinctions are stabilized strongly enough for reuse while others are backgrounded, merged, or excluded. Omission names only the negative side of that process. It does not yet explain how selective disclosure is positively organized.
+
+For that reason, the present paper treats omission as a consequence of the cut, not as an adequate synonym for it. A cut includes leaving things out, but it also determines what can appear in a stable form, what kind of structure can be carried forward, and what sort of representational product can result.
+
+\subsection{The Cut as Abstraction or Idealization}
+
+A second approach treats selectivity under the heading of abstraction or idealization. These concepts are indispensable, and the present paper does not reject them. Abstraction clarifies selective attention to some features rather than others; idealization clarifies deliberate simplification or distortion for tractability; both are deeply important in scientific and formal work. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+But neither concept cleanly captures the full operator this paper is after. Abstraction often says too little about the admissible form a world-fragment must enter in order to become representable at all. Idealization often emphasizes useful distortion, but not the broader regime that also determines preservation profile, residue, scope, portability, and the authority of the resulting product. A cut may contain abstraction and may contain idealization, but it is not exhausted by either.
+
+The point of introducing the cut is therefore not to replace these terms where they already do useful local work. It is to name the broader structured regime within which abstraction and idealization acquire determinate consequence. The cut is meant to explain why simplification, distortion, preservation, and transport belong to one operator rather than appearing as separate after-the-fact descriptions of representational success.
+
+\subsection{The Cut as Coarse-Graining}
+
+A third nearby concept is coarse-graining. In many scientific contexts, especially in statistical mechanics, dynamical systems, and multi-scale modeling, coarse-graining names the passage from a finer-grained description to a thicker, more aggregate one. This is highly relevant to the present paper because it makes selective preservation especially visible. \cite{levels_org_biology_sep}
+
+Yet coarse-graining is still narrower than the cut. It emphasizes scale-shift and aggregation, but the cut is not only about moving from fine to coarse resolution. A cut also includes interface constraints, task demands, admissible grammar, and the conditions under which a resulting representation can circulate with authority. Some cuts do involve coarse-graining, but others involve categorization, commensuration, standardization, schema-enforcement, or formal parameterization without being best understood as scale-shifts alone.
+
+The relation is therefore best stated as follows: coarse-graining is one important species of selective rendering, whereas the cut names the more general structured regime within which coarse-graining is one possible operation. This is one reason the cut deserves separate treatment. It is meant to range across scientific, institutional, and formal cases where aggregation is sometimes central but not always the best description of what is happening.
+
+\subsection{The Cut as Interface Alone}
+
+A fourth temptation is to collapse selectivity into interface. Instruments, forms, datasets, symbolic systems, and record formats do shape what becomes describable. That is true, and the paper relies on it. But interface alone does not determine the relevant operation. The same interface may support different cuts under different purposes and levels. A dataset schema used for exploratory analysis, formal benchmarking, or administrative eligibility review may preserve different distinctions even when the broad format remains the same. Interface is therefore one inducer of the cut, not the cut by itself. \cite{adriaans_information_sep,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+This distinction matters because otherwise every change in medium or format would count as the whole story of selective rendering. The present paper argues instead that interface helps induce a cut jointly with purpose, level, and finite capacity. The cut is not the medium alone, but the structured regime that emerges under determinate conditions of use.
+
+\subsection{The Cut as Framing or Encoding}
+
+A fifth nearby approach treats selective rendering as framing or encoding. Framing usefully emphasizes that descriptions highlight some aspects of a domain while suppressing others. Encoding usefully emphasizes translation into an admissible usable form. Both are relevant. But neither is quite sufficient on its own.
+
+Framing often remains too interpretive and loose for the present burden. It may identify emphasis without yet specifying what structure has been carried strongly enough to stabilize as representation. Encoding often captures formal translation into an admissible format, but not the wider regime that determines which distinctions survive, which relations travel, what grammar governs admissibility, and what residue is structurally generated. The cut is therefore close to framing and encoding without collapsing into either. It names the structured selection-regime that yields both preserved form and formatted product.
+
+This is one place where the notion of representational grammar matters. Encoding tells us that something has been rendered into a form. The cut, by contrast, asks what admissible form had to be imposed in order for some aspects of the world-fragment to count as representable at all. That stronger question is part of what the paper means to capture.
+
+\subsection{The Cut as Arbitrary Perspective}
+
+A final response begins from conditioned selectivity and infers that distinct renderings are merely arbitrary perspectives. This view correctly notices that different descriptions preserve different structures. What it misses is that selective rendering need not be arbitrary. One cut may preserve more relevant structure than another for a given use; one may overextend more readily; one may generate residue of a different and more consequential kind. The fact that rendering is conditioned does not imply that it is unconstrained. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep}
+
+The present paper therefore rejects the inference from conditioned rendering to relativism. Cuts differ, but they are not merely free projections. They remain answerable to the same shared reality and can be compared in terms of preservation, scope, portability, and overextension.
+
+\subsection{The Paper's Position}
+
+The position defended here is that the cut is a distinct and necessary theoretical object. It is more than omission, broader than abstraction or idealization, more general than coarse-graining, not reducible to interface, framing, or encoding, and not equivalent to arbitrary perspective. It is the structured selection-regime through which finite description becomes possible as selective but answerable disclosure.
+
+The rest of the paper argues that making this operator explicit yields a stronger account of preservation, residue, scope, portability, plurality, and overextension than the looser neighboring concepts provide. The aim is not to discard those neighboring concepts, but to show that they do not by themselves capture the full structure of finite descriptive rendering. If the paper succeeds, the cut will not appear as a merely dramatic umbrella term, but as the operator that explains why these neighboring notions often co-occur and why they hang together in one structured regime.
+\section{Core Definitions and Distinctions}
+
+This section fixes the paper's working vocabulary. The aim is not terminological expansion for its own sake, but a readable set of terms sufficient to state the theory clearly. The terms below are best understood as a \emph{working decomposition} of the paper's central object rather than as a final metaphysical inventory. Some are closer to primitives than others; all are included because the argument cannot proceed without the work they do.
+
+The vocabulary falls into three groups. First are the basic conditions under which finite description occurs: world-fragment, describing system, interface, purpose, level, and capacity constraint. Second is the core operator: the cut, together with preservation profile and representational grammar. Third are the product and consequences of the cut: representation, disclosure, residue, scope condition, adequacy, and overextension.
+
+\subsection{World-Fragment}
+
+A \emph{world-fragment} is the portion or field of reality being described. The term is used instead of \emph{object} because what is being rendered may be a process, relation, population, institutional state, event, layered system, or maintained pattern rather than a discrete thing. This preserves continuity with the broader framework of constrained describability and avoids unnecessary language drift.
+
+\subsection{Describing System}
+
+A \emph{describing system} is the finite agent, institution, practice, or formal regime performing description. The term is broader than \emph{observer}. A scientific community, bureaucratic workflow, statistical pipeline, or machine-learning system may all function as describing systems in the relevant sense.
+
+\subsection{Interface}
+
+An \emph{interface} is the medium, instrument, notation, schema, format, or procedural layer through which a world-fragment becomes describable. Interfaces include forms, datasets, model classes, instruments, symbolic systems, codebooks, dashboards, and administrative file structures. \cite{adriaans_information_sep,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+Interface should be distinguished from the cut itself. It is an input condition of selective rendering: part of what shapes what can be registered, stabilized, and transmitted, but not by itself the whole selection-regime.
+
+\subsection{Purpose}
+
+A \emph{purpose} is the task-relative aim governing a description. Descriptions are made for something: prediction, explanation, memory, classification, allocation, coordination, intervention, or communication. Purpose helps determine relevance and tolerable loss.
+
+\subsection{Level}
+
+A \emph{level} is the scale or resolution at which a world-fragment is rendered. Level affects not only how much detail appears, but what counts as describable structure in the first place. \cite{levels_org_biology_sep}
+
+\subsection{Capacity Constraint}
+
+A \emph{capacity constraint} is a finite bound on time, memory, bandwidth, processing, coordination, or tractability. Capacity matters because cuts are not performed by unlimited describers. Selective rendering is partly induced by the finite limits built into the describing system or descriptive regime.
+
+\subsection{Cut}
+
+A \emph{cut} is the structured selection-regime through which a world-fragment becomes describable for a finite describing system under determinate interface, purpose, level, and capacity conditions. A cut shapes what distinctions can appear, what relations can stabilize, what form the world-fragment must enter, and what can travel as representation.
+
+This is the paper's central object. The cut is not identical with omission, abstraction, idealization, interface, or representation, though it is related to all of them. It names the structured condition under which selective disclosure becomes possible.
+
+\subsection{Preservation Profile}
+
+A \emph{preservation profile} is the pattern of distinctions, relations, and structures carried strongly enough by a cut to support stable representation. This term names the positive side of selection more precisely than saying only that some structure is kept. Different cuts may be compared in part by differences in preservation profile: what they preserve strongly, weakly, or not at all.
+
+\subsection{Representational Grammar}
+
+A \emph{representational grammar} is the admissible form a world-fragment must enter in order to become representable under a given cut. It is not simply the \emph{interface}, which names the medium or access layer, and it is not merely the \emph{format} of the final artifact. It is the rule-governed form in which preserved structure must be expressed if it is to stabilize, circulate, and be used as representation.
+
+This matters because selective rendering is not only a matter of retaining some features and dropping others. It also involves forcing the world-fragment into an admissible representational form. A metric may require numerical commensuration, an administrative file may require field-and-category entry, a model may require variable-parameter structure, and a dataset may require standardized schema. These are not incidental packaging choices. They help determine what can count as describable form in the first place.
+
+\subsection{Representation}
+
+A \emph{representation} is the stabilized output yielded by a cut: model, file, score, category, map, metric, record, prompt, benchmark, or other structured artifact. A representation is the product of a cut, not the cut itself.
+
+\subsection{Disclosure}
+
+A \emph{disclosure} is the preserved structure a representation makes available under a given cut. Disclosure is real without being exhaustive. A representation may disclose something genuine about a world-fragment without exhausting it. \cite{frigg_nguyen_scientific_representation_sep,chakravartty_scientific_realism_sep}
+
+\subsection{Residue}
+
+\emph{Residue} is the structured remainder relative to a cut: what is omitted, flattened, merged, backgrounded, poorly carried, or rendered inexpressible by the representation. Residue is not a vague beyond. It is relative to what the cut preserved. Different cuts therefore generate different residues.
+
+\subsection{Scope Condition}
+
+A \emph{scope condition} is the regime within which a representation remains sufficiently adequate for its intended use. Scope is not optional metadata attached afterward. It helps bound the legitimate authority of the representation.
+
+\subsection{Adequacy}
+
+\emph{Adequacy} in this framework means cut-relative and scope-indexed adequacy. A representation may be adequate for one use, level, or regime while inadequate for another. There is no strong notion here of adequacy without qualification. \cite{frigg_nguyen_scientific_representation_sep,scientific_pluralism_sep}
+
+Still, adequacy is not empty or purely negative. At a minimum, an adequate representation preserves enough relevant structure for the task at hand, does so in a form usable within its declared scope, and remains open to correction when its limits become visible. The concept is therefore thinner than exhaustive truth and stronger than mere convenience.
+
+\subsection{Overextension}
+
+\emph{Overextension} occurs when a representation is used beyond the scope conditions under which its disclosure remains adequate. Many representational failures are therefore better understood as overextensions than as cases of simple total falsehood. \cite{mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+\subsection{Load-Bearing Distinctions}
+
+Several distinctions organize the rest of the paper.
+
+First, \emph{cut} must be distinguished from \emph{omission}. A cut includes omission, but is not exhausted by leaving things out.
+
+Second, \emph{cut} must be distinguished from \emph{abstraction} and \emph{idealization}. These may function within a cut, but they do not by themselves name the full selection-regime.
+
+Third, \emph{cut} must be distinguished from \emph{interface}. Interface helps induce the cut, but does not by itself determine the whole operation.
+
+Fourth, \emph{cut} must be distinguished from \emph{representation}. The cut is the operator; the representation is its stabilized product.
+
+Fifth, \emph{representational grammar} must be distinguished from both \emph{interface} and \emph{format}. Interface names the access medium; format names the arrangement of the output; grammar names the admissible form through which preserved structure becomes representable at all.
+
+Sixth, \emph{preservation} must be distinguished from \emph{exhaustiveness}. A representation may preserve real structure without carrying all relevant structure equally well.
+
+Seventh, \emph{residue} must be distinguished from \emph{error}. What is left relative to a cut is not automatically falsehood or defect; some residue is the ordinary consequence of finite selective disclosure.
+
+Eighth, \emph{adequacy} must be distinguished from \emph{global authority}. A representation may be locally adequate and still become misleading when it travels beyond its proper scope.
+\section{Main Theory}
+
+\subsection{Field-Level Characterization}
+
+The cut is a theory of the operator through which finite description becomes possible. It is not a complete theory of representation. Its object is prior to representation: the structured regime through which a world-fragment becomes selectively available in a form that can stabilize, circulate, and guide use. The burden of the theory is therefore narrower than a general philosophy of models, records, or media, but deeper at the point where those artifacts first become possible. It asks what must happen for a world-fragment to become describable for a finite describing system at all.
+
+The central claim can be stated compactly:
+
+\begin{quote}
+Finite description does not first possess a complete world-fragment and then subtract from it. It renders through a cut.
+\end{quote}
+
+That is the paper's main theoretical shift. Selectivity is not a secondary imperfection layered onto otherwise transparent access. It belongs to the operator that makes finite disclosure possible in the first place.
+
+\subsection{Why Finite Description Requires a Cut}
+
+Any usable description must preserve some distinctions more strongly than others. It must stabilize some relations, suppress some variation, background some context, and render the result in a form that can be reused, compared, stored, or acted upon. A description that preserved every distinction without structured loss would not function as a model, record, category, metric, or score in any ordinary sense. It would not compress, compare, transport, or orient use.
+
+The point here is stronger than the banal claim that finite describers are limited. The claim is that selective rendering is constitutive. Level, interface, purpose, and capacity do not merely interfere with description from outside. They help determine the very conditions under which description becomes usable at all. That structured condition is the cut.
+
+Another way to state the point is this: finite description is not complete access plus later simplification. It is conditioned access from the start. What becomes describable already does so under a regime that selects, orders, formats, and stabilizes. The cut names that regime.
+
+\subsection{Cut Induction}
+
+A cut is induced jointly by:
+\begin{itemize}
+    \item a \textbf{describing system},
+    \item an \textbf{interface},
+    \item a \textbf{purpose},
+    \item a \textbf{level},
+    \item and \textbf{capacity constraints}.
+\end{itemize}
+
+No one of these is sufficient on its own.
+
+Interface alone cannot explain the cut, because the same interface may support different selection-regimes under different purposes.
+
+Purpose alone cannot explain the cut, because task-relative aims still require some interface and level through which the world-fragment becomes describable at all.
+
+Level alone cannot explain the cut, because scale changes what can appear without by itself fixing what grammar the representation must enter or what preservation counts as enough.
+
+Capacity alone cannot explain the cut, because finite limitation by itself does not determine what gets preserved strongly, what gets compressed, or what becomes portable.
+
+The cut is therefore not a one-factor filter. It is a jointly induced regime of selective rendering. This is why it should be treated as an operator rather than as a loose synonym for simplification.
+
+\subsection{The Cut as More Than Omission}
+
+This point deserves explicit treatment because the theory's distinctiveness depends on it. A cut is not merely what a description leaves out. Omission is one consequence of a cut, but not the whole operation. A cut also helps determine what distinctions become legible, what relations stabilize, what form the world-fragment must enter, and what kind of product can circulate as a representation.
+
+For that reason, the cut must also be distinguished from generic abstraction, idealization, and coarse-graining. Abstraction usually marks selective attention. Idealization usually marks tractable distortion. Coarse-graining usually marks a shift to a thicker or more aggregate resolution. A cut may include all of these moments, but it is not exhausted by any one of them. It names the broader selection-regime within which such operations acquire determinate form, consequence, and downstream authority.
+
+This stronger claim matters because the cut is meant to explain not just \emph{loss}, but the structured pairing of selective preservation, admissible representation, residue, scope, portability, and overextension. That package is what a mere list of neighboring operations does not capture as cleanly.
+
+\subsection{Preservation Profile and Representational Grammar}
+
+A cut determines at least two things at once.
+
+First, it determines a \emph{preservation profile}: what distinctions, relations, and structures are carried strongly enough to stabilize as representation.
+
+Second, it determines a \emph{representational grammar}: what admissible form the world-fragment must enter in order to become representable at all.
+
+This second point is essential. Selective description is not only about what is kept and what is dropped. It is also about what form the preserved material must assume if it is to count as a usable representation. A model may require parameterization, a record may require field-and-category entry, a score may require numeric commensuration, and a dataset may require standardized schema. These are not merely packaging choices added after the fact. They help shape what can count as preserved structure in the first place.
+
+Representational grammar should therefore be distinguished from both interface and format. Interface names the medium or access layer through which a world-fragment becomes describable. Format names the arrangement of the final artifact. Grammar names the admissible form through which preserved structure can be rendered, stabilized, and made portable as representation. The same broad interface may support different grammars, and the same output format may conceal distinct grammatical constraints.
+
+The cut therefore governs both \emph{what travels} and \emph{in what form it can travel}. That is why the theory needs both preservation profile and representational grammar rather than the weaker claim that descriptions merely retain some features and ignore others.
+
+\subsection{Disclosure and Residue Are Jointly Generated}
+
+The same cut that produces disclosure also produces residue. This is one of the paper's central claims.
+
+A representation does not first disclose and only later happen to omit. It discloses by selectively preserving some structure under a particular regime. The same regime necessarily leaves some remainder weakly carried, backgrounded, flattened, merged, or excluded.
+
+Residue is therefore not an accident external to successful representation. It is the structured remainder generated by the same cut that made disclosure possible. This matters because it prevents the success of disclosure from being mistaken for completeness. It also explains why later failures often emerge not from the sudden appearance of error, but from structure that the representation never carried well to begin with. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,bowker_star_sorting_things_out}
+
+The theoretical point is decisive: disclosure and residue are not two unrelated outcomes. They are paired consequences of one and the same operator.
+
+\subsection{Representations Inherit Their Limits}
+
+Representations inherit both their power and their limits from the cuts that formed them. A model, file, category, or score is usable because a cut preserved some structure strongly enough for reuse. But it is limited for the same reason. What can travel as representation is already shaped by the preservation profile and representational grammar of the cut.
+
+This is why portability is never neutral. What circulates cleanly often does so because it has been rendered into a grammar that privileges some structures over others. Files, scores, dashboards, metrics, and benchmarks frequently gain authority through portability while simultaneously concealing the conditions of their own formation.
+
+The claim here is therefore stronger than the familiar claim that representations are partial. It is that representations are partial in patterned ways inherited from the cut that produced them.
+
+\subsection{Cut-Relative Adequacy}
+
+Because representations inherit their limits from cuts, adequacy cannot be treated as free-floating. A representation is adequate only relative to the cut that formed it and the scope conditions under which that cut's disclosure remains usable.
+
+This means that adequacy is local in a principled rather than accidental sense. A representation may be highly adequate for one use and distortive for another. It may preserve what matters at one level and suppress what matters at another. This does not make adequacy arbitrary. It makes adequacy structured and scope-indexed.
+
+A minimal positive characterization is now possible. An adequate representation preserves enough relevant structure for the task at hand, does so in a form usable under the governing interface and level, remains within bounded conditions of legitimate travel, and remains open to correction when its limits become visible. Adequacy is therefore thinner than exhaustive truth and stronger than mere convenience.
+
+Cut-relative adequacy blocks two errors at once. It blocks the inflationary error of treating local success as exhaustive authority, and it blocks the skeptical error of treating non-exhaustiveness as equivalent to unreliability. The theory's point is not that adequacy disappears under finite conditions. It is that adequacy must be indexed to the conditions that made the representation possible.
+
+\subsection{Overextension}
+
+Overextension occurs when a cut-product is granted authority beyond the scope conditions under which its disclosure remains adequate. This is a central diagnostic category because many representational failures are not failures of total uselessness. They are failures of illegitimate travel.
+
+A score may function within one standardized comparison and become misleading when treated as morally exhaustive. A model may work within one explanatory regime and distort when exported into another. A file may route a case administratively while failing if treated as though it carried the whole case. These are not merely errors added after the fact. They are predictable consequences of granting a cut-product more authority than its formation can bear.
+
+Overextension is therefore not incidental misuse in a trivial sense. It is one of the main ways the limits of the cut become practically visible.
+
+\subsection{Plurality Without Arbitrariness}
+
+Once the cut is made explicit, descriptive plurality becomes easier to explain. Different cuts may preserve different structures of the same world-fragment under different purposes, levels, interfaces, and capacities. This plurality does not imply many realities or arbitrary projection. It implies that one shared reality can become available in many non-equivalent renderings.
+
+The cut therefore helps explain how plural descriptions can be genuinely answerable without collapsing into one final rendering regime. Different preservations need not be equivalent, but neither need they be arbitrary. They may instead be differently adequate, differently scope-bound, and differently vulnerable to overextension. \cite{chakravartty_scientific_realism_sep,scientific_pluralism_sep}
+
+This is one of the theory's main architectural payoffs. It explains how descriptive plurality can be real without requiring either descriptive monism or relativism.
+
+\subsection{Compact Schema}
+
+The theory can be compressed schematically.
+
+Let \(W\) be a world-fragment, \(A\) a describing system, \(I\) an interface, \(P\) a purpose, \(L\) a level, and \(K\) a capacity regime. Then:
+\[
+C = C(A,I,P,L,K)
+\]
+
+A representation is yielded by applying the cut to the world-fragment:
+\[
+R = C(W)
+\]
+
+The representation discloses some preserved structure under that cut:
+\[
+\mathrm{Disc}(R,W \mid C)
+\]
+
+Residue is generated relative to the same cut:
+\[
+\Delta = \mathrm{Res}(W \mid C)
+\]
+
+Adequacy is always indexed to scope:
+\[
+\mathrm{Adeq}(R,S)
+\]
+
+And overextension occurs when use outruns scope:
+\[
+\mathrm{Overext}(R,U) \iff U \not\subseteq S
+\]
+
+This schema is not a full formalization. It is a compact display of the theory's main commitments: description becomes possible through a jointly induced cut; the cut yields a representation with a determinate preservation profile and grammar; disclosure and residue are generated together; adequacy is cut-relative and scope-indexed; and many representational failures are best understood as overextensions of cut-products beyond the conditions that formed them.
+\section{Why This Theory Is Needed}
+
+\subsection{What Existing Language Misses}
+
+Existing language captures important parts of the phenomenon without capturing the full structure at issue.
+
+Omission language captures loss, but not structured preservation. It tells us that something has been left out, but not what regime made other features stable enough to appear, travel, and be reused as representation.
+
+Abstraction language captures selective attention, but not the fuller relation among preservation profile, representational grammar, scope, and residue. It helps explain why some features are foregrounded, but not the broader operation through which a world-fragment becomes describable in a determinate form.
+
+Idealization language captures useful simplification or distortion, but not the wider operator that also governs stabilization, transport, inherited limit, and downstream authority. It clarifies one common moment within selective rendering without yet naming the whole selection-regime.
+
+Coarse-graining language captures aggregation and scale-shift, but not the full structured regime through which a world-fragment becomes representable. It is important for many scientific cases, but it remains one species of selective rendering rather than a general account of the operator involved.
+
+Interface language captures mediation, but not the jointly induced structure of selection. An interface matters, but interface alone does not explain why one representation preserves what it does, carries what it can, and fails where it does.
+
+For these reasons, the theory of the cut is needed because neighboring concepts do not by themselves explain how preservation, residue, scope, portability, and overextension are bound together in one structured operation.
+
+\subsection{Confusions the Theory Resolves}
+
+The first confusion is between \emph{local success} and \emph{transparent capture}. The cut clarifies why a representation may work well without exhausting what it renders. Selective success is not a secondary defect added to otherwise total access. It is part of the condition of usable disclosure.
+
+The second confusion is between \emph{plurality} and \emph{arbitrariness}. Once cuts are made explicit, it becomes easier to see how non-equivalent renderings may each preserve real structure without collapsing into relativism. Distinct cuts need not imply disconnected realities or merely subjective projection.
+
+The third confusion is between \emph{representation} and \emph{the conditions of its formation}. The cut restores attention to the structured regime that made the representation possible in the first place. This matters because representations often appear self-standing once stabilized, even though their powers and limits were inherited from the cuts that formed them.
+
+The fourth confusion is between \emph{total falsehood} and \emph{overextension}. Many failures are not failures of absolute uselessness. They are failures of illegitimate authority beyond scope. The cut clarifies why a representation may be locally adequate and still become misleading when granted more reach than its formation can bear.
+
+The fifth confusion is between \emph{formatted output} and \emph{mere packaging}. Once representational grammar is made explicit, it becomes clearer that the form a representation takes is not an after-the-fact wrapper placed around already preserved content. The admissible form helps determine what can count as preserved structure in the first place.
+
+\subsection{Structural Gain}
+
+The gain of the theory is therefore not merely terminological. It is structural. The cut gives a more exact object for talking about:
+\begin{itemize}
+    \item selective preservation,
+    \item representational grammar,
+    \item cut-relative residue,
+    \item cut-relative adequacy,
+    \item portability,
+    \item and overextension.
+\end{itemize}
+
+This is why the theory is needed. It renders explicit a structure that looser language about omission, simplification, abstraction, idealization, coarse-graining, or representation often leaves implicit. More strongly, it shows that these are not isolated representational phenomena. They are interrelated consequences of one deeper operation through which finite description becomes possible at all.
+
+That is the paper's main gain at this stage. It does not eliminate the usefulness of neighboring concepts. It explains why they recur, how they hang together, and why they can be treated as partial views of one deeper structured regime rather than as a merely miscellaneous collection of descriptive maneuvers.
+\section{Applications and Explanatory Payoff}
+
+A theory this upstream earns its place only if it clarifies real cases more sharply than weaker alternatives do. The point of the present account is not to replace domain-specific theories of modeling, quantification, institutions, or AI. Its narrower task is to explain what selective rendering \emph{is}: how preservation profile, representational grammar, residue, scope, portability, and overextension hang together as consequences of one cut-governed operation. The following cases therefore function as tests rather than ornaments. In each case, the question is not merely whether something is simplified, but whether the language of the cut explains more than neighboring vocabularies explain on their own.
+
+\subsection{Scientific Modeling}
+
+Scientific models preserve some structures while suppressing others. A climate model, an epidemiological model, or a population model does not function by reproducing an entire domain in full detail. It functions by preserving selected relations strongly enough for prediction, explanation, intervention, or comparison. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+The cut clarifies that this is not merely omission. A model is produced under a structured regime that helps determine what distinctions count, what variables can stabilize, what formal or computational grammar the domain must enter, and what remainder is left weakly carried. This matters because it explains why model selectivity is not an unfortunate afterthought. It is part of what makes the model usable at all.
+
+The point becomes sharper once preservation profile and representational grammar are taken together. A model does not merely retain some features and ignore others. It also requires that the world-fragment enter a form in which those preserved features can be parameterized, simulated, estimated, or compared. In many cases, what is preserved is already partly shaped by what the grammar can admit. This is one place where the cut explains more than omission language alone. Omission can mark absence; it cannot by itself explain why the preserved structure takes the particular usable form that it does.
+
+The same account also explains why two models may each disclose genuine structure while remaining non-equivalent. One model may preserve large-scale dynamical regularities useful for forecasting; another may preserve finer-grained mechanisms relevant to intervention. Their difference does not by itself show that one is fictive. It may instead show that different cuts preserve different structures of the same world-fragment under different purposes, levels, or tractability constraints.
+
+A weaker vocabulary of abstraction or idealization can certainly capture part of this picture. The cut says more. It explains why what is preserved, what is left weakly carried, what grammar the model requires, and where the model can travel are all linked consequences of one structured selection-regime rather than separate descriptive facts.
+
+\subsection{Quantified Representation}
+
+Metrics, indicators, rankings, and scores are especially strong cases of cut-governed description. Quantification often preserves some structures by forcing heterogeneous material into comparable form. This can produce genuine disclosure: distributions become visible, comparisons become portable, and standardized coordination becomes possible. But the same operation can also generate substantial residue. What is flattened may include context, burden, causal heterogeneity, nonstandard cases, or distinctions that resist commensuration. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,porter_trust_in_numbers}
+
+The cut helps explain why quantified representations gain authority so easily. A number travels well precisely because a cut has already disciplined the world-fragment into an admissible grammar of comparison. That portability is a real strength, but it also conceals formation conditions. The resulting output can appear more self-standing than it is, because the work required to render the domain commensurable has been hidden upstream.
+
+This is one place where representational grammar is especially important. Quantified outputs do not merely summarize pre-given structure. They require that the relevant domain be rendered into measurable units, comparable thresholds, commensurable categories, or standardized variables. The grammar is therefore not a wrapper placed around already preserved content. It helps determine what can count as preservable content in the first place.
+
+This also explains why quantified outputs are structurally vulnerable to overextension. A metric may be locally adequate for one standardized comparison and still become misleading when treated as morally, administratively, or explanatorily exhaustive. The issue is often not numerical falsity in the narrow sense. It is that the cut-product is granted more authority than its preservation profile and scope conditions can bear.
+
+A weaker view can say that metrics simplify or that numbers conceal context. The cut explains why they do so in a patterned way: because commensuration, preservation, portability, and residue are generated together by one structured operation rather than appearing as unrelated side effects.
+
+\subsection{Institutional Records and Administrative Files}
+
+Institutional systems act through files, forms, records, case summaries, eligibility categories, and procedural states. These representations are not neutral mirrors. They are cut-products. A file preserves some structures strongly enough for routing, comparison, or decision while backgrounding other structures that do not travel easily through an administrable grammar. \cite{bowker_star_sorting_things_out,scott_seeing_like_a_state,herd_moynihan_administrative_burden}
+
+A benefits file, for example, may preserve dates, thresholds, certifications, household status, and procedural conditions while poorly carrying transportation difficulty, caregiving burden, unstable work, fear of error, or the practical cost of repeated compliance. The issue is not that the file is unreal. It is that the same cut that makes the file administratively usable also generates residue that may later matter greatly.
+
+Here again the cut explains more than simplification language alone. An administrative file does not merely reduce complexity. It requires that a case enter a grammar of fields, codes, statuses, evidentiary boxes, and authorized categories. What the institution can later see, compare, and act upon depends on that grammar. The file's preservation profile and the file's residue are therefore inseparable from the form the case had to assume in order to become administratively real.
+
+The cut therefore explains why institutional records can be both operationally effective and distortive at once. Their usefulness depends on structured preservation; their limits depend on the same structure. This gives a sharper account than the weaker thought that bureaucracies simply simplify. The file does not merely simplify. It renders through a cut that determines what can count as administratively real, what can circulate as evidence, and what remains weakly carried or invisible.
+
+This also clarifies why institutional failure so often takes the form of overextension rather than total malfunction. A file may be adequate for intake, routing, or threshold comparison and still become misleading when treated as if it exhausted the case. The problem is not only what was left out. It is that a cut-product was granted authority beyond the scope its formation can support.
+
+\subsection{Model-Mediated and AI Systems}
+
+Contemporary model-mediated systems make the cut unusually visible. Documentation practices such as model cards and datasheets are attempts, however partial, to mark intended use, known limits, and scope conditions. \cite{mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+The cut clarifies why such documentation matters. A model output is not merely a result. It is a cut-product. It inherits a preservation profile, a representational grammar, and scope conditions from the regime that formed it. This helps explain why even highly effective systems remain structurally vulnerable to misplaced trust. Local success does not erase the conditions of formation; it often makes them easier to forget.
+
+The same point applies to human--model interaction more broadly. A prompt, schema, benchmark, evaluation task, or classification target already imposes a cut on what can count as relevant input and admissible output. The resulting system may perform well within that regime while still failing when granted broader authority than its training, evaluation, or interface conditions justify. Overextension here is not an accidental edge case. It is a predictable consequence of treating cut-products as though they traveled without inherited limits.
+
+This is also a useful case for distinguishing the cut from interface alone. The interface matters, but it does not explain the whole selection-regime. The same model architecture or prompt interface may support different cuts under different tasks, evaluation procedures, and deployment settings. What counts as preserved structure, what residue is tolerated, and where the output can travel with legitimacy are not fixed by interface alone.
+
+A weaker vocabulary of limitation or bias can identify some resulting failures. The cut gives a more unified account. It explains why documentation, scope declaration, portability limits, and misalignment concerns belong together as aspects of one deeper problem: outputs inherit their powers and limits from the structured regime that made them possible.
+
+\subsection{What These Cases Show}
+
+Across these applications, the same pattern appears.
+
+First, selective preservation is never neutral. It is governed by a structured regime rather than by mere subtraction.
+
+Second, disclosure and residue are jointly generated. What becomes visible and what is left weakly carried arise from the same cut.
+
+Third, representational grammar is not incidental packaging. The admissible form a world-fragment must enter helps determine what can count as preserved structure at all.
+
+Fourth, scope conditions are constitutive rather than optional. They belong to what the representation is, not merely to later warnings about misuse.
+
+Fifth, portability often hides formation conditions. What travels cleanly often does so because it has already been forced into an admissible grammar.
+
+Sixth, overextension is a predictable failure mode. Many representational failures occur not because the representation was useless everywhere, but because it was granted authority beyond the conditions that formed it.
+
+These are real explanatory gains. They show that the cut is doing more work than omission, abstraction, idealization, or coarse-graining language alone can do. It clarifies not only that selective rendering occurs, but how its positive and negative consequences are structurally linked. That is the section's main payoff: the cut makes visible one operator where weaker vocabularies often leave us with a scattered list of representational side effects.
+\section{Objections and Replies}
+
+A theory this general should survive more than sympathetic reading. It should survive pressure at the points where its distinctiveness is most vulnerable: whether the cut is genuinely more than abstraction, whether its generality makes it empty, whether plurality of cuts collapses into relativism, whether the cut is really distinct from representation, and whether the concept warrants independent treatment at all. The objections below press those points directly. The aim is not to deny the pressure, but to show why it does not defeat the paper's central claim.
+
+\subsection{Objection 1: The Cut Is Just a Dramatic Name for Abstraction}
+
+One may object that the cut is nothing more than abstraction, simplification, or selective attention under a more dramatic label. If that were right, then the paper would add vocabulary without adding theory.
+
+This objection has force unless the cut can be shown to do explanatory work that ordinary abstraction language does not already do. The paper's reply is that the cut names not merely selective attention, but a more structured regime. A cut helps determine at least five things together: what is preserved strongly enough to stabilize as representation, what grammar the world-fragment must enter, what remains as residue, what scope conditions bound adequacy, and what kind of portability the resulting representation can acquire. Ordinary abstraction language often captures only one part of this structure, usually the fact of selective omission or simplification.
+
+The point is not that abstraction becomes false or dispensable. It remains an important neighboring concept. The point is that abstraction is usually too thin and too local for the burden carried here. It can say that some features are foregrounded and others ignored. It does not by itself explain why those preserved features take the particular usable form they take, why some residue is generated in patterned ways, why the representation travels as it does, or why many later failures are failures of scope rather than failures of total uselessness.
+
+The cut therefore earns its place, if it earns it at all, by naming the higher-order regime within which abstraction is one moment among others. If selective rendering jointly shapes preservation profile, representational grammar, residue, scope, and portability, then a stronger concept than generic abstraction is warranted.
+
+\subsection{Objection 2: The Theory Explains Too Much}
+
+A second objection is that if every finite description uses a cut, the concept may explain too much and therefore too little. A notion that appears everywhere can easily become empty. It may start to function as a universal redescription rather than as a discriminating theoretical object.
+
+That danger is real, but generality by itself does not imply emptiness. Many indispensable concepts are highly general. The real question is whether the concept differentiates meaningful structure within that generality. Here it does. The theory does not treat all cuts as interchangeable. It distinguishes particular cuts by describing system, interface, purpose, level, capacity regime, preservation profile, representational grammar, generated residue, scope conditions, and vulnerability to overextension.
+
+In other words, the cut is general at the level of operator type, not at the level of concrete descriptive form. The claim is that finite description always proceeds through some structured selection-regime, not that every such regime is the same. The generality of the operator therefore does not erase the specificity of particular cuts. It provides a common framework within which that specificity can be compared.
+
+A stronger version of the worry is that the cut may become a mere umbrella term covering omission, abstraction, idealization, encoding, coarse-graining, and framing. The paper's answer is that even if the cut is higher-order in this sense, that does not make it empty. The relevant question is whether the higher-order object explains relations among those neighboring operations that would otherwise remain scattered. The paper argues that it does, because it shows how preservation, grammar, residue, scope, portability, and overextension are systematically linked rather than merely colocated.
+
+\subsection{Objection 3: This Collapses into Relativism}
+
+A third objection is that once different cuts yield different disclosures, the framework threatens to collapse into relativism. If descriptions are always cut-dependent, perhaps there is no serious basis for saying that one disclosure is better, worse, more distortive, or more adequate than another.
+
+The paper rejects that inference. Different cuts do not imply arbitrary projection. They imply selective but answerable renderings of one shared reality. Comparative adequacy remains possible because cuts preserve different structures under different purposes and conditions, and those preservations can be assessed. Some cuts preserve more relevant structure than others for a given use; some produce less distortive residue; some travel more safely within declared scope; some overextend more readily than others. \cite{chakravartty_scientific_realism_sep,scientific_pluralism_sep}
+
+The framework therefore weakens false totality, not standards of evaluation. It denies that any one finite rendering exhausts reality, but it does not deny that renderings can be more or less adequate, more or less disciplined, or more or less prone to overextension.
+
+This is also why the paper ties adequacy to more than mere usefulness. A cut can be assessed by whether it preserves the structure relevant to the task it claims to serve, whether its representational grammar distorts that structure in systematic ways, whether its residue becomes consequential under foreseeable use, and whether its portability outruns its declared scope. These are not relativist criteria. They are criteria of disciplined comparison under finite conditions.
+
+\subsection{Objection 4: The Cut Collapses into Representation}
+
+A fourth objection is that once the output is stabilized, there is no need to distinguish the cut from the representation. Why not say that the representation simply is the cut as realized?
+
+The reply is that this would erase a necessary operator/product distinction. A representation is the stabilized artifact or output: model, file, score, category, map, benchmark, record. A cut is the structured regime through which that output becomes possible. The distinction matters because the same representational form may arise from different cuts, and similar-looking outputs may inherit different limits depending on how they were formed. Two scores can share a format while differing in preservation profile, residue structure, scope conditions, and portability. Two files can share a bureaucratic shell while differing in what distinctions they made administratively real.
+
+If the cut collapses into the representation, those formation differences disappear from view. But the paper's central claim is precisely that many of a representation's powers and limits are inherited from its mode of formation. The cut is therefore not identical with the representation. It is the structured regime that the representation carries forward in stabilized form.
+
+This distinction also matters for correction. If one identifies the cut with the product, then revision will appear to concern only outputs. But many revisions are more basic than that. They alter the selection-regime itself: what counts as relevant structure, what grammar is admissible, what level is operative, and what scope can be claimed. The cut/product distinction is therefore necessary not only for analysis of formation, but also for analysis of correction.
+
+\subsection{Objection 5: The Concept of Representational Grammar Is Too Thin}
+
+A further objection is that one of the paper's most distinctive notions, \emph{representational grammar}, remains underdeveloped. It may seem unclear how grammar differs from interface, format, or encoding, and if that difference remains obscure then one of the paper's main claims risks becoming merely gestural.
+
+This objection is well taken, but it does not defeat the theory. The relevant reply is that representational grammar names something more specific than interface alone. Interface concerns the medium or channel through which a world-fragment becomes describable. Representational grammar concerns the admissible form that the world-fragment must enter in order to count as a usable representation under a given cut. The grammar is therefore not merely the presence of a form, but the structured constraints on what counts as legible, preservable, and transportable within that form.
+
+A file format, for example, may be part of an interface. But the grammar includes the categories, fields, statuses, commensurations, or parameterizations through which the world-fragment must be rendered if it is to circulate as an administrable file at all. Likewise, a model class may be part of an interface, while the grammar includes the kinds of variables, dependencies, and admissible formal relations through which the domain must be rendered in order to stabilize as that sort of model.
+
+The concept is admittedly still programmatic and not yet fully formalized. But it is not empty. Its function is to mark that selective rendering concerns not only what is preserved, but the admissible form of preservation. Without that concept, the theory would struggle to explain why portability, comparability, and residue are so deeply shaped by the form into which a world-fragment must be disciplined before it can travel as representation.
+
+\subsection{Objection 6: Adequacy Remains Too Thin}
+
+A sixth objection is that the paper treats adequacy as cut-relative and scope-indexed, but does not yet give enough positive content to what adequacy amounts to. If adequacy means only ``works for some purpose,'' then the framework risks drifting back toward a thin pragmatism.
+
+This is a real pressure point. The paper's response is that adequacy here is not exhausted by bare usefulness. At minimum, adequacy concerns whether a representation preserves the structure relevant to its declared task strongly enough to support the use at issue, whether that preservation remains stable within the representational grammar imposed by the cut, whether the resulting residue is tolerable relative to that use, and whether the representation is kept within the scope conditions under which such preservation remains trustworthy.
+
+That account is still provisional rather than final. The paper does not claim to offer a universal metric of adequacy across all domains. But it does offer more than a generic pragmatic criterion. Adequacy is structured by preservation profile, grammar, residue, and scope. That is enough for this paper's burden, even if a fuller comparative theory of adequacy must come later.
+
+\subsection{Objection 7: The Cut Does Not Merit Independent Treatment}
+
+A final objection is that the cut should remain embedded within a broader theory of finite description and does not deserve a paper of its own. On this view, it is a useful local term, but not a sufficiently distinct object to warrant independent treatment.
+
+This objection would be persuasive if the cut did only local definitional work. The paper's reply is that it now bears more explanatory weight than a buried term can carry. The cut links preservation to residue, adequacy to scope, representation to grammar, and local usefulness to overextension. It helps explain plurality without arbitrariness, portability without neutrality, and disclosure without transparent capture. Once one sees that these relations hang together through the same operator, leaving the cut implicit becomes a cost rather than a virtue.
+
+The claim, then, is not that the cut replaces a broader theory of finite description. It is that the cut has become one of its most load-bearing concepts. That degree of explanatory centrality warrants explicit treatment. At minimum, it warrants testing whether the operator can survive independent pressure rather than remaining protected inside a larger framework.
+
+Taken together, these replies sharpen the paper's position. The cut is not merely abstraction with a stronger name, not an empty universal redescription, not a license for relativism, not identical with its outputs, and not too minor for independent treatment. It is a structured selection-regime whose explicit clarification helps explain how finite description preserves, excludes, travels, and fails.
+\section{Scope Conditions, Limits, and Residues}
+
+\subsection{Scope Conditions}
+
+This framework is strongest wherever the central problem is how finite description becomes selectively usable without becoming arbitrary. More specifically, it is strongest where a representation must preserve some structure strongly enough to support comparison, inference, coordination, or action, while necessarily leaving other structure weakly carried, flattened, merged, backgrounded, or excluded.
+
+In practice, this makes the theory especially useful for:
+\begin{itemize}
+    \item scientific modeling,
+    \item quantified representation,
+    \item institutional records and administrative categories,
+    \item formal and semi-formal representational systems,
+    \item and model-mediated technical systems.
+\end{itemize}
+
+In such settings, the paper helps explain how disclosure, residue, scope, portability, and overextension arise from the same structured regime of selection. That is the positive scope of the theory.
+
+The framework is correspondingly weaker where the central question is no longer how selective description becomes possible and limited, but what should normatively, politically, or institutionally follow once representational failures occur. The present theory can help explain why those downstream problems recur, but it does not yet settle how they should be judged, corrected, or governed. Those are later burdens.
+
+\subsection{What the Paper Does Not Claim}
+
+The paper does not provide:
+\begin{itemize}
+    \item a complete theory of representation as such,
+    \item a universal metric of adequacy across all domains,
+    \item a finished typology of all cuts across all forms of description,
+    \item a complete account of process, reflexivity, or persistence,
+    \item or a full normative theory of burden, legitimacy, correction, or governance.
+\end{itemize}
+
+It also does not claim that every difference among descriptions is explained by cut alone, or that the cut exhausts every relevant feature of representational life. The theory is intentionally upstream and bounded. Its aim is to clarify one constitutive operator of finite description, not to replace every neighboring framework or absorb the whole downstream stack into itself.
+
+\subsection{Open Problems}
+
+Several important problems remain open.
+
+First, the relation between cut and nearby concepts such as abstraction, idealization, coarse-graining, framing, and encoding still requires sharper comparative treatment. The paper argues that the cut is not reducible to any one of these, but that argument can be made more exact.
+
+Second, the formalization of representational grammar remains incomplete. The paper argues that grammar is load-bearing, but does not yet provide a general account of how grammars differ across domains or how they constrain preservation in a formally explicit way.
+
+Third, the criteria for comparing or ranking cuts when several are locally adequate remain underdeveloped. More needs to be said about how to compare preservational strength, distortive residue, portability, and scope-fit across competing cuts.
+
+Fourth, the interaction between cuts and strongly reflexive systems remains unfinished. The paper marks this as an important pressure point, but does not yet offer a full treatment of how cut-relative disclosure behaves under high self-reference, recursive modeling, or systems that must in part describe their own descriptive conditions.
+
+Fifth, the relation between cut-generated residue and later normative, institutional, or political burdens requires downstream elaboration. The present theory explains why such burdens can arise structurally, but not yet how they should be assessed, distributed, or corrected.
+
+These are not peripheral technicalities. They mark the current frontier of the theory.
+
+\subsection{Residues of the Paper Itself}
+
+The paper leaves visible residue of its own. It relies on the cut as a disciplined conceptual primitive without yet providing a full formal calculus. It argues that representational grammar matters without yet offering a settled taxonomy. It shows that cuts travel across multiple domains without fully integrating those domains into one applied framework. And it clarifies why adequacy is cut-relative and scope-indexed without yet supplying a general method for cross-domain adequacy comparison.
+
+It also leaves open a deeper question about theoretical status. The paper argues that the cut merits independent treatment because it links preservation, grammar, residue, scope, portability, and overextension through one structured operator. But the long-term stability of that claim will depend on whether later work can continue to show that this operator does explanatory work that a looser bundle of neighboring concepts cannot do as well.
+
+These are not defects to hide. A paper about selective finite disclosure should not pretend to exempt itself from non-exhaustiveness. Its task is to make the structure of the problem clearer, not to eliminate all remainder in a single step. In that respect, the paper should be judged partly by whether it leaves its own unresolved burdens visible rather than disguising them as completion.
+\section{Implications and Future Work}
+
+\subsection{Implications}
+
+If the theory is right, several implications follow.
+
+First, descriptions should be evaluated not only by local performance, but by the cuts through which that performance is achieved. A representation's success cannot be fully understood apart from the selection-regime that determined what it preserved, what representational grammar it imposed, what residue it generated, and what scope conditions bound its legitimate use.
+
+Second, documentation of representations should make scope conditions and limits more explicit, because scope is part of representational authority rather than an optional warning added afterward. If adequacy is cut-relative, then legitimate use cannot be detached from the conditions of formation. What a representation may properly be taken to show depends in part on the cut that made it possible.
+
+Third, representational failures should often be diagnosed as failures of overextension rather than only as failures of total falsehood. Many representations work under some conditions and mislead under others. The theory helps explain why such failures are often predictable consequences of illegitimate travel beyond scope rather than simple proof that the representation was worthless from the start.
+
+Fourth, plural renderings should be compared by preservation profile, residue, scope, and portability rather than by the false expectation that one must already be exhaustive. Distinct cuts may preserve different structures of the same world-fragment without thereby becoming arbitrary or equivalent. The relevant comparison is not whether one rendering has already become total, but what each cut preserves, what each leaves weakly carried, and where each can travel without distortion.
+
+These implications are modest in one sense and far-reaching in another. They do not supply a complete method for ranking all representations everywhere. But they do reorient evaluation toward formation conditions rather than treating representations as though they arrived already self-authorized.
+
+\subsection{Future Work}
+
+Several directions follow naturally from the present argument.
+
+One is formal: clearer treatment of cut structure, preservation profile, representational grammar, and scope declaration. The theory would be strengthened by more explicit formal sketches showing how these relations vary across different descriptive regimes.
+
+A second is comparative: sharper differentiation of cut from abstraction, idealization, coarse-graining, framing, encoding, and standardization. The paper has argued that these are neighboring but non-identical concepts; later work should make those relations more exact.
+
+A third is applied: sustained case work in scientific modeling, quantified metrics, institutional records, and AI documentation. The present paper uses these domains to show explanatory payoff, but more detailed cases would place greater pressure on the theory and help refine it.
+
+A fourth is downstream: explicit work on what follows when cut-products become action-guiding, ethically loaded, politically authoritative, or institutionally entrenched. The present argument helps explain why such downstream problems arise, but it does not yet settle how they should be judged or governed.
+
+A fifth is architectural: further clarification of how the cut relates to the broader framework of constrained describability and to downstream theories of residue, mediated representation, correction, and burden. If the cut is as load-bearing as this paper suggests, then its place in the larger architecture should be made even more explicit.
+
+\section{Conclusion}
+
+\subsection{Main Result}
+
+The main result of this paper is a more disciplined account of the structured operator through which finite description becomes possible. A cut is not merely omission, simplification, or abstraction in general. It is the structured selection-regime through which a world-fragment becomes describable for a finite describing system under determinate interface, purpose, level, and capacity conditions.
+
+More specifically, the paper has argued that the cut is needed because finite description does not proceed by first receiving a complete world-fragment and only later subtracting from it. It proceeds through a regime that jointly shapes what can appear, what can stabilize, what admissible form preserved structure must take, what becomes portable as representation, and what remains as residue.
+
+\subsection{Broader Significance}
+
+This matters because it clarifies why selective disclosure is both powerful and limited for the same reason. The same cut that makes representation usable also generates residue, scope conditions, and vulnerability to overextension. Making that operator explicit helps explain how many non-equivalent renderings may answer to one shared reality without collapsing into arbitrariness or false total capture.
+
+It also matters because it sharpens several familiar problems at once. It clarifies why omission is too weak to describe selective rendering fully, why local success does not warrant transparent authority, why scope belongs to representational force rather than to later disclaimer, and why many failures are better understood as failures of illegitimate travel than as cases of simple total falsehood.
+
+\subsection{Final Claim}
+
+\begin{quote}
+Finite description does not first receive a complete world-fragment and then subtract. It renders through a cut. The cut is the structured selection-regime that jointly determines preservation, representational grammar, residue, and scope, and representations inherit both their power and their limit from the cut that formed them.
+\end{quote}
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/cut/cut}
+\appendix
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+DOI:
+\href{https://doi.org/10.5281/zenodo.19118904}{10.5281/zenodo.19118904}
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}
+
+\end{document}

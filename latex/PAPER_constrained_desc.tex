@@ -1,0 +1,880 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Constrained Describability}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Constrained Describability}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+% ---------- Title ----------
+\title{%
+  \textbf{Constrained Describability}\\
+  \large Finite Disclosure, Scoped Adequacy, and the Ontology of Description
+}
+\author{David T. Swanson}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Modern inquiry and administration alike proceed through representations: models, theories, scores, files, records, indicators, measurements, prompts, and other structured renderings of reality. Yet such renderings are often treated in one of two inadequate ways: either as though they transparently capture their targets, or as though they are merely useful devices with no deeper structural significance. This paper develops the framework of \emph{constrained describability}: the view that finite description is a conditioned act of disclosure proceeding through a determinate cut shaped by level, interface, purpose, and the finitude of the describing system. Description is therefore neither transparent capture nor arbitrary projection. It preserves some structure of a target in a scoped, usable form while leaving a relative residue outside, beneath, or distorted by that same cut. The paper's central contribution is a sharper ontology of description organized around world-fragments, cuts, representations, scope conditions, and residue, together with an account of why partiality is structural rather than accidental. The result is a metatheoretical framework that clarifies scientific modeling, quantified representation, institutional simplification, and reflexive self-description without collapsing into relativism or absorbing downstream theories of governance, design, or civilization. The paper is foundational and programmatic rather than a finished formal calculus, and it limits itself explicitly to the conditions of finite description rather than to the full downstream architecture of mediated action.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Motivating Problem}
+
+Modern thought proceeds through representations. We understand, predict, compare, classify, and govern by means of models, theories, measurements, categories, files, records, dashboards, scores, and formal systems. In scientific settings such representations are indispensable to inquiry; in institutional settings they are indispensable to action. Yet they are often treated in one of two inadequate ways: either as though they transparently capture the reality they address, or as though they are merely useful devices with no deeper structural significance. The first view inflates representation into mirror-like access. The second reduces it to convenience. Neither is satisfactory. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep,chakravartty_scientific_realism_sep}
+
+The difficulty becomes sharper once one notices that useful descriptions are never neutral transcriptions of reality in full. They depend on selective access, preserved distinctions, coding formats, measurement choices, task demands, and scales of resolution. A model works by stabilizing some features strongly enough to make them communicable, calculable, and actionable. A file works by reducing a case to an administrable profile. A metric works by transforming heterogeneous phenomena into comparable magnitudes. In each case, what makes the representation useful also makes it partial. This is not peculiar to one medium or one domain. It is visible across scientific modeling, quantification, and administrative representation alike. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep,espeland_stevens_quantification,merry_seductions_of_quantification,porter_trust_in_numbers}
+
+This paper begins from the thought that such partiality is not a secondary defect added to otherwise transparent description. It belongs to the condition under which finite description becomes possible at all. The problem, then, is not whether description is sometimes selective. The problem is how description should be understood if selectivity is structural.
+
+The burden of the present paper is therefore limited but specific. It does not aim to deliver a finished calculus of representation or to settle every downstream dispute. Its aim is to make a structural vocabulary for finite description more explicit, coherent, and reusable. Its test is not theorematic closure, but whether that vocabulary clarifies recurring representational problems across multiple domains better than looser alternatives.
+
+\subsection{Central Questions}
+
+This paper is guided by six questions.
+
+First, what is a description in the relevant sense?
+
+Second, why must finite description proceed through a structured cut rather than through transparent capture?
+
+Third, what kinds of constraints shape description most fundamentally?
+
+Fourth, how should we understand the relation between what a description discloses and what it leaves as residue?
+
+Fifth, how can multiple descriptive regimes preserve genuine structure without collapsing into arbitrariness?
+
+Sixth, what follows for science, formal representation, and operational systems if adequacy is always scoped rather than total?
+
+\subsection{Main Proposal}
+
+The central thesis of the paper is:
+
+\begin{quote}
+Any finite description of a sufficiently rich world-fragment is a scoped disclosure produced by a conditioned cut. That cut is shaped by level, interface, purpose, and the finite structure of the describing system. A description therefore preserves some structure in usable form while leaving a relative residue outside, beneath, or transformed by its terms.
+\end{quote}
+
+This proposal is realist without being triumphalist. It does not claim that descriptions fail to disclose anything real, that all descriptions are equal, or that representation is arbitrary projection. It claims something narrower and deeper: non-exhaustiveness is structural. Descriptions succeed only by selecting, compressing, stabilizing, and formatting. The same act that makes a representation powerful also makes it incomplete. In that respect, the paper is continuous with realist and structural-realist attempts to preserve contact with real structure without inferring transparent total capture from local success. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep}
+
+The scope of the paper is deliberately limited. It is not a full theory of institutional governance, burden, correction, legitimacy, ideology, or civilization. It is a metatheory of finite description. Those downstream domains matter, but here they function only as applications or extension paths, not as part of the core ontology.
+
+\subsection{Roadmap}
+
+Section 2 situates the paper among nearby views in philosophy of science, representation, information, and reflexive limits. Section 3 defines the core vocabulary and proposes a sharper ontology of description. Section 4 states the main theory of constrained describability. Section 5 explains why that theory is needed. Section 6 shows explanatory payoff across science, quantified representation, institutions, and AI. Section 7 addresses objections and replies. Section 8 states scope conditions, limits, and residues. Section 9 sketches implications and future work. Section 10 concludes. The appendices provide provisional definitions, a compact formal sketch, and a bibliography skeleton.
+\section{Background and Rival Views}
+
+\subsection{Naive Representationalism}
+
+A familiar picture treats description as transparent or near-transparent capture. On this view, the world presents itself as structured reality, and good description increasingly mirrors that structure. This picture gets something important right: descriptions can track real features of a mind-independent world, and realism about inquiry matters. What it misses is the descriptive mediation through which any usable representation is produced. It underdescribes the roles of scale, interface, formatting, idealization, and task-relative relevance in shaping what can appear as describable structure at all. \cite{chakravartty_scientific_realism_sep,frigg_nguyen_scientific_representation_sep}
+
+The present paper therefore rejects naive representationalism not because it denies reality-tracking, but because it treats disclosure as though it occurred without a substantial cut. A representation can preserve genuine structure without exhausting its target, and realism need not require transparent capture. \cite{ladyman_structural_realism_sep}
+
+\subsection{Instrumentalism and Model Pragmatism}
+
+A second family of views treats models primarily as tools. On this picture, what matters is whether a representation works for some purpose: prediction, explanation, classification, intervention, or coordination. This family gets much right. Scientific and practical representations are often useful precisely because they idealize, simplify, and omit. Different models may coexist because they serve different tasks. \cite{frigg_hartmann_models_sep}
+
+What this family often leaves underdescribed is why usefulness and partiality arise from the same structural condition. A model is useful because it selects, compresses, and stabilizes. Once that point is made explicit, omission can no longer be treated as a minor side effect. A theory of finite description must therefore explain why selectivity is constitutive rather than merely convenient.
+
+\subsection{Strong Skepticism or Relativism}
+
+A third response begins from non-exhaustiveness and infers that no description can seriously disclose reality. If every description is mediated and selective, then perhaps all are merely local constructions or contingent conveniences. This reaction identifies something genuine: no finite description is final, and mediation cannot be eliminated. But it overstates the consequence. Partial disclosure can still be real disclosure. Some cuts preserve more relevant structure than others. Some are more stable, fertile, reproducible, or adequate to their task. Non-exhaustiveness does not imply arbitrariness. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep}
+
+\subsection{Information, Structure, and Levels}
+
+The paper is also adjacent to work on information, scientific representation, structural realism, pluralism, and levels of description. Philosophy of information shows that ``information'' is not a unitary category but ranges across coding, uncertainty reduction, semantic content, computation, and truth. Scientific representation literature shows that representational artifacts are heterogeneous and include not only theories and equations but also models, diagrams, measurements, and instrumentally mediated outputs. Structural realism shows that one can preserve realism while weakening commitment to exhaustive ontological capture. Work on pluralism and levels shows that distinct descriptive regimes may preserve distinct structures without straightforward reduction to one another. \cite{adriaans_information_sep,frigg_nguyen_scientific_representation_sep,ladyman_structural_realism_sep,scientific_pluralism_sep,levels_org_biology_sep}
+
+These traditions are close allies, but none of them by itself yields the theory defended here. The present paper is not a theory of information as such, not a defense of structural realism as such, and not merely a philosophy of scientific models. Its target is broader and more basic: the ontology and limits of finite description itself.
+
+\subsection{Reflexive Limits}
+
+Finally, the paper is adjacent to work on self-reference, paradox, incompleteness, and expressive closure. These sources matter because they show that reflexive self-description is not merely one more difficult case alongside others. It is a distinct structural pressure point. Once sufficiently expressive systems turn fully upon themselves, contradiction, undefinability, incompleteness, or the need for hierarchy and restriction become recurring possibilities. \cite{bolander_self_reference_sep}
+
+The paper uses this literature narrowly. It does not claim that every descriptive limit is a self-reference paradox. It claims only that reflexivity deserves status as a distinct kind of constraint within a general theory of describability, and that formal closure failures provide especially sharp exemplars of that pressure rather than universal templates for all cases of finite limitation.
+\section{Core Definitions and Primitives}
+
+This section introduces the paper's central vocabulary. The aim is not terminological proliferation for its own sake, but sharper structural articulation. A theory of finite description requires more than the familiar language of model, abstraction, and simplification. It must distinguish target from rendering, conditions of access from representational product, preserved structure from remainder, and local adequacy from false totality. The following terms are therefore meant to function as load-bearing primitives or near-primitives for the framework developed here.
+
+\subsection{Description}
+
+A \emph{description} is a structured act of rendering some target available for interpretation, judgment, communication, prediction, comparison, or action. In the broad sense used here, description includes not only explicit linguistic statements and scientific theories but also models, categories, records, scores, indicators, measurements, prompts, dashboards, and other representational artifacts or procedures. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+This breadth matters because many of the most consequential descriptions in contemporary life are not ordinary propositions. They are forms, scores, data products, procedural classifications, and institutional records. A theory limited to verbal description would therefore miss some of the domains in which finite disclosure becomes practically decisive.
+
+\subsection{World-Fragment}
+
+A \emph{world-fragment} is the portion of reality targeted by a description. The term is used instead of \emph{object} because the target may be a process, event, population, system, relation, institutional state, or layered field rather than a discrete thing. A description need not presuppose that its target is neatly bounded in advance.
+
+The term also blocks a misleading assumption: that all targets arrive as stable, scale-independent units. In many cases, the boundaries of what is being described are themselves partly stabilized through the descriptive act.
+
+\subsection{Describing System}
+
+A \emph{describing system} is the finite agent, practice, institution, or formal regime that performs description. The term is intentionally broader than \emph{observer}. A scientific community, bureaucracy, statistical pipeline, or machine-learning system may all function as describing systems in the relevant sense.
+
+This concept matters because the paper is concerned with finite description rather than ideal description. The conditions under which a representation is produced are therefore not external background. They belong to the ontology of description itself.
+
+\subsection{Interface}
+
+An \emph{interface} is the medium, grammar, instrument, format, or procedural layer through which a world-fragment becomes describable. Interfaces include symbolic systems, measurement devices, forms, datasets, prompts, codebooks, notations, standards, and administrative schemas. \cite{adriaans_information_sep,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+An interface is not a neutral conduit. It shapes what can be registered, stabilized, compared, stored, or transmitted. A change in interface is therefore not merely a change in packaging. It can alter what becomes available as describable structure at all. This is especially clear in infrastructural settings, where standards, classifications, and record formats are often transparent in use while remaining structurally consequential in effect. \cite{star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+\subsection{Purpose}
+
+A \emph{purpose} is the task-relative aim governing a description. Descriptions are produced for something: prediction, explanation, classification, memory, allocation, intervention, coordination, or communication. Purpose helps determine what counts as relevant structure and what kinds of omission are acceptable or intolerable.
+
+This concept prevents description from being treated as though it occurred in a taskless vacuum. A representation built to predict need not preserve what a representation built to justify, diagnose, or allocate must preserve.
+
+\subsection{Level}
+
+A \emph{level} is the scale or resolution at which a world-fragment is rendered. Level is not merely a matter of more or less detail. It affects what kinds of entities, relations, and regularities can appear within the representation at all. \cite{levels_org_biology_sep}
+
+This is why level deserves primitive status. A change in level may not simply refine the same object. It may alter what counts as the object, what counts as explanatory structure, and what distinctions can be preserved.
+
+\subsection{Cut}
+
+A \emph{cut} is the structured selection-regime through which a world-fragment is rendered describable. It is induced by a describing system, through an interface, for a purpose, at a level. A cut determines what distinctions are preserved, what is foregrounded, what is suppressed, what grammar the target must enter, and what form the resulting representation can take.
+
+This is the paper's central ontological object. The term is introduced because weaker language such as \emph{simplification}, \emph{abstraction}, or \emph{idealization} is not precise enough for the work the theory needs to do. Abstraction often means selective silence about some features; idealization often means deliberate distortion for tractability; encoding often means translation into a usable format. A cut includes aspects of all three, but adds something further: it names the structured regime that binds together preservation, omission, format, and portability under determinate conditions. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+A cut is therefore not merely omission. It is selective preservation under determinate conditions, together with the rendering constraints that allow the result to travel as a representation. It names the structured condition under which a target becomes representable for a finite describer.
+
+\subsection{Representation}
+
+A \emph{representation} is the stabilized artifact or output yielded by a cut: model, file, score, map, record, category, prompt, metric, or formal structure. The representation is not identical with the act of description. Description is a process; representation is its product.
+
+This distinction matters because a theory of finite description must not collapse target, descriptive act, and descriptive output into one thing. A representation is what travels, circulates, gets reused, and is often mistaken for the totality of what it represents.
+
+\subsection{Disclosure}
+
+A \emph{disclosure} is the preserved structure a representation makes available under a given cut. Disclosure is aspective rather than exhaustive. What a representation discloses may be real while still being only one conditioned rendering of a richer target. \cite{frigg_nguyen_scientific_representation_sep,chakravartty_scientific_realism_sep,ladyman_structural_realism_sep}
+
+This notion is necessary because the paper rejects two opposite errors. It rejects the idea that descriptions transparently capture their objects without remainder. It also rejects the idea that because descriptions are selective, they disclose nothing real. Disclosure names the positive side of finite representation.
+
+\subsection{Constraint}
+
+A \emph{constraint} is any structured condition that shapes what can be rendered, preserved, or stabilized in a description. The core constraints emphasized here are:
+\begin{itemize}
+    \item \textbf{finitude}: limited time, memory, bandwidth, and processing capacity,
+    \item \textbf{level}: the scale or resolution of the cut,
+    \item \textbf{interface}: the medium or grammar through which the target is accessed,
+    \item \textbf{purpose}: the task-relative reason for describing,
+    \item \textbf{reflexivity}: the special instability introduced when the describing system or regime belongs to the target field.
+\end{itemize}
+
+These constraints are not secondary complications added from outside description. They are part of the structure under which finite description becomes possible at all.
+
+\subsection{Scope Condition}
+
+A \emph{scope condition} is the regime within which a representation remains sufficiently adequate for its intended use. Scope is not peripheral metadata. It is part of what the representation \emph{is}. A representation without scope conditions is especially prone to false totality. \cite{frigg_hartmann_models_sep,mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+This concept matters because many representational failures are not failures of total uselessness. They are failures of travel beyond legitimate use. A representation may be adequate here and distortive there without changing what it is. In that sense, scope does not merely warn against misuse after the fact; it helps constitute the bounds of legitimate representational authority in the first place. \cite{mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+For that reason, scope conditions should be treated as load-bearing rather than optional afterthoughts.
+
+\subsection{Residue}
+
+A \emph{residue} is the structured remainder relative to a cut: what is omitted, backgrounded, compressed away, flattened, rendered inexpressible, or only badly carried by the representation. Residue is not necessarily mysterious or unknowable. It is the relative remainder generated by finite descriptive success.
+
+The concept does not name a hidden metaphysical surplus beyond all possible contact. It names what a particular cut does not preserve, or preserves only badly, relative to what it does preserve. Different cuts therefore generate different residues. At a provisional level, residue may take several recurrent forms: omitted detail, flattened context, merged distinctions, inexpressibility under the chosen representational grammar, invisibilized work, and forced commensuration. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+Residue matters because it prevents the success of disclosure from being mistaken for completeness. It also helps distinguish finite non-exhaustiveness from vague appeals to whatever lies ``outside'' a model in an undisciplined sense.
+
+\subsection{Overextension}
+
+\emph{Overextension} occurs when a representation is used outside the scope conditions under which its disclosure remains adequate. Many representational failures are not failures of total falsehood but failures of travel beyond legitimate scope.
+
+This distinction matters because it sharpens the difference between a bad representation and a misused one. A representation may be locally adequate and globally misleading for precisely the same structural reasons. \cite{mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+\subsection{Reflexive Embedding}
+
+\emph{Reflexive embedding} names the inclusion of the describer, descriptive regime, or validity conditions of the description within the target field. This concept is introduced to explain why self-description generates a distinct kind of pressure rather than merely one more instance of ordinary partiality.
+
+Where reflexive embedding becomes strong, familiar descriptive assumptions become less stable. The system is no longer simply describing something external to itself. It is describing under conditions that may themselves belong to what must be described. \cite{bolander_self_reference_sep}
+
+\subsection{Adequacy}
+
+\emph{Adequacy} in the present framework means scoped adequacy rather than adequacy without qualification. A representation can be adequate for one use, level, or interface condition without being adequate for all possible uses. There is no strong notion of adequacy simpliciter in the sense presupposed by transparent-capture pictures.
+
+This definition matters because it ties the evaluation of description back to the ontology already introduced. Adequacy is never free-floating. It is indexed to cut, representation, and scope. For that reason, adequacy comparison must be made along explicit dimensions such as purpose, level, interface, and transport conditions, rather than assumed as a single undifferentiated relation between representation and world. \cite{frigg_nguyen_scientific_representation_sep,scientific_pluralism_sep}
+\section{Main Theory of Constrained Describability}
+
+\subsection{Field-Level Characterization}
+
+\emph{Constrained describability} is a metatheory of finite description. Its object is not one domain-specific class of models, one institutional family of records, or one local theory of representation. Its object is the more general structure through which finite describers render world-fragments under conditioned cuts. The framework is therefore upstream of more specialized theories of mediated action, institutional design, model governance, and civilizational diagnosis. It asks a prior question: what kind of thing is finite description, if it is neither transparent capture nor arbitrary projection?
+
+The answer proposed here is that description is a conditioned act of disclosure. A finite description is produced under determinate constraints, through a determinate interface, for a determinate purpose, at a determinate level. It is therefore not best understood as a neutral window onto reality, nor as mere convenience. It is a structured rendering that preserves some aspects of a target strongly enough to make them usable while leaving other aspects outside, beneath, or transformed by that same rendering. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+This framing matters because many later confusions depend on getting the level of theory wrong. If the problem is treated too narrowly, one gets local discussions of models, files, scores, and records without a general account of what they share. If it is treated too vaguely, one gets gestures toward complexity, mediation, or abstraction without a usable ontology. \emph{Constrained describability} aims at a middle level: explicit enough to be structurally useful, but still general enough to travel across scientific, formal, and operational domains.
+
+\subsection{The Expanded Ontology}
+
+The minimal ontology of the theory may be written as:
+\[
+\mathcal{CD}_{\min}=\langle W, A, I, P, L, C, R, S, \Delta, X \rangle
+\]
+where:
+\begin{itemize}
+    \item \(W\) = world-fragment,
+    \item \(A\) = agent or describing system,
+    \item \(I\) = interface,
+    \item \(P\) = purpose,
+    \item \(L\) = level or scale,
+    \item \(C\) = cut induced by \(A,I,P,L\),
+    \item \(R\) = resulting representation,
+    \item \(S\) = scope conditions,
+    \item \(\Delta\) = residue relative to the cut,
+    \item \(X\) = reflexive embedding relation.
+\end{itemize}
+
+This ontology may be expanded when the target of description is not merely some first-order world-fragment, but the domain of finite description itself. In that case, one further distinction is required between:
+\begin{itemize}
+    \item \textbf{object-level descriptions}, which describe some world-fragment \(W\),
+    \item and \textbf{meta-level descriptions}, which describe the structure of description itself.
+\end{itemize}
+
+For that reason, a more explicit schema may be written as:
+\[
+\mathcal{CD}_{\exp}=\langle W, A, I, P, L, C, R, S, \Delta, X, M, T \rangle
+\]
+where:
+\begin{itemize}
+    \item \(M\) = meta-level descriptive status,
+    \item \(T\) = theoretical representation of the domain of finite description.
+\end{itemize}
+
+The role of this expansion is narrow. It does not introduce a second ontology or a two-world picture. It makes explicit only that a theory of finite description is itself one more description and therefore belongs, in part, to the domain it theorizes. The framework's distinctiveness lies not in proving that all description is partial, but in rendering the structure of that partiality more explicit, coherent, and reusable through the linked concepts of world-fragment, cut, representation, disclosure, scope, residue, overextension, and reflexive embedding.
+
+\subsection{Core Relations}
+
+The theory's central relations can be stated compactly.
+
+\paragraph{Cut induction}
+\[
+C = C(A,I,P,L)
+\]
+A cut is induced by a describer, through an interface, for a purpose, at a level.
+
+\paragraph{Representational yield}
+\[
+R = C(W)
+\]
+A representation is the output of applying the cut to the world-fragment.
+
+\paragraph{Disclosure relation}
+\[
+\mathrm{Disc}(R,W,\sigma \mid C)
+\]
+The representation discloses some structure \(\sigma\) of \(W\) under cut \(C\).
+
+\paragraph{Residue relation}
+\[
+\Delta = \mathrm{Res}(W \mid C)
+\]
+The cut leaves a relative remainder outside, beneath, or distorted by the representation.
+
+\paragraph{Scoped adequacy}
+\[
+\mathrm{Adeq}(R,S)
+\]
+Adequacy is always adequacy under scope conditions \(S\), not adequacy simpliciter.
+
+\paragraph{Overextension}
+\[
+\mathrm{Overext}(R,U) \iff U \not\subseteq S
+\]
+A use-context \(U\) overextends the representation when it exceeds the scope conditions under which the representation remains adequate.
+
+Taken together, these relations state the framework's core architecture. A describer does not simply place a representation next to reality. Reality is rendered through a cut induced under determinate conditions. That cut yields a representation. The representation preserves some structure of the target. The same cut that makes such preservation possible also generates a relative remainder. Any judgment of adequacy is indexed to scope. Misuse often occurs not because the representation never worked, but because it is granted authority outside the regime within which it does work.
+
+\subsection{Why Finite Description Must Be Selective}
+
+Any finite description must be selective. This is not merely a contingent weakness of badly designed representations. It is part of what allows description to occur in usable form at all. A description that preserved every distinction without structured loss would not function as a model, record, category, metric, or formal description in any ordinary sense. It would not stabilize, compare, communicate, or guide. Selection is therefore not a regrettable side effect added after the fact. It is part of the descriptive act itself. \cite{frigg_hartmann_models_sep,adriaans_information_sep}
+
+The clearest way to see this is through four pressures.
+
+First, there is \emph{level pressure}. Different scales disclose different kinds of entities, regularities, and relations. A description at one level does not merely add or subtract detail relative to a description at another. It may alter what counts as the object, what counts as explanatory structure, and what distinctions matter at all. \cite{levels_org_biology_sep}
+
+Second, there is \emph{interface pressure}. A symbolic system, instrument, measurement device, record format, questionnaire, prompt interface, or dataset schema does not merely transport a target intact. It shapes what can be registered, compared, stored, or transmitted. \cite{adriaans_information_sep,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+Third, there is \emph{purpose pressure}. Descriptions are built to do something. A representation designed for prediction need not preserve what a representation designed for diagnosis, explanation, classification, memory, or allocation must preserve. \cite{frigg_hartmann_models_sep}
+
+Fourth, there is \emph{finitude pressure}. Finite describers have limited time, memory, attention, bandwidth, and processing capacity. They must compress, prioritize, and stabilize. \cite{adriaans_information_sep,arora_barak_complexity}
+
+These pressures establish the paper's strongest anti-triviality point: finite description is not partial because human beings are unfortunate approximators of an otherwise transparent ideal. It is partial because selective preservation is built into the conditions under which finite disclosure becomes usable at all.
+
+\subsection{Disclosure and Residue}
+
+Once selectivity is understood as structural, disclosure and residue must be treated together. A representation does not first disclose and only later happen to omit. It discloses by selecting. The same act that preserves some structure also leaves some relative remainder.
+
+Residue is not a mystical beyond. It is not a name for whatever lies forever outside all contact. It is the structured remainder relative to a particular cut. What counts as residue depends on what the cut preserves, what level it operates at, what interface it uses, and what purpose governs relevance. At a provisional level, residue may take recurrent forms such as omitted detail, flattened context, merged distinctions, inexpressibility under the chosen representational grammar, invisibilized work, forced commensuration, and indicator effects that feed back into the object they purport merely to describe. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,porter_trust_in_numbers,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+For that reason, residue should not be treated as an embarrassing afterthought attached to otherwise successful description. It is part of the ontology of finite disclosure itself. If a representation works by preserving some structure strongly enough to become usable, then residue names the relative cost of that success.
+
+\subsection{Scoped Adequacy and Overextension}
+
+A direct consequence of the foregoing is that adequacy must be reconceived. There is no strong notion of adequacy without qualification. Representations are adequate under conditions. They remain sufficiently fit within some regime of use, level, interface, and purpose, and they begin to distort when exported beyond those conditions.
+
+This is why the paper insists on \emph{scoped adequacy} rather than adequacy simpliciter. A representation can be locally strong and globally weak. It can be appropriate for one task and misleading for another. It can preserve what matters at one level while suppressing what matters at another. \cite{frigg_nguyen_scientific_representation_sep,scientific_pluralism_sep}
+
+Once this is seen, \emph{overextension} becomes a central category. Many representational failures do not arise because the representation is useless everywhere. They arise because a representation that works well under one regime is treated as though it had authority everywhere. The problem is not always falsehood at the point of origin. It is often illegitimate travel. This is visible not only in philosophical accounts of modeling, but also in contemporary documentation practices for models and datasets, where intended use and out-of-scope use must be explicitly declared to prevent misuse. \cite{mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+\subsection{The Reflexivity Constraint}
+
+Reflexivity introduces a distinct class of pressure into the theory. When the describing system, representational regime, or conditions of validity are themselves included within the target field, unrestricted self-closure becomes unstable. This is clearest in formal domains. Truth, set membership, provability, and computability all exhibit strong limits once sufficiently expressive systems turn fully upon themselves. \cite{bolander_self_reference_sep}
+
+The point here is deliberately narrow. The paper does not claim that every descriptive limit is a self-reference paradox. Nor does it claim that all forms of self-reference are pathological. The stronger and more defensible claim is that reflexive embedding creates a distinct structural stress test. Systems that can successfully describe many things may still become unstable when required to describe, certify, or totalize themselves without restriction. The relevant contrast is therefore not between perfect closure and ordinary imperfection, but between generic finitude-based limitation and the stronger closure failures associated with sufficiently expressive self-application. \cite{bolander_self_reference_sep}
+
+\subsection{Meta-Level Description and Self-Application}
+
+The theory must also reckon with its own status. If finite descriptions are conditioned cuts yielding scoped disclosure and residue, then the present theory is itself one more finite description. It follows that the framework applies to itself in a modest but unavoidable sense.
+
+Let
+\[
+\mathcal{T}_{CD}
+\]
+denote the present theory of constrained describability. Then \(\mathcal{T}_{CD}\) is itself a representation of a target domain. Its target is not a first-order world-fragment such as a specific organism, institution, or dataset, but the domain of finite descriptive practice itself. We may therefore write:
+\[
+R_{\mathcal{T}} = C_{\mathcal{T}}(W_{\mathcal{D}})
+\]
+where:
+\begin{itemize}
+    \item \(W_{\mathcal{D}}\) = the world-fragment consisting of finite descriptive practice,
+    \item \(C_{\mathcal{T}}\) = the paper's own theoretical cut,
+    \item \(R_{\mathcal{T}}\) = the present theory as representation.
+\end{itemize}
+
+The theory therefore has its own scope and its own residue:
+\[
+\mathrm{Adeq}(R_{\mathcal{T}},S_{\mathcal{T}})
+\qquad
+\Delta_{\mathcal{T}} = \mathrm{Res}(W_{\mathcal{D}} \mid C_{\mathcal{T}})
+\]
+
+This self-application should not be read as self-defeat. It is not a paradox claim. Its point is narrower. The paper does not stand outside the condition it describes. It is itself one more conditioned, scoped, and non-exhaustive disclosure of the domain it theorizes. This reflexive consequence narrows rather than expands the framework's authority, because it forces the theory to accept its own limits explicitly instead of pretending to exempt itself.
+
+\subsection{Plurality Without Arbitrariness}
+
+If descriptions are cut-dependent, then multiple representations of the same world-fragment may each disclose genuine structure without being identical or mutually eliminable. This plurality need not imply arbitrariness. It follows from the fact that different cuts preserve different structures under different aims, interfaces, and levels. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep}
+
+The paper therefore defends plurality without equivalence. Different cuts may be differently adequate, differently fertile, and differently stable. The existence of plurality does not erase evaluative differences. It only blocks the move from local success to transparent totality.
+
+\subsection{Tradeoff Thesis}
+
+A broader structural consequence follows. No finite representation of a sufficiently rich target can maximize, all at once, exhaustiveness, tractability, level-invariance, interpretability, reflexive closure, and practical usability. Different descriptive regimes preserve different combinations of virtues at different costs. \cite{frigg_hartmann_models_sep,adriaans_information_sep}
+
+This thesis should be read as a family-resemblance claim rather than as a single universal impossibility theorem. Its point is that known formal and technical results repeatedly instantiate the same structural shape: gains in one representational virtue are often purchased through losses in another. Rate--distortion theory gives a rigorous exemplar of compression/fidelity tension; bias--variance analysis gives a familiar case of competing predictive virtues; No Free Lunch results show that performance is indexed to problem class rather than globally dominant; computational complexity anchors tractability in resource bounds rather than vague human limitation; and interpretability debates in machine learning show that transparency, performance, and portability do not simply accumulate without tension. \cite{shannon_rate_distortion,geman_bias_variance,wolpert_no_free_lunch,arora_barak_complexity,rudin_interpretable_models,lipton_mythos_interpretability}
+
+What the present paper offers is not a new theorem covering all such cases. It offers a structural interpretation of their shared lesson: finite representations are constrained mappings that exchange fidelity, tractability, portability, interpretability, and closure properties rather than accumulating them without cost. That is why representational disagreement, pluralism, limitation, and reflexive pressure are so persistent under finite conditions.
+\section{Why This Theory Is Needed}
+
+\subsection{Why Existing Concepts Are Not Enough}
+
+Existing literatures provide many important pieces of the problem. Debates over realism and antirealism clarify what is at stake in claims about reality-tracking. Philosophy of scientific modeling clarifies idealization, abstraction, and representational function. Philosophy of information clarifies coding, semantics, and formal mediation. Work on pluralism and levels clarifies why multiple descriptive regimes may coexist without simple reduction. Reflexive-limit literature clarifies the distinctive pressures generated by self-description. \cite{chakravartty_scientific_realism_sep,frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep,adriaans_information_sep,scientific_pluralism_sep,levels_org_biology_sep,bolander_self_reference_sep}
+
+What is often missing, however, is a single metatheoretical framework that gathers these insights under the problem of finite description itself. The result is recurring fragmentation. Representation is discussed in one place, modeling in another, information in another, reflexivity in another, quantification in another, and institutional simplification in yet another. Each literature captures something real, but the shared structural condition remains underarticulated. \cite{frigg_nguyen_scientific_representation_sep,espeland_stevens_quantification,bowker_star_sorting_things_out}
+
+The present theory is needed because it gives that condition a more explicit ontology. It does not merely repeat that models simplify, that information is encoded, that perspectives differ, or that self-reference is difficult. It proposes a linked structure: world-fragment, cut, representation, disclosure, scope, residue, and reflexive embedding. That structure makes the problem of finite description more recoverable than it is when the surrounding literatures are taken only piece by piece.
+
+Its claim to distinctiveness therefore lies not in proving that all description is partial, but in rendering the structure of that partiality more explicit, coherent, and reusable through those linked concepts. This is also why the paper's burden is limited. It does not aim to settle every downstream dispute. It aims to make a structural vocabulary available that can clarify recurring representational problems across domains.
+
+\subsection{What Confusions the Theory Resolves}
+
+The first confusion concerns success and transparency. When a representation works, the conditions of its success tend to disappear from view. A model predicts, a score ranks, a category sorts, a file routes, and a benchmark compares. The effectiveness of the representation then invites an inflationary inference: because it works, it must more or less capture the thing itself. Constrained describability blocks that inference by showing that success and selectivity arise from the same cut. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+The second confusion concerns plurality and arbitrariness. Once multiple descriptive regimes are recognized, it is tempting to treat them either as rival candidates for final capture or as equally local constructions with no serious claim on reality. The present theory dissolves this forced choice. Distinct cuts may preserve distinct real structures without either collapsing into one final description or becoming interchangeable. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep}
+
+The third confusion concerns failure. Representational failure is often treated too crudely, as though the only alternatives were complete adequacy or outright uselessness. But many failures are better understood as failures of travel. A representation may be adequate within one scope and distortive outside it. The theory therefore sharpens the category of overextension and distinguishes it from total falsity. \cite{mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+The fourth confusion concerns reflexivity. Self-description is often treated as though it were merely one more difficult case within a general field of descriptive imperfection. But the formal literatures suggest something stronger: reflexive embedding creates a distinct pressure point. The present theory gives that pressure a clear place within the general ontology of finite description. \cite{bolander_self_reference_sep}
+
+\subsection{Distinctive Structural Gain}
+
+The distinctive gain of the theory is not merely that it says descriptions are partial. Taken alone, that would be too weak to matter. The gain lies in how the paper specifies the structure of that partiality.
+
+First, it treats the \emph{cut} as a first-class ontological object rather than leaving selection implicit.
+
+Second, it treats \emph{scope conditions} as constitutive rather than as optional warnings attached after the fact.
+
+Third, it treats \emph{residue} as a structural correlate of disclosure rather than as a vague admission that something was left out.
+
+Fourth, it treats \emph{reflexive embedding} as a distinct source of constraint instead of dissolving it into generic limitation.
+
+Taken together, these moves allow the theory to say something more precise than the familiar claim that all models simplify. The theory claims that finite disclosure is generated by conditioned cuts whose power and danger arise from the same structural condition. That is the paper's central gain, and it is why a separate metatheory of constrained describability is worth stating explicitly.
+
+\section{Applications and Explanatory Payoff}
+
+\subsection{Scientific Modeling}
+
+Scientific modeling is one of the clearest cases of constrained describability. Models do not function by reproducing their targets in exhaustive form. They function by preserving selected structures strongly enough to support prediction, explanation, comparison, or intervention. Idealization, abstraction, toy modeling, minimal modeling, and data modeling all illustrate the same point: a model's usefulness depends on a conditioned cut. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+This framework helps clarify why idealization is often epistemically enabling rather than merely regrettable. A model that omits friction, treats populations statistically, or stabilizes a simplified mechanism is not simply failing to mirror reality. It is preserving some structure at the expense of other structure in order to make a target tractable under a given purpose. That is exactly what the ontology of cut, scope, and residue is meant to capture. \cite{frigg_hartmann_models_sep}
+
+A simple worked pattern makes the point sharper. Suppose a model is locally adequate because it captures one causal relation or one regularity strongly enough for a specific explanatory or predictive task. Within that scope, the omission of further detail is not a defect but a condition of usefulness. The same model becomes misleading when exported beyond that scope and treated as if it exhausted the target. The resulting residue may then appear as omitted detail, flattened context, or merged distinctions that mattered for the new task but not for the original one. In that sense, overextension is not an accidental misuse layered onto an otherwise transparent model. It is a predictable failure mode of finite disclosure itself. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+The framework also helps explain why scientific disagreement is often deeper than simple error but shallower than total incompatibility. Different models may preserve different structures of the same world-fragment because they operate at different levels, through different interfaces, and for different tasks. In such cases, plurality is not a scandal. It is an expected consequence of finite disclosure under conditioned cuts. \cite{scientific_pluralism_sep,levels_org_biology_sep}
+
+What the present paper explains here is why modeling must be selective, scope-bound, and residue-bearing. What it does not yet explain is how scientific communities should adjudicate among competing models in full normative or institutional detail. That belongs to downstream work.
+
+\subsection{Quantification and Commensuration}
+
+Quantification makes constrained describability especially vivid. To quantify is often to render heterogeneous phenomena commensurable by forcing them into standardized and comparable form. This can produce real disclosure. Numbers may stabilize trends, permit comparison, reveal distributions, and support coordination across scale. But quantification is not merely neutral transcription. It is a cut that preserves some structure by suppressing or flattening other structure. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,porter_trust_in_numbers}
+
+This is why quantified representation so often appears more authoritative than it should. The portability, clarity, and comparability of quantified outputs can hide the conditions under which they were produced. Categories, thresholds, coding choices, and background assumptions disappear into the apparent solidity of the number. The present framework supplies a way of naming this disappearance. The number is not simply a fact detached from mediation. It is a representation yielded by a specific cut under a specific scope. \cite{espeland_stevens_quantification,porter_trust_in_numbers}
+
+A worked pattern makes the point more concrete. A metric may be locally adequate because it makes a limited comparison possible under standardized conditions. Once that metric is exported into ranking, sanction, allocation, or broad evaluative authority, the cut travels farther than its scope warrants. The residue that was tolerable for the original task now becomes ethically or politically salient: flattened context, forced commensuration, merged distinctions, or background assumptions concealed by the neatness of the number. In this way, quantification often overextends not by becoming numerically false, but by being granted authority beyond the conditions under which its disclosure remained adequate. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,porter_trust_in_numbers}
+
+The theory therefore clarifies both the power and the danger of quantification. Its power lies in selective stabilization. Its danger lies in how easily that selective stabilization is mistaken for exhaustive capture.
+
+What the present paper explains here is why quantified systems are structurally vulnerable to hidden cuts, forced comparability, and overextension. A full account of when such systems become unjust, manipulative, or politically illegitimate requires downstream normative theory.
+
+\subsection{Institutional Simplification}
+
+Institutions frequently act through simplified renderings of persons, cases, and situations. Records, forms, eligibility categories, risk labels, case files, and administrative classifications all function as representations produced under conditioned cuts. These cuts are often necessary. Large-scale systems cannot act on the full density of lived and local reality. They require representations that can circulate, be compared, and be processed. \cite{scott_seeing_like_a_state,star_ethnography_of_infrastructure,bowker_star_sorting_things_out,herd_moynihan_administrative_burden}
+
+The present theory explains why such simplification is structurally likely. It also clarifies why institutional misfit is so persistent. A record, category, or profile may preserve enough structure for routing, sorting, or allocation while still leaving decisive residue outside the administrable frame. This does not yet amount to a full theory of burden, legitimacy, or correction. It does, however, provide an upstream explanation of why those later problems arise so regularly once representations become operational. \cite{bowker_star_sorting_things_out,herd_moynihan_administrative_burden}
+
+A worked pattern is easy to see. An application form or eligibility category may be locally adequate for standardized intake and routing. But when the same representation is treated as morally or administratively exhaustive, overextension occurs. The institution then acts as though the administrable rendering were the case itself. The residue becomes visible as flattened context, merged distinctions, invisibilized work required to fit the form, or burdens shifted downward onto the person forced to prove what the representation cannot natively carry. \cite{scott_seeing_like_a_state,star_ethnography_of_infrastructure,bowker_star_sorting_things_out,herd_moynihan_administrative_burden}
+
+This application also marks an important boundary. Constrained describability can explain why institutional simplification occurs and why it is vulnerable to overextension, residue, and hidden cuts. It cannot by itself explain the full political, normative, or distributive life of those simplifications. That is where downstream theories begin.
+
+\subsection{AI and Human--Model Interaction}
+
+Human--model interaction provides another vivid application. A prompt is already a compressed rendering of a richer concern, intention, or world-state. The system then produces an output by reconstructing a likely or useful continuation from that compressed trace. The result can be highly effective while still drifting away from the user's actual target. \cite{mitchell_model_cards,gebru_datasheets,nist_ai_rmf,nist_explainable_ai}
+
+This makes AI interaction a particularly clear case of conditioned finite disclosure. The user's prompt does not transparently carry the whole object of concern. The model's output does not transparently recover that object in return. Instead, both sides of the exchange are mediated by cuts: one performed by the user in compression, the other by the system in reconstruction. The framework therefore explains why AI systems can be useful, coherent, and still structurally vulnerable to misalignment, surrogate drift, and overextended trust. \cite{mitchell_model_cards,gebru_datasheets,nist_ai_rmf,nist_explainable_ai}
+
+A worked pattern again clarifies the point. A model may be locally adequate when used within documented conditions, evaluation settings, and intended tasks. Once users or institutions treat its outputs as reliable beyond those conditions, overextension begins. The residue then appears as omitted context from the original prompt, hidden uncertainty, mismatched task framing, or a reconstructed answer that tracks a surrogate objective more closely than the user's underlying concern. This is one reason documentation practices that declare intended use, limitations, and out-of-scope conditions are not mere bureaucratic decoration. They are attempts to mark scope and prevent representational travel beyond legitimate use. \cite{mitchell_model_cards,gebru_datasheets,nist_ai_rmf,nist_explainable_ai}
+
+The point is not that AI is uniquely deceptive. The point is that AI makes a general feature of finite describability unusually visible. It dramatizes how much representation depends on selection, interface, scope, and residue.
+
+What the present paper explains here is the structural condition that makes AI systems vulnerable to misalignment, surrogate drift, and overextended trust. A full theory of how such systems should be governed, corrected, or ethically constrained belongs downstream.
+
+\subsection{Boundary to Downstream Frameworks}
+
+The applications above are meant to show the theory doing real work. They are not meant to transform \emph{Constrained Describability} into a total theory of science, institutions, AI, governance, or civilization. The role of the present framework is upstream. It explains why descriptions in all these domains are selective, scoped, residue-bearing, and sometimes reflexively unstable.
+
+What happens when such descriptions become action-guiding, politically contested, ethically evaluable, or civilizationally consequential belongs to later theories. Those downstream theories inherit the ontology developed here, but they are not reducible to it. Preserving that boundary is part of the paper's discipline.
+
+\section{Objections and Replies}
+
+\subsection{Objection 1: The Thesis Is Trivial}
+
+One might object that the paper merely restates the obvious fact that models leave things out. Of course representations simplify. Of course finite agents cannot preserve every distinction. If that is all the paper claims, then the framework would amount to little more than a polished restatement of a familiar point.
+
+This objection has force against a weaker version of the view, but not against the one defended here. The paper is not merely saying that some models are imperfect, or that abstraction involves omission. It is making a stronger structural claim: finite description succeeds only through conditioned cuts, and those cuts generate not just omission in general, but a determinate relation among disclosure, scope, residue, and overextension. The point is not simply that something is left out. The point is that what is left out, what is preserved, the grammar in which preservation occurs, and the conditions under which the result can travel with authority are shaped together by the same descriptive act. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+That stronger claim matters because it explains phenomena that the trivial version cannot. It explains why local success is so easily misread as total capture, why different descriptions can each be legitimate without reducing to one another, why many failures are better understood as failures of overextension rather than total falsehood, and why reflexive self-description deserves distinct treatment. The theory is therefore not a decorative reformulation of ``all models simplify.'' It is an attempt to specify the ontology of that simplification more sharply.
+
+\subsection{Objection 2: This Collapses into Relativism}
+
+A second objection is that once all description is said to be cut-dependent, scope-bound, and residue-bearing, the difference between better and worse representations becomes unstable. If every description preserves some structure and leaves some remainder, then perhaps no representation can claim serious authority. On this view, the theory would collapse into a more sophisticated relativism.
+
+This objection depends on a false inference. Non-exhaustiveness does not imply arbitrariness. A representation can be partial while still preserving genuine structure of its target. Some cuts are more adequate than others for a given purpose. Some preserve more relevant structure, distort less in a given regime, travel more reliably within declared scope, or remain more stable under correction. The existence of residue does not erase these differences. It only blocks the inflationary move from adequacy to totality. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep}
+
+Indeed, the framework is meant to make evaluative comparison more precise rather than less. Instead of asking whether a representation is simply true or false in the abstract, one can ask what it preserves, what it suppresses, under what level and interface it operates, what purpose governs its relevance, and where its scope properly ends. Those are not relativist questions. They are disciplined realist questions asked under conditions of finite disclosure. The framework weakens false totality, not standards.
+
+\subsection{Objection 3: This Undermines Science}
+
+A third objection is that the theory risks weakening science by redescribing scientific models as conditioned cuts rather than as straightforward discoveries of what the world is like. If predictive success, explanatory power, and formal elegance do not entitle a model to transparent authority, then perhaps the framework diminishes the status of science itself.
+
+The answer is no. Constrained describability does not deny scientific success, strong local realism, or the exceptional authority of disciplined empirical inquiry. It fully allows that scientific representations can disclose real structure with extraordinary precision and power. What it denies is the further inflationary step by which such success is taken to imply exhaustive capture of the target in all relevant respects. A model can be highly successful within its scope without thereby becoming the thing itself. \cite{chakravartty_scientific_realism_sep,frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep}
+
+This is not an attack on science but a clarification of its structure. Scientific strength often depends on choosing cuts well: preserving what matters for the question at hand while accepting disciplined loss elsewhere. Idealization, abstraction, and tradeoff are not embarrassments external to science. They are part of how science works. The framework therefore protects science from a bad philosophical burden: the burden of pretending that local power requires transparent totality.
+
+\subsection{Objection 4: Residue Is Too Vague}
+
+A fourth objection is that \emph{residue} risks becoming an overflexible term. If residue simply means whatever a representation does not capture, then it may seem too vague to do useful theoretical work. Worse, it may function as a catch-all that protects the theory from pressure by allowing every difficulty to be redescribed as ``the residue.''
+
+This is a serious objection, and it should be conceded in part. The term would indeed become weak if used without discipline. For that reason, the paper does not define residue as an undifferentiated leftover. It defines residue only relative to a cut. What counts as residue depends on what distinctions the cut preserves, what interface it uses, what level it operates at, and what purpose governs adequacy. Residue is therefore not a mysterious surplus beyond all relation to the representation. It is the structured remainder generated by a specific act of selective preservation.
+
+The paper also narrows residue by treating it as typed rather than amorphous. Recurrent residue-forms include omitted detail, flattened context, merged distinctions, inexpressibility under a chosen grammar, invisibilized work, and forced commensuration. Those are not interchangeable leftovers. They are patterned kinds of remainder that become visible when representations travel into new use-contexts or bear practical authority. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,star_ethnography_of_infrastructure,bowker_star_sorting_things_out}
+
+That narrower definition is enough for the paper's purposes. The framework does not need a full metric of residue in every domain. It needs only the more modest and defensible point that finite disclosure preserves some structure by not preserving other structure equally well, and that this remainder often becomes visible when a representation is moved into a new use-context, level, or normative setting. The concept is therefore usable so long as it remains indexed to cut and scope.
+
+\subsection{Objection 5: Reflexive Limits Are Overgeneralized}
+
+A fifth objection is that the paper risks overgeneralizing from formal cases of self-reference, paradox, incompleteness, and computability. Even if truth predicates, formal systems, and self-applicative logics encounter strong closure limits, it does not automatically follow that reflexivity is a distinct constraint across all forms of description. The worry is that the paper imports the drama of formal paradox into a much broader field without sufficient warrant.
+
+This objection is partly right, and the theory should respond by narrowing rather than resisting. The paper does not claim that every descriptive difficulty is a reflexive pathology, nor that every self-reference problem in ordinary inquiry should be redescribed using formal paradox language. Its narrower claim is that reflexive embedding deserves distinct status because there is recurring evidence across formal domains that unrestricted self-closure is unstable in ways not captured by generic imperfection alone. \cite{bolander_self_reference_sep}
+
+That narrower claim is enough. It supports the inclusion of reflexivity as a distinct pressure within the ontology of finite description without requiring that every later application look like a theorem from logic. The formal cases matter here as exemplars of a structural problem, not as a license for universal overextension.
+
+\subsection{Objection 6: The Theory Explains Too Much}
+
+A sixth objection is that the theory risks becoming too broad. A metatheory of finite description can easily expand until it begins to redescribe everything --- science, institutions, politics, ideology, AI, even civilization --- as merely a case of conditioned cuts. At that point, the framework would become self-sealing and lose explanatory discipline.
+
+This objection should be taken very seriously. Part of the paper's discipline consists in acknowledging exactly this danger. The right reply is not to deny the breadth of the framework, but to police its boundaries explicitly. Constrained describability is a theory of finite description as such. It explains why later domains inherit problems of cut, scope, residue, plurality, and non-totality. It does not by itself explain the full structure of legitimacy, power, burden, correction, ideology, or reproduced social order.
+
+The test of the theory's discipline is therefore whether it can remain upstream. If it begins to substitute for the whole downstream stack, it will have overextended its own scope and thereby violated one of its own core claims. The proper response to this objection is thus built into the framework itself: a theory of scoped adequacy must also accept scope limits on its own authority.
+
+\subsection{Objection 7: Is All Theory Synthetic Confabulation?}
+
+A final question may be pressed at this point: if the present paper acknowledges the synthetic character of its own framework-building, then what distinguishes it from theory in general? Put more sharply: if finite theorizing always involves selection, compression, extrapolation, and coherence-building from partial access, is not all theory a kind of synthetic confabulation?
+
+The strongest version of this challenge deserves a serious answer, because it pushes beyond the present paper and reaches the status of theoretical work as such. In one sense, the answer is yes. All theory involves synthesis. No theory simply reproduces reality in full. Every theory selects objects, defines relevant relations, suppresses some distinctions, stabilizes others, and organizes them into a structure that can be communicated, challenged, and used. In that broad sense, theory is always a synthetic achievement under constraint.
+
+But that answer is still too quick. If every act of synthesis were simply confabulation, then the distinction between disciplined theory and undisciplined invention would collapse. The more important point is that synthesis alone is not the problem. The problem is unconstrained or underconstrained synthesis. What matters is whether a theory makes its primitives explicit, states its burdens clearly, distinguishes what is claimed from what is merely suggestive, marks its scope conditions, leaves visible residue, and remains open to revision rather than protecting itself through self-sealing abstraction.
+
+On this view, the relevant contrast is not between \emph{synthetic} and \emph{non-synthetic} theory. There is no such clean opposition available to finite thinkers. The real contrast is between \emph{disciplined synthetic theory}, which renders its construction visible and keeps itself answerable to scope, burden, and correction, and \emph{synthetic confabulation}, which hides its construction, mistakes coherence for warrant, and overextends its authority beyond what its supports can bear.
+
+That distinction is especially important for the present paper. \emph{Constrained Describability} does not deny that it is synthetic. It openly depends on synthesis. What it denies is that synthesis by itself is discrediting. The fact that a theory is constructed under finite conditions does not make it worthless. It means only that the theory must be judged by how well it manages those conditions.
+
+A better question, then, is not whether all theory is synthetic, but whether a given theory is synthetic in a disciplined way. The present paper should stand or fall on that narrower basis. If it makes its cuts explicit, keeps its scope visible, leaves residue unhidden, and resists overclosure, then its synthetic character is not an embarrassment. It is simply the condition under which finite theory must proceed.
+
+The most defensible final answer is therefore:
+\begin{quote}
+All theory is synthetic in the broad sense that it organizes partial access into structured coherence. But not all theory is confabulatory. Theory becomes confabulatory when synthesis outruns constraint, when coherence substitutes for earned support, and when the resulting framework hides rather than exposes its own scope, burdens, and residues.
+\end{quote}
+
+That answer does not eliminate the danger. It names it more precisely. And that precision is enough to distinguish the present project, at least in intention, from the failure mode that shadows it.
+\section{Scope Conditions, Limits, and Residues}
+
+\subsection{Scope Limits of the Paper}
+
+This paper is a metatheory of finite description. Its central task is to state the ontology and structure of conditioned disclosure: world-fragment, cut, representation, scope, residue, and reflexive embedding. That task is already substantial, and the framework should not be burdened with more than it can presently carry.
+
+For that reason, the paper is not a full theory of institutional mediation, correction, contestability, legitimacy, ideology, or civilizational reproduction. Those later domains may all inherit problems of cut, scope, residue, and non-totality, but they involve additional objects and relations not made primitive here. The present theory is therefore upstream of those extensions rather than a substitute for them.
+
+This scope limit is not merely strategic modesty. It is part of the paper's own discipline. A theory of constrained describability should not overextend itself while arguing that overextension is a major source of representational failure. The paper is therefore intentionally incomplete: its aim is to clarify an upstream structural condition, not to provide the final defense tree for every downstream use of that condition. Its success condition is accordingly limited. It need not settle every dispute. It need only make the framework of constrained describability explicit, plausible, and reusable enough that later work can test, refine, or reject it under clearer terms.
+
+\subsection{What the Paper Does Not Claim}
+
+The paper does not claim that all descriptions are partial in exactly the same way. Different cuts leave different residues, preserve different structures, and remain adequate under different scopes. The framework is meant to unify the general condition of finite description, not to erase variation across descriptive regimes.
+
+The paper also does not claim that every descriptive limit is best understood through formal paradox or self-reference. Reflexive embedding is one distinct source of pressure within the theory, but it is not the master explanation of all finite limitation. The formal cases are included because they clarify a recurrent structural problem, not because all description reduces to logic. \cite{bolander_self_reference_sep}
+
+Nor does the paper claim that there is no reality beyond representation. On the contrary, the framework presupposes world-fragments as targets of description and treats disclosure as capable of preserving genuine structure. What it denies is that finite disclosure can be presumed transparent, exhaustive, or final simply because it is successful. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep}
+
+Finally, the paper does not claim that all downstream domains are reducible to description alone. Operational action, institutional burden, legitimacy, ideology, and reproduced social order all involve more than the ontology of description by itself. The present theory helps explain why representational problems recur in those domains, but it does not exhaust their full structure.
+
+\subsection{Open Formal Problems}
+
+Several formal problems remain open.
+
+The first concerns sharper treatment of cut-induced residue. The present paper argues that residue is structurally generated relative to a cut, and it proposes only a provisional residue typology. It does not yet provide a general formal metric for characterizing that remainder. It remains an open question which restricted domains permit stronger residue analysis and how far such analysis can go without distorting the concept.
+
+The second concerns scoped adequacy. The framework argues that adequacy is always adequacy under scope conditions, but it does not yet provide a general formal method for specifying those conditions across domains. A more exact treatment would have to clarify what counts as sufficient preservation relative to task, level, interface, and use. \cite{frigg_nguyen_scientific_representation_sep}
+
+The third concerns the tradeoff thesis. The paper gives a structural argument, supported by a family resemblance across known formal results, that exhaustiveness, tractability, level-invariance, interpretability, reflexive closure, and usability do not simply accumulate without tension. But it does not prove a universal theorem. Future work would need to identify restricted representational classes in which more exact tradeoff results could be shown. \cite{shannon_rate_distortion,geman_bias_variance,wolpert_no_free_lunch,arora_barak_complexity}
+
+The fourth concerns reflexive closure limits. The framework draws on self-reference and incompleteness-style literatures to support the distinct status of reflexive embedding, but it does not yet specify the boundary between ordinary descriptive limitation and stronger closure instability across non-formal domains. \cite{bolander_self_reference_sep}
+
+\subsection{Open Applied Problems}
+
+Several applied problems also remain open.
+
+One concerns how descriptions should declare scope and residue in actual scientific, administrative, and technical systems. The framework provides an ontology for asking that question, but not yet a full design methodology for answering it in practice.
+
+A second concerns quantified interfaces. If metrics, rankings, indicators, and scores are especially strong cases of conditioned cuts, then more work is needed on how such interfaces reveal, conceal, or normalize their own selection-regimes. \cite{espeland_stevens_quantification,merry_seductions_of_quantification,porter_trust_in_numbers}
+
+A third concerns AI documentation and human--model interaction. The framework suggests that model cards, datasheets, and explainability efforts can be understood as partial attempts to make cuts and scope more explicit, but it does not yet offer a full theory of how such systems should represent their own limitations. \cite{mitchell_model_cards,gebru_datasheets,nist_ai_rmf,nist_explainable_ai}
+
+A fourth concerns institutional misfit. The present paper helps explain why operational representations regularly fail to exhaust the reality on which they act. It does not yet explain how institutions should respond when those representations misfit lived, local, or case-specific reality. That question belongs partly to downstream work on correction, burden, and legitimacy. \cite{scott_seeing_like_a_state,bowker_star_sorting_things_out,herd_moynihan_administrative_burden}
+
+\subsection{Residues of the Paper Itself}
+
+The paper leaves several visible residues of its own.
+
+First, the cut concept is stronger than ordinary language of simplification or abstraction, but it is not yet fully formalized. At present it functions as a disciplined theoretical primitive rather than a finished calculus.
+
+Second, the residue concept is promising but still vulnerable to vagueness if handled carelessly. The paper constrains the term by indexing it to cut and scope and by proposing recurrent residue types, but a more developed theory would need stronger ways of differentiating kinds of residue across descriptive regimes.
+
+Third, the tradeoff thesis is structurally supported and bibliographically anchored, but it remains structurally argued rather than theorematically secured. The present paper earns the direction of the claim more fully than it earns its strongest formal expression.
+
+Fourth, the application sections show that the framework can travel across science, quantification, institutions, and AI, but they do not yet integrate those domains into one unified applied theory. That incompleteness is deliberate, but it remains incompleteness all the same.
+
+These residues are not defects to be hidden. They are part of what it means for the paper to remain non-totalizing and internally disciplined. A theory of constrained describability should make its own leftover tensions visible rather than pretending to have eliminated them.
+
+\section{Implications and Future Work}
+
+If the theory developed here is broadly right, several implications follow.
+
+First, descriptions should be evaluated not only by local performance but by the cuts through which that performance is achieved. A representation that predicts well, classifies efficiently, or travels smoothly may still conceal decisive scope conditions, suppress relevant structure, or normalize overextension. This does not diminish performance. It places performance within a fuller account of what finite representations are. \cite{frigg_nguyen_scientific_representation_sep,mitchell_model_cards,gebru_datasheets,nist_explainable_ai}
+
+Second, scientific and technical work should become more explicit about the representational conditions of its own success. This means attending not only to accuracy, fit, or explanatory power, but also to level, interface, preprocessing, formatting, declared use-bounds, and likely residue. In many domains these are treated as secondary technical details. The present framework suggests that they belong to the ontology of the representation itself. \cite{frigg_hartmann_models_sep,frigg_nguyen_scientific_representation_sep,mitchell_model_cards,gebru_datasheets}
+
+Third, operational systems should resist treating their own representational products as though they exhausted the reality on which they act. This implication matters for quantified governance, administrative systems, risk scoring, AI outputs, and other cases in which representations circulate with practical authority. The framework does not yet provide a full normative or institutional theory of what should happen next, but it does clarify why such systems are structurally vulnerable to overextension, hidden cuts, and unmanaged residue. \cite{espeland_stevens_quantification,porter_trust_in_numbers,scott_seeing_like_a_state,herd_moynihan_administrative_burden,nist_ai_rmf}
+
+Fourth, the framework opens a path toward more explicit representational design. If finite disclosure is always conditioned by cuts, then better design may require not the fantasy of total capture, but clearer declarations of what is being preserved, what is being backgrounded, where the representation remains adequate, and where it should no longer travel without correction or supplementation. This implication points naturally toward downstream work in epistemic engineering and model mediation, but it does not collapse into those projects. \cite{mitchell_model_cards,gebru_datasheets,nist_ai_rmf,nist_explainable_ai}
+
+Several directions for future work follow from this.
+
+One direction is formal. The ontology introduced here could be developed into more exact treatments of cut-structure, scope declaration, residue classes, and restricted tradeoff results. Even partial formalization in well-bounded domains would strengthen the theory. The point would not be to force one universal theorem, but to articulate more clearly the family of tradeoffs already visible across compression, generalization, tractability, and reflexive closure. \cite{shannon_rate_distortion,geman_bias_variance,wolpert_no_free_lunch,arora_barak_complexity,bolander_self_reference_sep}
+
+A second direction is historical and philosophical. More work could be done on the relation between constrained describability and nearby traditions in realism, pluralism, structural continuity, and philosophy of information. The present paper positions itself among these traditions, but a fuller account of convergence and divergence remains open. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,adriaans_information_sep,scientific_pluralism_sep}
+
+A third direction is applied. Scientific modeling, quantification, institutional records, and AI interfaces are all strong candidate domains for testing and refining the framework. The present paper uses them mainly as illustrations of explanatory payoff. Later work could instead treat them as sustained case domains through which the ontology of finite description is refined under pressure. \cite{frigg_hartmann_models_sep,espeland_stevens_quantification,bowker_star_sorting_things_out,mitchell_model_cards}
+
+A fourth direction is architectural. The framework can be extended downstream into theories that ask what happens once partial representations become operational, politically salient, or civilizationally consequential. Such extensions may prove important, but they should remain recognizably downstream. The present paper's contribution is upstream: it clarifies the structural condition inherited by those later theories.
+
+The main future task, then, is not to make constrained describability explain everything. It is to develop it further without violating the discipline it recommends: clearer primitives, sharper scope, stronger formal handles where possible, and more explicit limits where not.
+
+\section{Conclusion}
+
+\subsection{Main Result}
+
+The main result of this paper is a sharpened ontology of finite description. Description is not treated as transparent capture, arbitrary projection, or mere convenience. It is treated as a conditioned cut yielding a scoped representation that discloses some structure of a world-fragment while leaving a relative residue.
+
+This result matters because it specifies the structure of finite partiality more clearly than weaker claims about simplification or abstraction alone. The paper has argued that finite description operates through determinate cuts induced by describer, interface, purpose, and level; that those cuts yield representations rather than direct possession of their targets; that disclosure and residue are jointly generated by the same selective act; and that adequacy is always scoped rather than total. \cite{frigg_nguyen_scientific_representation_sep,chakravartty_scientific_realism_sep,ladyman_structural_realism_sep}
+
+The central claim of the paper is therefore not that finite descriptions sometimes fail to be complete. It is that they do not fail to be total by accident. Their non-exhaustiveness is built into the conditions under which usable disclosure becomes possible at all.
+
+\subsection{Broader Significance}
+
+This framework has broader significance because it clarifies why representations are powerful and dangerous for the same reason. A model, metric, record, category, or prompt becomes useful by preserving some structure strongly enough to guide understanding or action. But the same selective stabilization that grants usefulness also creates the conditions for overextension, hidden cuts, and unmanaged residue. \cite{frigg_hartmann_models_sep,espeland_stevens_quantification,mitchell_model_cards}
+
+The theory therefore preserves realism without transparent totality, and plurality without arbitrariness. It explains why multiple descriptive regimes may each disclose real structure without requiring one final capture or collapsing into equal validity. It also provides an upstream account of why so many later problems recur once representations are operationalized in science, institutions, quantified systems, and AI. \cite{chakravartty_scientific_realism_sep,ladyman_structural_realism_sep,scientific_pluralism_sep,herd_moynihan_administrative_burden,nist_ai_rmf}
+
+Just as importantly, the paper marks its own boundary. Constrained describability is not a full theory of mediated action, legitimacy, ideology, or civilization. It is the metatheoretical layer that helps explain why those later domains inherit representational limits in the first place.
+
+The success condition of the paper is accordingly limited. It need not compel full assent or close every objection. It need only make the framework of constrained describability legible, plausible, and reusable enough that later work can test, refine, or reject it under clearer terms.
+
+\subsection{Final Claim}
+
+\begin{quote}
+Constrained describability is the thesis that finite descriptions do not fail to be total by accident. They succeed only by means of conditioned cuts that preserve some structure in usable form while leaving a relative residue outside, beneath, or transformed by their terms.
+\end{quote}
+
+If that is right, then the problem of finite description is not how to escape mediation altogether. It is how to work within it more honestly: with clearer cuts, better scope discipline, more explicit acknowledgment of residue, and greater resistance to the inflation of local success into total authority.
+
+\appendix
+\section*{Appendix A: Provisional Definitions}
+
+The following definitions are provisional. They are not intended as a finished formal vocabulary, but as a disciplined working set for the framework developed in the paper.
+
+\subsection*{Description}
+
+A \emph{description} is a structured act of rendering some target available for interpretation, judgment, communication, prediction, comparison, or action. In the broad sense used here, description includes not only verbal or theoretical statements but also models, categories, records, scores, indicators, measurements, prompts, and formal representational artifacts.
+
+\subsection*{World-Fragment}
+
+A \emph{world-fragment} is the portion of reality targeted by a description. The term is used to avoid assuming that every target is a discrete object. A world-fragment may be a process, event, relation, system, population, institutional state, or layered field.
+
+\subsection*{Describing System}
+
+A \emph{describing system} is the finite agent, practice, institution, or formal regime that performs description. The term emphasizes that description is always produced under finite conditions rather than from an ideal view from nowhere.
+
+\subsection*{Interface}
+
+An \emph{interface} is the medium, grammar, instrument, format, or procedural layer through which a world-fragment becomes describable. Interfaces include symbolic systems, measurements, datasets, forms, prompts, file schemas, and notational regimes.
+
+\subsection*{Purpose}
+
+A \emph{purpose} is the task-relative aim governing a description. Purposes include prediction, explanation, classification, memory, allocation, intervention, coordination, and communication. Purpose helps determine what counts as relevant structure.
+
+\subsection*{Level}
+
+A \emph{level} is the scale or resolution at which a world-fragment is rendered. Level is not merely an amount of detail. It affects what kinds of objects, relations, and regularities can appear within a description at all.
+
+\subsection*{Cut}
+
+A \emph{cut} is the structured selection-regime through which a world-fragment is rendered describable. It is induced by a describing system, through an interface, for a purpose, at a level. A cut determines what distinctions are preserved, what is foregrounded, and what is suppressed.
+
+\subsection*{Representation}
+
+A \emph{representation} is the stabilized artifact or output yielded by a cut. It may take the form of a model, file, score, map, record, category, prompt, metric, or formal structure. A representation is not the same thing as the descriptive act that produced it.
+
+\subsection*{Disclosure}
+
+A \emph{disclosure} is the preserved structure that a representation makes available under a given cut. Disclosure is aspective rather than exhaustive. A representation may disclose something real without thereby exhausting its target.
+
+\subsection*{Constraint}
+
+A \emph{constraint} is any structured condition that shapes what can be rendered, preserved, or stabilized in a description. Core constraints in this framework include finitude, level, interface, purpose, and reflexive embedding.
+
+\subsection*{Scope Condition}
+
+A \emph{scope condition} is the regime within which a representation remains sufficiently adequate for its intended use. Scope conditions mark where a representation can legitimately travel and where its use becomes overextended.
+
+\subsection*{Residue}
+
+\emph{Residue} is the structured remainder relative to a cut: what is omitted, backgrounded, compressed away, flattened, rendered inexpressible, or only badly carried by the representation. Residue is relative to the cut and not a generic name for mystery.
+
+\subsection*{Overextension}
+
+\emph{Overextension} occurs when a representation is used outside the scope conditions under which its disclosure remains adequate. Many representational failures are better understood as overextensions than as cases of simple total falsehood.
+
+\subsection*{Reflexive Embedding}
+
+\emph{Reflexive embedding} names the inclusion of the describer, descriptive regime, or conditions of validity within the target field. It marks the special pressure introduced when description must, in some sense, include itself.
+
+\subsection*{Adequacy}
+
+\emph{Adequacy} in this framework means scoped adequacy rather than adequacy without qualification. A representation can be adequate for one use, level, or interface condition without being adequate for all possible uses.
+
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/constrained_desc/cd}
+
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:your_email@example.com}{dswanson903@gmail.com}
+
+\end{document}
+

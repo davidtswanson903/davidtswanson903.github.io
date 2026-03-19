@@ -1,0 +1,823 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Corrective Ethics Under Constraint}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Corrective Ethics Under Constraint}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+
+\title{\textbf{Corrective Ethics Under Constraint}\\
+\large Mediated Authority, Answerability, Burden, and Correction under Finite Action}
+\author{David T. Swanson}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper argues that ethical evaluation of institutions and systems must include not only outcomes, procedures, and formal rules, but also the mediated authority conditions through which cases become governable under finite constraint. Institutions do not act on cases in exhaustive presence, but through selective operative representations---files, charts, scores, categories, thresholds, and model outputs---that preserve some structure strongly enough for action while leaving other structure weakly carried, backgrounded, merged, or omitted. Its central claim is that once consequence-bearing authority governs through such renderings, the mediated pathway through which action becomes possible is no longer merely technical background. Because authority reaches the case only through the rendering, defects in that rendering become defects in the act's mode of address to its object, and are therefore ethically assessable. This matters especially where the governed case is a humanly lived case, or subject-process, whose lived significance is adequacy-relevant. The paper argues that operative representations are interface-shaped, purpose-bound, level-bound, and scope-limited, and that they remain structurally non-identical to the cases they govern. Once authority acts through them, omissions, burden displacements, scope overreach, experiential distortion, and blocked correction partly constitute the mediated act itself. The paper therefore identifies mediated authority as a distinct middle-layer moral object, uses answerability as the bridge from architecture to ethics, and derives lower-bound constraints of non-totalization, scope discipline, traceability, burden sensitivity, experiential responsiveness, and correction responsibility. It is not a complete morality, legitimacy theory, or politics of institutions, but a structural ethical account of how finite systems govern through selective renderings of cases.
+\end{abstract}
+
+\section{Introduction}
+
+Many of the most consequential decisions in contemporary life are not made through direct, exhaustive engagement with the cases they affect. They are made through operative renderings: a benefits file, a hospital chart, a risk score, a dashboard flag, a compliance category, an eligibility determination, a ranking, a threshold crossing. These renderings are not fictional. They preserve enough structure to make action possible under finite institutional conditions. But they do not carry cases forward intact. They format, compress, stabilize, and prioritize; they preserve some features strongly enough for action while leaving others weakly carried, backgrounded, merged, or omitted. Once such renderings acquire standing and decisional force, the ethical question can no longer be only whether the eventual outcome was good or bad. It becomes necessary to ask how the case became governable in the first place, what the rendering preserved, what it left as residue, what burdens were displaced in making it workable, and what possibilities for revision remained available once authority acted through it. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF,BowkerStar1999SortingThingsOut}
+
+\subsection{Motivating Case}
+
+Consider a familiar case. A person applies for a public benefit after a period of instability: missed work, worsening health, inconsistent transportation, confusing notices, interrupted communication, and difficulty assembling the documents the agency demands. By the time the case becomes actionable inside the system, it has been converted into an administrative file. That file contains forms, dates, required proofs, category markers, status codes, and procedural history. It is operationally useful. It allows the agency to sort, compare, route, and decide. It stabilizes the case strongly enough for institutional action.
+
+But the same rendering is selective. It may preserve deadline status more clearly than practical incapacity, document completeness more clearly than the conditions that made completion difficult, and procedural noncompliance more clearly than the labor required to remain legible inside the system. The file may then acquire standing and decisional force. It becomes the object through which the claimant is judged. What the rendering fails to preserve does not disappear. It often returns as burden: repeated narration, documentary labor, waiting, confusion, humiliation, and the strain of challenging a case through the very administrative grammar that rendered it incompletely in the first place. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,BowkerStar1999SortingThingsOut}
+
+The same structure appears in clinical administration and AI-assisted judgment. A hospital chart may preserve medication timing, coded symptoms, and workflow status while weakly carrying pain as lived, fear as undergone, or the practical disorientation of being processed while ill. A predictive score may preserve a narrow operational pattern while obscuring the scope conditions under which its use remains justified. In each case, the rendering is useful. In each case, it acquires authority. And in each case, what it fails to preserve can become consequential for how the governed case is treated. \cite{LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF,Douglas2004IrreducibleComplexityObjectivity,Fricker2007EpistemicInjustice}
+
+These cases motivate the paper's central claim. The problem is not merely that institutions simplify. The deeper problem is that consequence-bearing authority often governs through selective renderings while treating those renderings as though they were ethically neutral, or as though they were sufficient to bear the authority they are given. The paper argues that this is a mistake.
+
+\subsection{Central Problem}
+
+The central problem can be stated plainly:
+
+\begin{quote}
+Why are the mediated authority conditions through which a case becomes governable ethically assessable rather than merely technical or organizational background features?
+\end{quote}
+
+Many ethical approaches begin too late. They ask whether the outcome was fair, whether the rule was followed, whether the procedure was observed, or whether some right was violated. These questions remain indispensable. But by the time they are asked, the case has usually already been rendered into an actionable object through a selective operative form. A file has been stabilized, a threshold crossed, a score elevated, a record granted standing, or a classification fixed. The mediated pathway through which authority reached the case is often presupposed rather than evaluated.
+
+This paper begins there instead. It asks what follows once one treats that mediated pathway itself as part of the morally assessable structure of action. The claim is not that architecture replaces ethics, nor that outcomes, procedures, and rights no longer matter. It is that a morally important object has remained underdescribed: consequence-bearing authority acting through selective operative representations under finite constraint.
+
+\subsection{Main Proposal}
+
+The proposal defended here is that finite institutions and systems act through selective operative representations under structural non-identity. They do not govern through exhaustive presence to cases, and under bounded institutional conditions they cannot do so. The operative representations through which they act are always shaped by interface, purpose, level, and scope. They preserve some structure strongly enough for action while leaving some remainder weakly carried, backgrounded, or omitted. \cite{Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess,Swanson2026SharedRealityConditionDisclosure}
+
+Many governed cases are also humanly lived cases, or more technically subject-processes: cases in which what the person undergoes, bears, navigates, or suffers is adequacy-relevant to responsible governance. In such domains, lived significance is not a decorative addition to an otherwise sufficient administrative or technical rendering. It may be part of what must remain ethically salient if the case is to be governed answerably.
+
+The paper's main thesis is therefore this: once authority acts through selective renderings of governed cases, the omissions, burden displacements, scope limits, and correction paths built into those renderings are not merely downstream side effects. Because authority reaches the case only through the rendering, those features partly constitute the mediated act itself. Defects in rendering are therefore not merely defects in causal background or administrative support; they are defects in the act's mode of address to its object. Mediated authority conditions are, for that reason, ethically assessable.
+
+That thesis can be stated more compactly in five steps:
+\begin{itemize}
+    \item Finite institutions and systems act through selective operative representations under structural non-identity.
+    \item Those representations are always interface-shaped, purpose-bound, level-bound, and scope-limited.
+    \item Many governed cases are humanly lived cases whose lived significance is adequacy-relevant.
+    \item Once authority acts through such renderings, omissions, burden displacements, scope limits, and correction paths partly constitute the mediated act.
+    \item Therefore mediated authority conditions are ethically assessable.
+\end{itemize}
+
+\subsection{Distinctive Contribution}
+
+The paper's distinctive contribution is threefold.
+
+First, it identifies \emph{mediated authority} as a distinct middle-layer moral object. The point is not only that institutions can produce harm, that procedures can fail, or that systems can be opaque. It is that authority often acts through selective renderings that make cases governable in the first place, and that this mediated structure has ethical significance in its own right.
+
+Second, the paper uses \emph{answerability} as the bridge from architecture to ethics. The claim is not merely that mediated structures causally influence moral outcomes. It is that once authority governs through non-identical, scope-limited renderings, it must remain responsive not only to the tractable form it has produced, but also to the reality of the case, to the governed person where applicable, to the residue the rendering leaves, and to the need for correction when target-relative misfit appears.
+
+Third, the paper explains why burden, opacity, experiential distortion, and correction are internal to mediated action rather than merely downstream side effects. A burdened, scope-blind, or correction-resistant rendering is not simply a technical imperfection surrounding an otherwise intact moral act. Where authority governs through that rendering, these features partly constitute what the act is.
+
+The result is not a complete moral theory. It is a more precise ethical account of how finite systems govern through selective renderings of cases, and why that mediated structure must itself become an object of ethical evaluation.
+
+\subsection{Roadmap}
+
+The paper proceeds in nine steps. Section 2 situates the argument among adjacent literatures, including outcome- and procedure-centered approaches, theories of representation and modeling, bounded rationality, classification and administrative burden, situated knowledge and epistemic injustice, and AI accountability. Section 3 defines the paper's core concepts, including operative representation, mediated authority, interface, scope, overextension, subject-process, answerability, burden distribution, and correction path. Section 4 presents the main theory and develops the central ethical bridge from mediated rendering to mediated-act constitution. Section 5 explains why the theory is needed by showing what neighboring approaches leave underdescribed. Section 6 demonstrates the framework's explanatory payoff through applications to clinical administration, benefits adjudication, and AI-assisted judgment. Section 7 addresses the strongest objections. Section 8 states the paper's scope conditions, limits, and visible residues. Section 9 sketches implications and future work. Section 10 concludes by restating the paper's achieved result in its strongest disciplined form.
+\section{Background and Rival Views}
+
+The proposal developed in this paper does not emerge in isolation. It stands at the intersection of several recognizable literatures: outcome- and procedure-centered ethics, theories of representation and modeling, bounded rationality, classification and administrative burden, situated knowledge and epistemic injustice, and more recent work on AI accountability. The purpose of this section is not to deny the force of those approaches. On the contrary, each captures something important on which the present argument depends. The paper's claim is narrower and comparative. These neighboring approaches often illuminate the harms, norms, and failures associated with mediated governance without fully stabilizing a particular moral object: consequence-bearing authority acting through selective operative renderings of cases under finite conditions. Once that object is made explicit, familiar concerns---burden, opacity, distortion, and blocked correction---can be redescribed more sharply as ethical features of mediated authority rather than merely as side effects of imperfect administration.
+
+\subsection{Outcome, Procedure, and Rights Without the Middle Layer}
+
+Outcome-centered, rule-centered, and procedural approaches each identify genuine dimensions of moral assessment. Bad outcomes matter. Unequal treatment matters. Rule violations matter. Procedural unfairness matters. No serious ethical account of institutions can ignore those dimensions, and nothing in the present paper is meant to displace them. It would therefore be a mistake to present the argument as though familiar moral vocabularies were simply blind to institutional wrong.
+
+What these approaches often leave underdescribed, however, is the mediated pathway through which the case became governable before the outcome, rule application, or procedural judgment was ever reached. By the time one asks whether a result was harmful, whether a right was respected, or whether a procedure was fair, the case has usually already been rendered into an administratively actionable form. A file has been assembled, a chart stabilized, a score generated, a threshold crossed, a category fixed, or a record granted standing within a decision regime. That rendering is then often treated as the practical object of judgment without itself becoming the focus of ethical analysis.
+
+The point is not that outcomes, procedures, and rights are secondary. It is that they often presuppose a more basic mediated structure they do not themselves center with sufficient stability. Two systems may produce similar outcomes while acting through importantly different mediated authority structures; two procedurally regular systems may differ sharply in whether their authoritative renderings are traceable, corrigible, or burden-exporting; two formally rights-respecting systems may diverge in how their operative renderings distort, flatten, or exclude what matters in the case. The present paper is therefore not replacing these vocabularies. It is clarifying a moral object they repeatedly encounter but often leave in the background: the selective pathway through which authority reaches the case.
+
+\subsection{Representation, Modeling, and Selective Rendering}
+
+Philosophical work on representation and models has already performed important anti-naive labor for any theory of mediated authority. It has shown that models, representations, and scientific artifacts are not best understood as transparent mirrors of their targets. They are selective, idealized, purpose-sensitive, and often domain-relative in their adequacy. Representation is therefore not exhausted by a picture of faithful duplication, and success in representation does not require exhaustive identity with what is represented. \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP}
+
+This background matters because it normalizes several commitments on which the present argument relies: selective rendering, scoped adequacy, and non-identity between representation and target. The current paper would be much harder to formulate if it first had to defend the elementary point that case renderings are selective rather than exhaustive. The representation literature makes that starting point far more plausible. It helps establish that files, records, scores, and formal representations are often useful precisely because they preserve some structure strongly enough for use, not because they preserve everything.
+
+But the present paper is not simply one more theory of representation. Its claim begins where representation becomes operative. Once a rendering is not merely interpretive but action-guiding, standing-bearing, and consequence-producing, its selective structure ceases to be merely epistemic or methodological. It becomes part of the ethical architecture of governance. A risk score, disease model, eligibility profile, or case summary is not the moral object of this paper merely because it is selective. It becomes morally assessable in the sense at issue here when authority governs through it. That is the comparative gain: the paper does not add another general theory of selective representation, but a downstream account of what follows when selective representation acquires consequence-bearing force.
+
+\subsection{Bounded Rationality and Finite Operativity}
+
+Work on bounded rationality provides a second indispensable background condition. Finite agents and systems operate under limits of time, memory, attention, processing capacity, organizational complexity, and tractability. They cannot carry all relevant distinctions at once, nor can they act through exhaustive presence to the situations before them. This point is familiar at the level of individual cognition, but it generalizes to institutions and formal systems that must act through stabilized, usable, and communicable forms. \cite{Wheeler2024BoundedRationalitySEP,Simon1982ModelsBoundedRationality}
+
+This matters because it helps explain why mediated action necessarily proceeds through operative representations. A system that must classify, route, reimburse, adjudicate, or intervene cannot do so by holding the case in all its detail and indeterminacy. It must stabilize tractable forms. Under finite conditions, selective operative representation is therefore not an accidental defect laid over an otherwise available ideal of direct access. It is the structural mode through which action becomes possible at all. \cite{Swanson2026ConstraintConditionDisclosure}
+
+That point is essential for the ethical argument of this paper. If mediated representation were merely a contingent administrative shortcut, its ethical relevance could be treated as secondary. But if selective operative rendering is structurally necessary under finite conditions, then the ethical question shifts. The issue is no longer whether mediation can be escaped, but how authority governs through it: what kinds of remainder it leaves, what burdens it displaces, what scope it silently assumes, and what revision it permits or blocks. Once finite operativity is acknowledged, mediated authority becomes much harder to dismiss as merely technical background.
+
+\subsection{Classification, Records, and Institutional Simplification}
+
+Classification infrastructures, records, scores, and administrative schemas make large-scale coordination possible. Institutions could not function without forms that stabilize cases into comparable, transportable, and action-guiding objects. A chart, file, risk category, or compliance code is not merely a bureaucratic nuisance attached to an otherwise direct encounter with reality. It is one of the forms through which institutions make cases governable at all. \cite{BowkerStar1999SortingThingsOut}
+
+But the same infrastructures that make action possible also format cases in specific ways. They simplify, compress, and omit. They privilege some distinctions and suppress others. They determine what can travel and what must remain backgrounded. They may erase the labor required to stay legible within the system, or the contextual and experiential features that do not survive standardized form. For that reason, classification is not only epistemically interesting but ethically and politically consequential. \cite{BowkerStar1999SortingThingsOut}
+
+Work on administrative burden sharpens this point by showing that institutional simplification does not merely leave things out in the abstract. It often displaces costs downward. Learning costs, compliance costs, navigation burdens, documentary burdens, waiting, confusion, and psychological strain are frequently borne by those who must fit themselves to the rendering regime rather than by those who designed it. Work on automated administration and technologically intensified welfare governance further shows how such burdens can become more severe when systems acquire scale, opacity, and formal authority. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality}
+
+The present paper inherits these insights but adds a more specific claim. It is not only that classifications and records can produce burdens. It is that once authority acts \emph{through} those selective renderings, the burdening structure is no longer merely an external effect of administrative form. It becomes part of the moral object itself. The file, schema, or score is no longer just a technical interface with secondary human consequences. It becomes part of the mediated act by which the case is handled.
+
+\subsection{Situated Knowledge, Objectivity, and Epistemic Injustice}
+
+Situated knowledge and epistemic injustice provide another important background. Together they show that no rendering is from nowhere, that what gets preserved or omitted is often standpoint-sensitive, and that subjects can be wronged not only by falsehood but by selective uptake, selective credibility, and selective intelligibility. \cite{Douglas2004IrreducibleComplexityObjectivity,Haraway1988SituatedKnowledges,Fricker2007EpistemicInjustice}
+
+Situated knowledge matters here because it blocks the fantasy that institutional or formal renderings are simply neutral extractions of what is already fully present in the case. Interfaces, purposes, levels, and descriptive regimes shape what appears as relevant structure. Objectivity, on this picture, is not a view from nowhere but a disciplined and situated achievement. \cite{Douglas2004IrreducibleComplexityObjectivity,Haraway1988SituatedKnowledges}
+
+Epistemic injustice matters because it shows that subjects can be wronged through failures of uptake, recognition, and intelligibility. A subject's testimony, lived significance, or practical orientation may be discounted, mistranslated, or excluded from the forms through which the case becomes institutionally legible. \cite{Fricker2007EpistemicInjustice}
+
+The present paper takes these insights one step further. Once authority governs \emph{through} selective renderings, the issue is no longer merely epistemic or political in a neighboring sense. It becomes internal to the mediated act. Selective uptake of testimony, selective preservation of context, and selective formatting of what counts as the case are not only background epistemic conditions. They help constitute the morally assessable structure through which authority reaches its object.
+
+\subsection{AI Governance and Accountability as a Near Neighbor}
+
+Recent work on AI governance and algorithmic accountability identifies a cluster of concerns highly relevant to the present argument: opacity, fairness, explainability, contestability, and institutional responsibility for automated or semi-automated decisions. These concerns are real and important. They make explicit several features of mediated authority that older administrative vocabularies sometimes left diffuse. \cite{LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+This literature is especially valuable because it highlights how technical outputs can acquire standing and decisional force over cases. Scores, rankings, classifications, and predictive outputs do not remain neutral informational artifacts once they enter systems of governance. They shape what can happen next, how cases are interpreted, and what forms of contestation remain available. Work on automated inequality further shows that such systems often intensify older forms of burden, opacity, and exclusion rather than replacing them with something wholly new. \cite{Eubanks2018AutomatingInequality}
+
+But the present framework is broader than AI fairness or accountability discourse. It is not restricted to algorithms, and it does not depend on machine learning as its privileged example. Its claim is more general: whenever consequence-bearing authority governs through selective operative renderings under finite constraint, mediated authority conditions become ethically assessable. AI governance is therefore not a detached application. It is one especially vivid site in which a more general structure becomes visible.
+
+This broader framing also deepens the meaning of familiar accountability terms. Opacity, contestability, and explainability are not merely desirable technical properties. They are partial responses to a more general problem: authority governing through selective renderings whose scope, remainder, and correction conditions are ethically nontrivial.
+
+\subsection{Comparative Necessity Paragraph}
+
+Taken together, these neighboring approaches identify many of the pressures this paper takes seriously: harms, burdens, classification effects, epistemic wrongs, accountability failures, and the necessity of finite operative simplification. What they do not yet stably isolate, however, is the specific moral object at issue here: consequence-bearing authority acting through selective operative representations whose omissions, burden distributions, and correction paths partly constitute the act itself. The present framework is needed not because those literatures are mistaken, but because they repeatedly encounter this object without fully stabilizing it as an object of ethical theory in its own right. \cite{BowkerStar1999SortingThingsOut,Fricker2007EpistemicInjustice,MoynihanHerdHarvey2015AdministrativeBurden,LepriEtAl2018FairTransparentAccountableADM,Swanson2026MediatedJudgmentConstraint}
+\section{Core Definitions and Distinctions}
+
+The argument of this paper depends on a limited set of terms whose meanings must remain stable throughout. These are not ornamental additions to familiar ethical language. They do specific theoretical work. The paper's central claim is that once consequence-bearing authority governs through selective renderings of cases, the mediated conditions through which the case becomes governable are ethically assessable features of the act itself. That claim cannot be stated clearly unless several objects and distinctions are fixed in advance. What follows therefore defines the paper's core terms and the contrasts that keep them from collapsing into one another.
+
+\subsection{Case / Governed Case}
+
+A \emph{case}, or \emph{governed case}, is the person, situation, process, or world-fragment over which authority acts. The term is intentionally broader than \emph{individual}, \emph{object}, or \emph{claim}. A case may be a patient encounter, a household seeking assistance, a disciplinary incident, a benefits determination, a medical condition, a risk profile, or another administratively actionable situation. What matters is not its ontology in the abstract, but that it is the target of judgment, intervention, allocation, or response.
+
+The term also marks a limit. The governed case is not exhausted by the administratively tractable rendering through which it becomes governable. A chart, file, score, category assignment, model output, or eligibility determination may make the case legible enough for institutional action, but none of these should be presumed identical with the case itself. This distinction is basic to the paper. If it is lost, the mediated form through which authority reaches the case disappears from view, and with it the central moral object the paper is trying to isolate.
+
+\subsection{Operative Representation}
+
+An \emph{operative representation} is a selective rendering stable enough to guide action, classification, intervention, or coordination. It may take the form of a chart, case record, score, profile, eligibility file, dashboard, diagnostic output, risk ranking, or standardized category. What unifies these heterogeneous forms is not medium but function: each preserves some structure of the case strongly enough to become action-guiding under institutional or system conditions. \cite{FriggNguyen2021ScientificRepresentationSEP,FriggHartmann2025ModelsScienceSEP,Swanson2026ConstraintConditionDisclosure}
+
+This concept must be distinguished from several nearby objects. First, it is not identical with the \emph{case}. The case is what is governed; the operative representation is the rendering through which governance proceeds. Second, it is not identical with the \emph{descriptive act} that produces it. Description or registration is a process; the operative representation is the stabilized output that can circulate, count, and trigger action. Third, it is not identical with the \emph{full reality of the case}. It is a selective preservation under finite conditions rather than an exhaustive rendering.
+
+The term \emph{operative} matters because not every representation becomes action-guiding. The paper is concerned with those renderings that acquire sufficient standing within a judgment regime to shape what can happen to the case.
+
+\subsection{Mediated Authority}
+
+\emph{Mediated authority} is consequence-bearing authority exercised through operative representations rather than through exhaustive access to cases. This is the paper's central moral object. The phrase names a specific structure: the case does not become governable directly, but through a rendering that has acquired standing and decisional force within a system of judgment. \cite{Swanson2026MediatedJudgmentConstraint}
+
+This definition matters because the paper does not claim that all representation is already an ethical problem, nor that every institutional act is mediated in the same way or to the same degree. The object of concern is narrower. It is the mediated exercise of authority over cases through selective renderings that shape outcomes, burdens, opportunities, treatment, and revision paths. Once that structure is in place, the qualities of the representation through which the case is governed are no longer merely administrative or technical details. They become candidates for ethical assessment.
+
+\subsection{Standing and Decisional Force}
+
+\emph{Standing} names the condition under which a rendering is treated as authoritative enough to count within a judgment regime. A note in a chart, an eligibility flag, a diagnostic code, a risk score, or a formal record does not become ethically significant merely because it exists. It becomes significant when it acquires standing: when it is recognized by the system as admissible, relevant, or authoritative for action. \cite{Swanson2026MediatedJudgmentConstraint}
+
+\emph{Decisional force} names the extent to which that rendering shapes, filters, constrains, or determines action. Some representations merely inform deliberation. Others trigger automatic procedures, narrow available options, structure downstream burdens, or effectively settle the case in practice. The distinction matters because not all operative representations bear the same ethical weight. A rendering with minimal standing and low decisional force is not the same moral object as one that closes off options or authorizes the next institutional move.
+
+Together, standing and decisional force explain why the paper does not treat all simplification alike. What matters is not simply that a case is rendered selectively, but that the rendering acquires a role in governing what can happen.
+
+\subsection{Interface}
+
+An \emph{interface} is the medium, grammar, format, or procedural layer through which a case becomes governable. Interfaces include forms, charts, dashboards, scores, record schemas, administrative codebooks, categorical checklists, data fields, and procedural templates. \cite{BowkerStar1999SortingThingsOut,Swanson2026ConstrainedDescribability}
+
+An interface is not neutral packaging. It shapes what can count as relevant information, what can be registered, what can travel between actors, what can be compared across cases, and what can trigger institutional action. A form with fixed boxes does not merely store information already available in full; it helps determine what kind of case can appear at all. A dashboard does not merely display a reality independently given; it formats salience. A codebook does not merely name a case; it makes some distinctions portable and others difficult or impossible to express.
+
+This concept matters because many failures of mediated authority are not failures of intention alone. They are structured by the interfaces through which cases become legible and governable.
+
+\subsection{Purpose}
+
+A \emph{purpose} is the task-relative aim governing a rendering. Cases are rendered for something: routing, prediction, diagnosis, classification, allocation, reimbursement, audit, triage, or intervention. Purpose matters because what counts as relevant preservation depends partly on what the rendering is for. \cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure}
+
+This prevents a crude critique of selectivity. The paper does not claim that every rendering must preserve everything that matters under every possible use. A representation designed for routing may be adequate for routing without being adequate for adjudicating lived burden. A representation designed for reimbursement may be operationally effective for billing while failing as an ethically adequate rendering of the case as governed. Purpose therefore helps explain why not all omission is already a moral defect, and why ethical problems often arise when one purpose silently expands into another.
+
+\subsection{Level}
+
+A \emph{level} is the scale or resolution at which a case is rendered. Level is not simply a matter of more or less detail. It affects what kinds of structure become visible and usable in the rendering at all. In the present context, level is especially important for distinguishing population-level patterns, case-level governance, and lived first-person burden. \cite{Swanson2026ConstrainedDescribability}
+
+A system may be highly effective at identifying population-level regularities while remaining weak at capturing what matters in an individual case. A risk model may preserve cross-case comparative structure while losing what is salient to a particular subject-process. A workflow representation may preserve case-sequence and queue position while failing to preserve practical or experiential significance. Level therefore matters because some ethical failures of mediated authority are also level failures: a rendering adequate at one level is granted authority at another.
+
+\subsection{Scope Condition}
+
+\emph{Scope conditions} are the regime within which a rendering remains sufficiently adequate for its intended use. Scope is not peripheral metadata tacked on after the fact. It is part of what the rendering \emph{is}. A representation built for one interface, purpose, and level carries with it limits on what it can legitimately support. \cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure}
+
+This is crucial for the present paper because many failures of mediated authority are not failures of total falsehood. They are failures of illegitimate travel. A score, file, or record may be locally adequate for one institutional function and yet become ethically defective when used as though it exhausted the case. Scope conditions therefore help explain how a rendering can be both useful and dangerous: useful within the regime for which it was built, dangerous when granted authority beyond those conditions.
+
+\subsection{Overextension}
+
+\emph{Overextension} is the use of a rendering outside the scope conditions under which its disclosure remains adequate. Many failures of mediated authority are failures of overextension rather than failures of total falsehood. The problem is often not that the rendering never worked for anything, but that it was granted standing and decisional force beyond the regime in which its adequacy held. \cite{Swanson2026ConstrainedDescribability,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+This concept keeps the paper disciplined. It blocks the thought that all selective rendering is already morally suspect. The issue is not simplification as such. The issue is what happens when a rendering built for one task, level, or interface is treated as though it had authority everywhere. Overextension is therefore one of the main routes by which technical tractability becomes ethical failure.
+
+\subsection{Structural Non-Identity}
+
+\emph{Structural non-identity} is the non-equivalence between operative rendering and governed case. It names a standing relation of mediated governance under finite constraint: the rendering is not the case in another format. It preserves some structure strongly enough for use while failing to preserve other structure fully, directly, or at all. \cite{Swanson2026ConstraintConditionDisclosure,FriggNguyen2021ScientificRepresentationSEP}
+
+This must be distinguished from accidental error. A rendering may be structurally non-identical to the case even when it is useful, competent, and locally adequate. Non-identity does not mean the representation is simply false. It means that it remains selective and therefore non-exhaustive. This distinction matters because the paper's ethical claim is not that institutions are blameworthy merely because they do not enjoy impossible exhaustive presence to cases. The point is subtler: once authority governs through unavoidable non-identity, it incurs obligations of answerability, scope discipline, and correction.
+
+\subsection{Residue}
+
+\emph{Residue} is the structured remainder relative to a rendering: what is not preserved strongly enough for operative use, what is weakly carried, backgrounded, merged, flattened, or omitted in the process of making the case governable. Residue is not necessarily mysterious or ineffable. It is simply the remainder generated by selective rendering under finite conditions. \cite{Swanson2026ConstraintConditionDisclosure,Swanson2026ConstrainedDescribability}
+
+In the present paper, the concept is used in a thin and disciplined way. The point is not to build a full theory of residue for its own sake, but to mark that mediated governance always operates through a rendering that leaves some remainder. That residue may remain backgrounded and practically inert. It may also become consequential.
+
+Where useful, four subordinate forms may be distinguished. \emph{Background residue} is remainder not currently consequential for the active use. \emph{Active residue} is remainder that has become consequential for adequacy, action, or evaluation. \emph{Burdened residue} is active residue whose costs are displaced downward onto subjects. \emph{Corrective residue} is active residue that generates revision pressure because what was not carried now matters to the case as governed. The paper does not require a full residue theory, but these distinctions help explain why omission can become ethically consequential without implying that all residue matters equally at all times.
+
+\subsection{Subject-Process}
+
+A \emph{subject-process} is a governed process whose lived significance is adequacy-relevant. The term marks cases in which the target of governance is not adequately captured by thin administrative tractability alone. Pain, fear, humiliation, confusion, practical disorientation, dependency, or burden may be part of what must be adequately preserved if the case is to be ethically governed rather than merely procedurally processed. \cite{Swanson2026EmbeddedProcess,Haraway1988SituatedKnowledges,Fricker2007EpistemicInjustice}
+
+For present purposes, the concept should be treated as a bounded quasi-primitive rather than as a fully derived ontology of subjectivity. The paper does not need to settle every metaphysical question about subjecthood. It needs only a disciplined way of marking that some governed cases have adequacy-relevant lived significance. This distinguishes the subject-process from the \emph{thin administrable case}, which is the case as rendered for procedural tractability alone. The paper's stronger ethical claims are concentrated where the governed object is better understood as the former rather than the latter.
+
+\subsection{Answerability}
+
+\emph{Answerability} is the requirement that mediated authority remain responsive not only to the administratively tractable rendering through which it acts, but also to the reality of the case, to the subject-process where applicable, to the residue its rendering leaves, and to the need for correction when target-relative misfit appears. \cite{Swanson2026SharedRealityConditionDisclosure,Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess}
+
+This concept is the paper's main bridge from structure to ethics. It is stronger than transparency alone. A system may be transparent in limited ways and still remain unanswerable if it is responsive only to its own rendering and not to what that rendering leaves out, distorts, or burdens. Answerability therefore includes but exceeds visibility, auditability, or formal reviewability. It names the deeper requirement that mediated authority remain open to the reality and lived significance of what it governs rather than closing upon the tractable object it has itself produced.
+
+\subsection{Burden Distribution}
+
+\emph{Burden distribution} names how the costs of selective rendering are distributed across actors. In the present context, burden is best understood as residue displaced downward. What the rendering does not preserve strongly enough may return as learning cost, proof cost, waiting cost, navigation cost, translation labor, humiliation, confusion, or other forms of practical and psychological strain borne by the governed rather than by the system. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality}
+
+This matters because the ethical problem is often not merely that something was left out. It is that the costs of what was left out are exported downward onto those least able to reconfigure the rendering regime itself. Burden distribution therefore connects representation, residue, and ethics in a way that makes the downstream stakes of mediated authority easier to see.
+
+\subsection{Experiential Distortion}
+
+\emph{Experiential distortion} is the failure to preserve adequacy-relevant lived significance of a subject-process. It is not merely the absence of emotional content in an otherwise sufficient model, nor simply a complaint that systems should be more empathetic. It names a domain-relevant inadequacy in the rendering itself: what the subject-process undergoes, bears, or navigates has not been preserved strongly enough for responsible governance. \cite{Swanson2026EmbeddedProcess,Fricker2007EpistemicInjustice}
+
+This concept matters because it blocks a familiar reduction. The problem is not that one should add feelings to a technically adequate model as a moral supplement. The problem is that in some domains what is lived is part of what must be adequately rendered in the first place.
+
+\subsection{Correction Path}
+
+A \emph{correction path} is the route by which target-relative failure can be surfaced, contested, revised, and institutionally acted upon. It includes whatever mechanisms allow residue, misfit, burden, or experiential distortion to become visible enough to alter how the case is governed. \cite{Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure}
+
+This must be distinguished from discretionary rescue. A rescue is a fortunate override or benevolent exception. A correction path is structural. It is the route by which mediated authority remains revisable in light of the fact that it governs through non-identical renderings. The distinction matters because the paper's normative ambition is not to praise occasional mercy. It is to show why revision pathways are part of what responsible mediated authority requires.
+
+\subsection{Load-Bearing Distinctions}
+
+Several distinctions organize the rest of the paper.
+
+\begin{itemize}
+    \item \textbf{Case vs.\ operative representation.} The governed case is not identical with the rendering through which it becomes governable.
+    \item \textbf{Mediated authority vs.\ causal background.} The representational pathway is not merely upstream of the act; once authority governs through it, it becomes part of the act itself.
+    \item \textbf{Interface vs.\ neutral packaging.} Forms, dashboards, charts, and codebooks do not merely package information; they shape what can count, compare, and travel.
+    \item \textbf{Purpose-sensitive adequacy vs.\ adequacy simpliciter.} What a rendering preserves well enough depends partly on what it is for.
+    \item \textbf{Scope-limited adequacy vs.\ overextended authority.} A rendering may be useful within one regime and ethically defective when granted authority beyond that regime.
+    \item \textbf{Subject-process vs.\ thin administrable case.} Some governed cases have adequacy-relevant lived significance; others are treated as though administrative tractability exhausts what matters.
+    \item \textbf{Structural non-identity vs.\ accidental error.} Non-identity is a standing condition of mediated governance, not merely a sign of incompetence.
+    \item \textbf{Correction vs.\ discretionary rescue.} Responsible mediated authority requires revision pathways, not merely occasional benevolent override.
+    \item \textbf{Answerability vs.\ transparency alone.} Visibility may help, but answerability requires responsiveness to the case, its residue, and its possible misfit.
+\end{itemize}
+
+These distinctions are not ornamental. They keep the paper's main claim from collapsing into either banal administrative critique or vague moralization. They also prepare the central argument of the next section: that once consequence-bearing authority governs through selective, scope-limited, non-identical renderings---especially where the governed case is a subject-process---the mediated authority conditions through which the act becomes possible become ethically assessable.
+\section{Main Theory}
+
+The central task of this paper is to show why mediated authority conditions are ethically assessable rather than merely technical or organizational features of institutional action. That burden is not discharged by observing that institutions use files, scores, charts, categories, thresholds, or model outputs. Nor is it discharged by the weaker claim that such instruments influence outcomes that are later open to ordinary moral evaluation. The stronger claim defended here is that once consequence-bearing authority acts \emph{through} selective operative renderings of cases, the mediated pathway through which the case becomes governable is no longer external to the act. It helps determine the act's practical content, and for that reason it helps determine the act's ethical identity as well. The question is therefore not only what a system decides, but how the case is made practically available for decision, what counts as relevant within that practical availability, what remains weakly carried or excluded, and what forms of revision remain institutionally possible once authority has attached to the rendering. This section develops that claim by moving from finite institutional constraint, to operative rendering, to structural non-identity, to mediated-act constitution, and finally to answerability and lower-bound ethical constraint. \cite{Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess,Swanson2026ConstrainedDescribability}
+
+\subsection{Compressed Argument Statement}
+
+The paper's main argument can be stated in compressed form as follows:
+
+\begin{quote}
+Finite institutions and systems cannot govern through exhaustive presence to cases. They govern through selective operative representations shaped by interface, purpose, level, and scope. Those renderings are therefore structurally non-identical to the cases they govern and leave residue relative to them. Once authority reaches the case only through such a rendering, the rendering's selective structure is no longer merely upstream background. It helps determine what the case is practically available as for the system, what can count as relevant within it, what responses become institutionally possible, and what burdens are displaced in making the case governable. The rendering therefore partly constitutes the act performed on the case. For that reason, its omissions, scope limits, burden distributions, opacity, and revision pathways are ethically assessable. Where the governed case is a person or other subject-process whose lived significance is adequacy-relevant, this ethical burden intensifies further.
+\end{quote}
+
+This formulation should be read carefully. The claim is not that institutions could avoid mediation if only they were more careful, more precise, or more humane. Under finite conditions they cannot. The claim is instead that once this necessity is acknowledged, mediated authority cannot be treated as ethically inert. The system acts through the rendering it has produced, and so some of the rendering's structure becomes part of the act's own morally assessable structure. The remainder of this section unpacks that claim by tightening five links: finite constraint, bounded rendering, structural non-identity, mediated-act constitution, and answerability.
+
+\subsection{Finite Constraint and the Need for Operative Representation}
+
+Institutions cannot act through exhaustive presence to cases. A benefits office cannot hold the total lived reality of every claimant fully present in administrative time. A hospital cannot coordinate treatment by carrying the entire unfolding condition of each patient in unconstrained form. A predictive or classificatory system cannot act by reproducing the case whole in all its detail. Finite systems must instead stabilize forms through which cases can be registered, compared, routed, ranked, stored, transmitted, and acted upon. This is not merely a contingent weakness of poorly designed administration. It is a structural consequence of finite action under bounded conditions. \cite{Wheeler2024BoundedRationalitySEP,Simon1982ModelsBoundedRationality,Swanson2026ConstraintConditionDisclosure}
+
+The relevance of bounded rationality here is broader than individual cognition. What matters is that agents and institutions alike operate under constraints of time, memory, attention, bandwidth, organizational complexity, and processing capacity. Consequence-bearing systems cannot remain action-guiding unless they reduce cases to forms stable enough for use. Operative representations are therefore not secondary conveniences attached to an otherwise direct relation to cases. They are among the conditions under which institutional action becomes possible at all.
+
+This matters ethically because it blocks one naive criticism and prepares a stronger one. The paper does not criticize institutions for failing to escape mediation. That would be an incoherent demand. The criticism is narrower and more serious: because mediated rendering is necessary, the ethically relevant question becomes \emph{how} systems render, what kinds of remainder they leave, what burdens they displace, what kinds of authority they attach to those renderings, and what kinds of revision they preserve or block. Ethical evaluation that begins only with outcomes or rule-compliance, without examining how the case became governable through operative form, begins too late.
+
+\subsection{Interface, Purpose, Level, and Scope}
+
+Operative representations are never neutral containers. They are shaped internally by interface, purpose, level, and scope. These are not external annotations added after the representation is produced. They are part of what the representation is. \cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure,BowkerStar1999SortingThingsOut}
+
+An \emph{interface} determines the medium, grammar, and procedural form through which a case becomes governable. Forms, charts, dashboards, codebooks, and scoring systems do not merely package an already available reality. They shape what can count as a fact, what can be entered, what can travel, what can be compared across cases, and what can trigger action. An interface therefore conditions not only how a case appears, but what kind of case can appear at all.
+
+A \emph{purpose} determines what the rendering is for. A representation built for routing may preserve different structure than one built for diagnosis, reimbursement, triage, prediction, or intervention. Adequacy therefore cannot float free of task. A rendering may be adequate for one purpose and inadequate for another without ceasing to be locally useful. This matters because many ethical failures begin when a representation built for one purpose silently expands into another.
+
+A \emph{level} determines the scale or resolution at which the case is rendered. Population-level pattern, case-level governance, and lived first-person burden are not interchangeable descriptions under one homogeneous frame. What becomes salient at one level may disappear at another. This matters because institutions routinely slide across levels, granting authority at one scale to renderings built at another.
+
+A \emph{scope condition} marks the regime within which the rendering remains sufficiently adequate for its use. Scope is not a warning label appended after the fact. It is internal to the rendering itself. A score, file, category, or profile is not content that can travel everywhere without change. It is a bounded rendering whose adequacy depends partly on where and for what it is used.
+
+These four conditions prepare one of the paper's main claims: many failures of mediated authority are not failures of total falsehood. They are failures of bounded renderings granted authority beyond their proper regime. The argument therefore does not require the stronger and often less accurate claim that files, scores, or charts are simply false. It requires the claim that they are bounded renderings whose authority often travels farther than their adequacy permits.
+
+\subsection{Structural Non-Identity, Residue, and Overextension}
+
+Once operative representation is understood under finite institutional constraint, structural non-identity follows. The rendering is never identical with the governed case. A chart is not the patient; a benefits file is not the claimant's life; a risk score is not the person or situation over which it acquires force. This non-equivalence is not merely a sign of error or incompetence. It is built into the structure of mediated action itself. \cite{Swanson2026ConstraintConditionDisclosure,Swanson2026ConstrainedDescribability,FriggNguyen2021ScientificRepresentationSEP}
+
+Because the rendering is selective, it leaves \emph{residue}: what is weakly carried, backgrounded, merged, flattened, omitted, or otherwise not preserved strongly enough for operative use. Residue need not be treated here as mysterious. It is simply the remainder generated by selective rendering. Some of it remains practically inert. Some of it becomes consequential when the case is delayed, denied, rerouted, mistrusted, or otherwise governed in a way that makes what was not preserved matter again.
+
+This is where ethical trouble often begins, though not yet where it is fully defined. Many renderings are locally adequate for bounded tasks. The more common failure mode is not initial uselessness but \emph{overextension}. Overextension occurs when a rendering is granted standing and decisional force outside the interface, purpose, level, and scope conditions under which its adequacy held.
+
+A risk score built to identify a statistical pattern may be overextended when treated as though it exhausted what is relevant to a specific claimant's situation. A hospital record optimized for coordination may be overextended when treated as though it captured the ethically salient reality of the patient as governed. A classification useful for routing may be overextended when it determines treatment, burden, or credibility beyond the range for which it was built. In each case the failure is not that the rendering never worked. It is that bounded tractability is silently converted into wider authority.
+
+This point is crucial because it explains why mediated authority can be ethically defective without being simply false. It can be locally serviceable and still govern wrongly. The central moral problem is often not representational uselessness but bounded renderings acquiring more force than their adequacy can bear.
+
+\subsection{Subject-Process as the Ethical Intensifier}
+
+Not all governed cases have the same adequacy profile. Some can be governed through highly selective renderings with comparatively limited ethical loss for particular tasks. Others cannot. The concept of \emph{subject-process} marks this difference. \cite{Swanson2026EmbeddedProcess,Haraway1988SituatedKnowledges,Fricker2007EpistemicInjustice}
+
+A subject-process is a governed process whose lived significance is adequacy-relevant. The point is not merely that persons have feelings in addition to administratively relevant properties. It is that what the governed subject undergoes, bears, navigates, and suffers may be part of what must be preserved if governance is to remain ethically answerable to the case. Pain, humiliation, fear, confusion, practical disorientation, dependency, or translation labor are not always optional moral supplements to an otherwise sufficient rendering. In some domains they are part of what the case is as governed.
+
+This sharpens the earlier argument about purpose, level, and scope. A rendering may be structurally tractable enough for one institutional purpose and still fail in a domain-relevant way if it suppresses lived significance that matters to what the case is. That is why experiential distortion is not mere informational loss. Where the governed object is a subject-process, omission of lived significance is not just another missing detail. It can be an inadequacy in the rendering itself.
+
+The contrast with the thin administrable case is therefore important. Institutions often behave as though whatever has been preserved strongly enough for routing, classification, reimbursement, or prediction exhausts what matters. The subject-process concept blocks that reduction. It does not deny the necessity of tractable institutional rendering. It denies that tractability alone determines adequacy where lived significance is part of the governed case.
+
+Subject-process thus functions here as an ethical intensifier, not as the whole bridge from structure to ethics. The general theory of mediated authority does not depend on every case being a subject-process. It concerns governed cases as such. But in domains where the governed case is a person or another subject-process, the costs of omission and the force of experiential distortion become sharper, and the ethical demands on rendering deepen accordingly.
+
+\subsection{The Ethical Bridge: Mediated-Act Constitution}
+
+The core argument of the paper can now be stated directly. Authority reaches the case only through the rendering. For that reason, the rendering is not merely causal background to the act. It is internal to the act because it helps determine what the case is for the system, what counts as relevant within it, what can trigger response, what can be contested, what burdens are displaced in reconciling the case to institutional form, and what practical responses become possible or foreclosed in advance. Once consequence-bearing authority governs through a selective rendering, the rendering's selective structure partly constitutes the act performed on the case. \cite{Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess}
+
+This is the strongest version of the paper's ethical bridge, and it must be stated plainly. Under finite institutional conditions, a system does not first encounter the case in unconstrained fullness and then happen to use a representation as an external convenience. It governs through the operative representation it has produced. The rendering is therefore not simply an instrument alongside the act. It is part of the act's practical content. More sharply: because the rendering determines what the case is practically available as, what can count as relevant within it, and what responses are institutionally possible, defects in the rendering are not merely conditions surrounding the act but defects in the act's mode of address to its object.
+
+The importance of this point becomes clearer if one distinguishes three different kinds of relation. Some things are merely \emph{causal background} to an act. They influence what happens but are not part of what the act is. Some things are \emph{enabling conditions}. Without them the act could not occur, but they still do not determine the act's practical content. The paper's claim is that mediated authority belongs to a stronger third category: \emph{constitutive mode of address}. Where authority can reach the case only through a rendering, the rendering does not merely enable the act. It helps determine what the act is an act \emph{of}, how it reaches its object, and under what description that object is treated.
+
+The argument can therefore be stated in four steps:
+
+\begin{enumerate}
+    \item Authority reaches the case only through the rendering.
+    \item The rendering therefore helps determine the practical content of the act.
+    \item The act is partly constituted by the selective pathway through which it reaches the case.
+    \item Where that pathway is opaque, burden-displacing, overextended, experientially distortive, or closed to correction, those are ethically assessable features of the act itself.
+\end{enumerate}
+
+This is what distinguishes the present theory from a thinner claim that mediated conditions are morally relevant causal background. The argument is not merely that structure affects what happens. It is that once authority governs through structure, that structure becomes internal to what is being done. That is why mediated authority conditions are not just context for later ethical evaluation. They are part of the ethically assessable act.
+
+\subsection{Answerability as the Normative Bridge}
+
+The concept that carries this constitutive argument into explicitly normative terrain is \emph{answerability}. Answerability is the requirement that mediated authority remain responsive not merely to the tractable rendering through which it acts, but also to the case, to the person or subject-process where applicable, to the residue its rendering leaves, and to the need for correction when target-relative misfit becomes visible. \cite{Swanson2026SharedRealityConditionDisclosure,Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess}
+
+Answerability is stronger than transparency alone. A system may disclose some procedures, publish documentation, expose partial audit trails, or provide formal review while still remaining unanswerable in the relevant sense. If it remains responsive only to its own rendering and not to what that rendering leaves out, burdens, distorts, or overextends, then transparency becomes a thin procedural surface over an ethically defective act.
+
+The normative force of answerability follows from structural non-identity. Because the rendering is not the case, and because it leaves residue, the system must remain open to the possibility that what it has preserved strongly enough for tractable action is not all that ethically matters. Answerability therefore includes at least four directions of responsiveness:
+\begin{itemize}
+    \item responsiveness to the reality of the case rather than only to the rendering's internal consistency,
+    \item responsiveness to the person or subject-process where lived significance is adequacy-relevant,
+    \item responsiveness to residue and burden that the rendering fails to preserve strongly enough,
+    \item responsiveness to correction when target-relative failure becomes visible.
+\end{itemize}
+
+Ethical defect arises when authority closes around its own rendering and treats tractable preservation as though it were exhaustive adequacy. That closure may appear as opacity, where the case cannot inspect how it became governable; as burden displacement, where the costs of representational insufficiency are exported downward; as experiential unresponsiveness, where lived significance is treated as noise; or as blocked correction, where revision pathways are absent or ineffective even after misfit is visible. In each case the problem is not merely bad administration plus later harm. It is unanswerable mediated authority.
+
+Answerability is thus the key normative bridge because it explains why representational structure becomes ethical once authority governs through it. Without it, the paper would remain a structural diagnosis. With it, the paper can show why the conditions under which a case becomes governable are themselves proper objects of ethical evaluation.
+
+\subsection{Lower-Bound Ethical Constraints}
+
+If answerability is the normative bridge, then the lower-bound ethical constraints of mediated authority follow directly from it. These are not offered as a complete moral theory or a finished design manual. They are lower bounds because they mark what responsible mediated authority must minimally preserve if it is to remain answerable while governing under structural non-identity. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF,Swanson2026MediatedJudgmentConstraint,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess}
+
+\paragraph{1. Non-totalization.}
+No rendering should be treated as exhausting the case. This follows directly from structural non-identity. Because the operative representation is not the governed case, responsible authority must refuse to equate tractable preservation with total adequacy. Non-totalization is therefore not ornamental humility; it is an ethical discipline required by answerable governance.
+
+\paragraph{2. Scope discipline.}
+No rendering should govern outside the scope under which it remains adequate. Because renderings are interface-shaped, purpose-bound, level-bound, and scope-limited, local adequacy does not license unlimited authority. Scope discipline is required because authority becomes unanswerable when it governs beyond the conditions that justify the rendering's force.
+
+\paragraph{3. Traceability.}
+The path by which the case became governable must remain inspectable. Because the rendering is internal to the act, the governed case must not confront only an opaque result while the pathway that produced it remains inaccessible. Traceability is thus a condition of answerability, not a technical nicety.
+
+\paragraph{4. Burden sensitivity.}
+Residue and representational insufficiency must not be silently displaced downward. Because selective rendering always leaves remainder, institutions frequently rely on the governed to absorb what the representation fails to carry: proof labor, waiting, translation labor, repeated narration, confusion, humiliation, and practical degradation. Burden sensitivity follows from answerability because authority that remains answerable cannot treat the costs of its own representational limits as morally invisible.
+
+\paragraph{5. Experiential responsiveness.}
+Where the governed case is a person or other subject-process, lived significance must remain ethically relevant. This follows from the earlier argument that some domains cannot be adequately governed if structural tractability alone is treated as sufficient. Experiential responsiveness does not require that institutions reproduce lived reality in full. It requires that where lived significance is part of what must be adequately rendered, its omission not be dismissed as ethically incidental.
+
+\paragraph{6. Correction responsibility.}
+Because non-identity is structural, revision pathways must be built in rather than treated as optional rescue. Correction responsibility follows from the fact that no operative rendering is exhaustive and that residue can become active under consequence-bearing use. Responsible mediated authority must therefore remain corrigible. It must have real paths by which misfit can surface and alter governance rather than requiring the governed to depend on discretionary mercy.
+
+Taken together, these six constraints identify the minimal ethical architecture of answerable mediated authority. They do not tell us everything a just institution must do. They do tell us something prior and indispensable: once authority governs through selective renderings under finite constraint, it must remain non-totalizing, scope-disciplined, traceable, burden-sensitive, experientially responsive where appropriate, and open to correction. Without these lower bounds, mediated authority does not merely function imperfectly. It becomes ethically defective in its very mode of acting.
+\section{Why This Theory Is Needed}
+
+The proposal developed here is needed because several adjacent approaches each capture something real while leaving one load-bearing feature insufficiently explicit. The missing feature is not harm, not fairness, not procedure, not epistemic wrong as such, and not representation in the abstract. It is the mediated pathway by which a case becomes governable under finite conditions. Once that pathway is made explicit, the moral landscape changes. The question is no longer only what outcome occurred, whether a rule was followed, or whether a review procedure existed in form. The question becomes whether consequence-bearing authority remained answerable while acting through selective, scope-limited, non-identical renderings of governed cases. \cite{BowkerStar1999SortingThingsOut,Fricker2007EpistemicInjustice,MoynihanHerdHarvey2015AdministrativeBurden,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF,Swanson2026MediatedJudgmentConstraint}
+
+What follows is therefore not a repudiation of neighboring ethical vocabularies. It is an argument that they often arrive one layer too late. By the time harm is measured, fairness assessed, procedure reviewed, or epistemic defect diagnosed, the case has already been transformed into an administratively actionable object. A file has been assembled, a chart stabilized, a score granted standing, a category fixed, or a threshold crossed. The present theory is needed because that transformation is not morally inert background. Once authority acts through it, it becomes part of the ethically assessable structure of the act itself.
+
+\subsection{Why Outcome Ethics Is Not Enough}
+
+Outcomes matter. A denied benefit, delayed treatment, unjust classification, or harmful intervention remains ethically significant whether or not one examines the rendering regime through which it was produced. No plausible version of the present argument denies that. But outcome alone does not isolate how the case became action-guiding in the first place. By the time one asks whether the result was harmful, unequal, or unjust, the case has already been rendered into an actionable form through some combination of file, score, chart, threshold, profile, category, or model output. That pathway is usually presupposed rather than evaluated. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,Swanson2026MediatedJudgmentConstraint}
+
+That omission matters because outcome-centered evaluation tends to treat mediated structure as merely upstream context. The rendering regime appears as a causal background condition that helps produce the final result but does not belong to the moral object in its own right. The present theory rejects that framing. If authority reaches the case only through a selective rendering, then the conditions of that rendering partly constitute what was done to the case. A harmful outcome is still harmful, but it is no longer enough to say only \emph{what} happened. One must also ask how the case was made governable, what the rendering omitted or weakly carried, what burdens were displaced in making it operative, and what kinds of revision the act structurally permitted or foreclosed.
+
+This is the comparative gain over outcome-only framing. Outcomes register the terminus of action. CEUC asks what ethical significance belongs to the mediated pathway through which that action became possible. Without that middle layer, outcome analysis remains indispensable but incomplete.
+
+\subsection{Why Technical Neutralization Is Not Enough}
+
+A second inadequate response is to treat the rendering regime as merely technical. On this view, files, scores, dashboards, categories, documentation rules, and interface templates are tools. They may be more or less efficient, more or less accurate, more or less well designed, but they remain external to the ethical object properly speaking. At most they are instruments that later influence morally relevant outcomes.
+
+This view is too weak. Once authority governs through an operative representation, the rendering regime is no longer ethically neutral packaging. It shapes what can count as the case, what can travel between decision points, what can trigger response, what can be challenged, what becomes visible as misfit, and what kinds of residue are displaced downward onto the governed. A record schema that cannot register lived burden, a threshold that erases contextual difference, or an interface that forces a claimant into administratively acceptable categories is not merely a technical device with later moral side effects. It is part of the mediated act through which authority reaches its object. \cite{BowkerStar1999SortingThingsOut,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF,Swanson2026MediatedJudgmentConstraint}
+
+Technical language can therefore conceal rather than clarify. It can make representational choices appear as though they were merely administrative necessities when they are in fact ethically consequential structuring decisions. CEUC is needed to resist that neutralization. It does not deny that technical design matters. It denies that technical mediation remains morally external once consequence-bearing authority acts through it.
+
+\subsection{Why Thin Proceduralism Is Not Enough}
+
+Procedural safeguards are normatively important. Notice, explanation, opportunities to respond, appeal routes, and formal review mechanisms all matter. The present paper is not anti-procedural. But thin proceduralism is not enough, because formal reviewability can coexist with weak answerability. A system may provide appeal in form while still forcing subjects to contest a rendering whose omissions they cannot practically expose, whose categories they cannot escape, or whose burdening effects they must absorb merely to remain legible within the process. \cite{Fricker2007EpistemicInjustice,MoynihanHerdHarvey2015AdministrativeBurden,LepriEtAl2018FairTransparentAccountableADM}
+
+This is the key point. Procedure can exist while the field of possible response has already been narrowed by the operative representation itself. A subject may be permitted to speak only in the grammar the system already recognizes. A case may be reviewable only on the terms of the file that excluded the relevant burden in the first place. A model may be contestable only within a band narrow enough to leave its overextension untouched. In such cases, procedure exists, yet the mediated authority condition remains ethically defective.
+
+CEUC is therefore needed not because procedure is unimportant, but because procedure alone does not tell us whether the rendering through which the case is governed is itself adequately bounded, traceable, corrigible, and responsive to what it governs. Formal review can be ceremonial. Answerability cannot. The theory adds that distinction and makes it central.
+
+\subsection{Why Overextended Model Authority Needs a Distinct Account}
+
+A further problem with adjacent vocabularies is that they often treat representational failure as though the main question were truth versus falsity in a global sense. But many of the most important failures of mediated authority are not failures of total uselessness. A model, file, record, or classification may work well enough for a limited task and still become ethically defective when granted standing beyond the scope of its adequacy. \cite{BowkerStar1999SortingThingsOut,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+This is why overextended model authority must be named explicitly. A representation built for routing may be treated as though it were adequate for adjudication. A population-level pattern may be treated as though it exhausted a case-level judgment. A reimbursement-oriented chart may be treated as though it captured the ethically salient reality of a patient. A predictive output may be treated as though it licensed direct action over a person or other subject-process. In each of these cases, the problem is not that the rendering never worked for anything. The problem is that bounded adequacy has been silently converted into wider authority without regard for scope, residue, burden, or correction.
+
+Many fairness and accountability vocabularies notice this phenomenon, but they do not always stabilize it as a central moral structure. CEUC does. It treats overextension not as a secondary implementation flaw but as one of the main routes by which technically useful renderings become ethically suspect once they acquire consequence-bearing force over governed cases.
+
+\subsection{Comparative Gain}
+
+CEUC is needed because it identifies a moral object that neighboring vocabularies repeatedly presuppose without stably isolating: consequence-bearing authority acting through selective, scope-limited, non-identical renderings of governed cases. Outcomes, procedures, burdens, classification harms, epistemic wrongs, and accountability deficits all remain real. But without a framework that centers mediated authority itself, these phenomena are too easily treated as separate problems or downstream symptoms rather than as recurrent expressions of one underlying ethical structure. CEUC supplies that missing middle layer. It does so not by replacing neighboring approaches, but by showing what they often require without fully naming: that once authority governs through selective rendering, the conditions of that rendering become part of the ethically assessable act. \cite{BowkerStar1999SortingThingsOut,Fricker2007EpistemicInjustice,MoynihanHerdHarvey2015AdministrativeBurden,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF,Swanson2026MediatedJudgmentConstraint}
+\section{Applications and Explanatory Payoff}
+
+A theory at this level of abstraction earns its keep only if it does more than rename familiar concerns. The preceding sections have argued that consequence-bearing authority often acts through selective operative representations under structural non-identity, and that once such representations acquire standing and decisional force, their omissions, burden distributions, scope limits, and correction conditions become ethically assessable. The present section shows that claim at work across three domains: benefits adjudication, clinical administration, and AI-assisted judgment. The point is not that these domains are identical. It is that they exhibit a recurring structure once mediated authority is treated as the moral object. In each, a case is rendered tractable through a bounded representation; in each, that representation acquires authority over what can happen; and in each, what is weakly carried or omitted can return as burden, distortion, opacity, or blocked correction. \cite{BowkerStar1999SortingThingsOut,Douglas2004IrreducibleComplexityObjectivity,Fricker2007EpistemicInjustice,MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+\subsection{Worked Case: Benefits Adjudication}
+
+Benefits adjudication provides the clearest demonstration of the paper's central claim because it makes visible, in one setting, rendering, residue, burden, overextension, and weak correction. The system cannot act on the claimant's life in full. It must act through an operative representation: a file assembled through forms, deadlines, proofs, category assignments, threshold markers, and procedural statuses. That file is not incidental to adjudication. It is the rendering through which the claimant becomes governable at all. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,BowkerStar1999SortingThingsOut}
+
+The rendering is operationally useful. It preserves enough structure for the regime's purposes: household status, reported income, work history, compliance steps, submission dates, required documents, and eligibility flags. Without such stabilization the office could not sort, compare, route, or decide cases at scale. But that usefulness is bounded. The file is built for administrative tractability, not for exhaustive adequacy. It preserves some features strongly enough for decision while carrying others weakly or not at all. Unstable housing, intermittent transportation, fractured time, poor access to printers or mail, confusing notices, health deterioration, caregiving strain, and the cumulative labor of repeatedly proving one's own condition may be central to the life being governed while remaining marginal within the operative file.
+
+That remainder is not morally inert. It returns as burden. This is where the paper's account becomes sharper than a general complaint about red tape. What the file does not preserve strongly enough does not simply vanish. It often reappears as documentary labor, learning cost, waiting cost, translation labor, repeated narration, deadline management under instability, confusion about system demands, and the humiliation of having to render oneself legible in the very grammar that rendered the case thin in the first place. In CEUC's terms, this is burdened residue: remainder generated by selective rendering and then displaced downward onto the governed subject rather than absorbed by the system that depends on that rendering. \cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality}
+
+The ethical structure becomes sharper again when one asks what kind of authority the file acquires. Administrative files are often defended on the ground that they are only one device for sorting cases under rule-governed conditions. But in practice the file frequently becomes more than a procedural aid. It becomes the actionable case for the institution. What cannot be entered, proved, timed, or coded within it becomes difficult to count; what does count within it acquires decisional force over access to food, shelter, treatment, and ordinary practical continuity. At that point administrative adequacy is converted into life-governing authority. This is a paradigmatic case of overextension. A rendering built to support program administration is treated as though it were adequate to govern the claimant's practical reality as such.
+
+The importance of this point is easy to miss if one looks only at the final denial or approval. The deeper problem is not merely that a claimant received the wrong result. It is that the act by which the claimant was denied or delayed was already shaped by a rendering that defined what could count as relevant, what could trigger response, what had to be translated into administratively acceptable form, and what burdens had to be absorbed merely to remain in play. The file is therefore not a neutral container sitting alongside the decision. It helps determine the decision's practical content. Defects in the rendering are defects in the act's mode of address to the claimant.
+
+Correction makes this even clearer. Benefits systems usually include appeals, reconsideration, or review procedures. In that narrow sense, correction exists. But formal reviewability is not the same as answerable correction. The same factors that were weakly carried or omitted in the initial rendering often make revision difficult as well. To challenge the file, the claimant must usually produce more documentation, navigate more deadlines, interpret more notices, tolerate more delay, or secure access to channels that may already be unstable. The correction path therefore exists through the same grammar that produced the initial inadequacy. It is not absent absolutely, but it is structurally compromised. Review is available in form while weak in use.
+
+This is why benefits adjudication is the paper's strongest worked example. The case displays the full sequence with unusual clarity. A selective rendering becomes the operative object of governance. What it omits returns as burden. Its bounded adequacy is overextended into practical authority over basic goods. Its formal correction mechanisms remain too weak to restore full answerability. The resulting defect is not merely inefficiency, inconvenience, or regrettable side effect. It is an ethically assessable failure in the mediated authority condition through which the claimant is governed.
+
+\subsection{Clinical Administration / Hospital Chart}
+
+Clinical administration displays the same structure under a different moral pressure. Hospitals cannot act without operative representations. A patient's condition becomes governable through charts, coded diagnoses, medication lists, nursing notes, handoff summaries, dashboards, and workflow priorities. These are not incidental bureaucratic additions to care. They are among the forms through which a large institution coordinates treatment, allocates attention, and stabilizes a case across shifts and teams. In that sense, the chart is not merely a record \emph{of} care. It is one of the operative representations \emph{through} which care is organized. \cite{BowkerStar1999SortingThingsOut,Douglas2004IrreducibleComplexityObjectivity}
+
+The chart is built for determinate purposes: diagnosis tracking, medication management, handoff, reimbursement, coordination, and procedural action. Those purposes shape what counts as relevant preservation. Vital signs, symptom codes, medication timing, prior diagnoses, risk indicators, and intervention status may be carried strongly enough for institutional use. Yet what the patient undergoes in the same situation---fear, pain as lived, confusion, inability to advocate, humiliation, practical disorientation, dependence on staff interpretation---may not be carried with comparable force. The problem is not simply that the chart is incomplete. It is that its adequacy is purpose-bound, and the purposes of clinical tractability do not automatically exhaust what is ethically salient about the case as lived. \cite{Douglas2004IrreducibleComplexityObjectivity,Fricker2007EpistemicInjustice,Swanson2026EmbeddedProcess}
+
+This is why the distinction between structural usefulness and experiential adequacy matters. A chart can be highly useful for routing treatment while still being experientially inadequate. In a subject-process domain, that is not trivial informational loss. It can amount to experiential distortion: the rendering fails to preserve what the patient is undergoing in a way relevant to how the case ought to be handled. The ethical defect becomes sharper when the chart ceases to function as one bounded rendering among others and instead becomes the authoritative object to which care responds. Patient report may then appear secondary, disruptive, or unreliable because it does not fit the operative interface cleanly. The institution becomes more responsive to the tractable chart than to the case the chart was meant to render. \cite{BowkerStar1999SortingThingsOut,Fricker2007EpistemicInjustice,Swanson2026EmbeddedProcess}
+
+Burden enters here as well. What the chart does not preserve often returns as labor imposed on the patient or family: repeated narration, attempts to prove pain or urgency, efforts to correct misunderstandings, and the practical work of navigating a system that treats the record as more legible than the person. Correction may exist in form---notes can be updated, teams can be alerted, entries can be revised---but if the workflow remains more responsive to the standing rendering than to the patient's challenge, correction is weak in precisely the sense CEUC identifies. The clinical case therefore shows not just depersonalization, but a more exact structure: consequence-bearing care mediated through locally useful renderings that become ethically hazardous when their bounded adequacy is granted wider practical authority.
+
+\subsection{AI-Assisted Judgment}
+
+AI-assisted judgment intensifies many of the same problems while making some of them newly legible. Here the operative representation may take the form of a score, prediction, classification output, ranking, benchmark, or recommendation. Such outputs are often built for narrow purposes such as triage, prioritization, fraud detection, resource allocation, or risk management. In that limited sense they may have real local utility. They compress large data fields into tractable forms and make action possible at scale. \cite{LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+The ethical problem begins when these outputs acquire standing and decisional force over cases. Once a score or prediction becomes action-guiding, the rendering is no longer merely analytic or advisory. It becomes part of the mediated authority structure through which the case is governed. This helps clarify several familiar AI concerns. Interface opacity matters because the governed subject, and often even the operator, may have little access to how the case was formatted or what the model preserves strongly enough to matter. Purpose narrowing matters because a model tuned for one task may be used as though it were adequate for broader judgment. Level mismatch matters because population-level predictive utility may be treated as though it exhausted what matters in a particular case. Scope overextension matters because a score adequate for one bounded function may acquire practical authority over domains far beyond that function. \cite{LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+CEUC clarifies why these are not merely technical compliance concerns. The system governs through a selective operative representation under structural non-identity, and that representation is granted authority over a case whose relevant reality may exceed what the score or output preserves. Where the governed case is a person or other subject-process, the defect can deepen further: practical consequences are imposed through a rendering whose interface is opaque, whose purpose is narrow, whose level is mismatched, and whose correction path is weak. Work on automated inequality reinforces this point by showing how such systems can intensify preexisting burden, invisibilize contextual reality, and displace the costs of representational insufficiency downward onto already vulnerable populations. \cite{Eubanks2018AutomatingInequality}
+
+What CEUC adds is not a replacement for fairness or accountability language, but a stronger moral architecture within which those concerns can be interpreted. It explains why opacity, contestability, and scope declarations matter: not because transparency is always good in the abstract, but because mediated authority acting through selective renderings becomes ethically defective when it remains answerable only to its own tractable outputs and not to the fuller reality of the governed case.
+
+\subsection{Cross-Case Payoff}
+
+Taken together, these cases show that the framework offered here does more than attach moral language to familiar institutional dysfunction. It clarifies a recurring structure across domains that are often discussed separately. In each case, the governing system cannot act without operative representations. In each case, those representations are locally useful yet non-identical to what they govern. In each case, what is not preserved strongly enough returns as burden, distortion, opacity, or weak correction. And in each case, the most serious failures do not arise only because the rendering is false everywhere. They arise because bounded adequacy is converted into broader authority without sufficient answerability to the reality, residue, or lived significance of the governed case.
+
+That is the explanatory payoff of CEUC. It identifies a common ethical structure beneath clinical administration, benefits adjudication, and AI-assisted judgment: consequence-bearing authority acting through selective, scope-limited, non-identical renderings of governed cases.
+\section{Objections and Replies}
+
+A theory like this should not survive only easy objections. If the paper's claim is that mediated authority conditions are ethically assessable, then it must do more than observe that institutions simplify, that burdens are real, or that representations matter. Those points are already familiar. The harder burden is to show why the mediated pathway through which a case becomes governable is not merely a causal background condition of moral action but part of the morally assessable structure of the action itself. The objections below press on that burden directly. In several cases, the appropriate response is not retreat but sharper discrimination about what the paper is, and is not, claiming.
+
+\subsection{``This is architecture, not ethics''}
+
+The strongest objection is that the paper identifies something structurally important without yet identifying something distinctly ethical. Files, scores, interfaces, thresholds, traceability conditions, and correction paths may matter for how systems operate, but why are they not simply architectural or organizational features whose moral relevance remains indirect? At most, one might grant that they influence outcomes, fairness, or dignity. That would make them causally important to ethics, but not internal to the ethical object itself.
+
+If the paper's claim were merely that mediated conditions shape what later happens, this objection would succeed. But that is not the claim. The stronger thesis is that once authority reaches the case only through a rendering, the rendering is not merely external machinery surrounding the act. It helps determine what the case is practically available as for the system, what features count as relevant within it, what responses become institutionally possible, what can be contested, and what burdens must be borne for the case to remain governable. In that sense, the rendering is not just an enabling condition of the act. It partly constitutes the act's mode of address to its object.
+
+That is the point of insisting on mediated-act constitution rather than causal influence alone. A denial based on a benefits file, a treatment decision based on a chart, or an intervention triggered by a score is not first a complete act and only then accompanied by a representational pathway. The act is performed through that pathway. If the rendering suppresses relevant burden, obscures scope limits, distorts lived significance, or blocks correction, those are not merely upstream technical defects. They are defects in the act's own mediated form.
+
+The paper's claim is therefore not that every design feature is automatically a moral object. It is that consequence-bearing authority cannot be ethically assessed while bracketing the representational conditions through which its object became governable. That is narrower than a general moralization of institutional architecture, but stronger than a claim of mere causal relevance.
+
+\subsection{``This is just a more elaborate administrative ethics''}
+
+A second objection is that the paper may simply redescribe familiar concerns from administrative ethics, bureaucratic critique, fairness discourse, or governance studies in denser language. Institutions simplify, categories burden people, records distort, procedures can be unfair, systems can be opaque. All of that is already known. Why treat the present framework as anything more than an elaborate vocabulary for concerns already on the table?
+
+This objection has real force because the paper clearly operates in a neighborhood where many adjacent concerns are already live. The right response is therefore not to deny proximity, but to state the paper's distinct contribution more precisely. The value of CEUC does not lie in noticing that institutions can be unfair, burdensome, or opaque. Its contribution lies in isolating the moral object those concerns often presuppose without stabilizing: consequence-bearing authority acting through selective operative representations under finite constraint.
+
+That object is narrower than ``bureaucracy,'' broader than ``administrative burden,'' and more structurally precise than generic complaints about abstraction. The paper's claim is not simply that systems can be dehumanizing or unjust. It is that the rendering through which a case becomes governable is ethically assessable because it partly constitutes the act performed on the case. That changes what counts as explanation. A list of governance concerns can tell us that opacity, burden, fairness, and contestability matter. CEUC attempts to explain why these concerns recur together: they cluster because authority acts through selective, scope-limited, non-identical renderings.
+
+The paper therefore should not be read as replacing administrative ethics. It should be read as identifying a middle-layer moral structure that administrative ethics, fairness discourse, and bureaucratic critique often rely upon without centering as an object in its own right.
+
+\subsection{``Subject-process is too unstable''}
+
+A third objection targets one of the paper's most pressure-sensitive concepts. The category of \emph{subject-process} may appear insufficiently stabilized. If the strongest ethical claims of the paper depend on whether the governed case is a subject-process, and that category remains vague, then the argument risks placing its sharpest claims on its least settled term.
+
+This is a serious objection. It cannot be answered by assuming that everyone already knows what counts as a subject. The paper needs either a sharper criterion or a more disciplined account of the concept's status.
+
+The first response is substantive. The paper does not use \emph{subject-process} to name any dynamic or complex system whatsoever. It names a governed process whose lived significance is adequacy-relevant. That already narrows the domain considerably. The concept is doing specific work: it marks cases in which structurally tractable rendering cannot be presumed to preserve what ethically matters about the case as governed. In that sense, subject-process is not decorative metaphysical language. It is a bounded domain marker for where experiential distortion becomes an adequacy failure rather than merely an omitted feature.
+
+The second response is methodological. The paper need not pretend that subject-process is fully derived here from a complete ontology of mind or personhood. It can state plainly that the term functions as a bounded quasi-primitive for the purposes of this argument. That is not a fatal concession. It is a way of keeping the theory disciplined. The general theory of mediated authority does not require every case to be a subject-process. The stronger experiential claim does.
+
+The objection therefore identifies a genuine pressure, but not a fatal flaw. It shows that the paper must keep the concept bounded, state more clearly that the general argument is broader than its strongest experiential application, and avoid making the whole theory ride on a fully settled upstream metaphysics of subjectivity.
+
+\subsection{``Lower-bound constraints are just design desiderata''}
+
+A fourth objection says that the paper's lower-bound constraints---non-totalization, scope discipline, traceability, burden sensitivity, experiential responsiveness, and correction responsibility---sound plausible, but amount only to good design advice rather than genuinely ethical constraints. Why treat them as moral lower bounds rather than as marks of well-run institutions?
+
+This objection matters because if it were right, much of the paper's normative force would collapse. The reply is that these lower bounds are ethical not because they describe elegant systems, but because they follow from answerability under mediated governance.
+
+Non-totalization is ethical because authority becomes defective when it treats a bounded rendering as exhausting the case it governs. Scope discipline is ethical because authority that governs beyond the conditions under which its rendering is adequate acts beyond what it can answerably claim to preserve. Traceability is ethical because a governed subject cannot meaningfully contest or understand a mediated act if the path by which the case became governable is structurally hidden. Burden sensitivity is ethical because residue displaced downward is not merely administrative inconvenience; it is a distribution of cost and strain across persons and cases. Experiential responsiveness is ethical because where lived significance is part of what adequate governance must preserve, its omission is not a neutral loss. Correction responsibility is ethical because authority governing through non-identical renderings must remain revisable if it is to remain answerable at all.
+
+In each case, the argument does not begin from an aesthetic preference for better systems. It begins from the conditions under which authority can remain answerable while governing through selective, non-exhaustive renderings. Better design may follow from that ethical demand, but the demand is not reducible to design preference.
+
+\subsection{``Non-identity is unavoidable, so criticism here is unfair''}
+
+A fifth objection argues that the paper is too demanding. If all mediated governance operates through structural non-identity, then every institution and system is bound to leave remainder, compress complexity, and act through imperfect renderings. Why criticize systems for doing what finite conditions make unavoidable? On this view, the paper risks moralizing an inescapable fact of governance.
+
+This objection is useful because it forces a necessary clarification. CEUC does \emph{not} criticize institutions for failing to escape mediation. It does not treat non-identity itself as an ethical defect. Structural non-identity is unavoidable. Finite systems cannot govern through exhaustive presence to cases. That is one of the paper's premises, not one of its accusations.
+
+The criticism begins elsewhere. It begins when systems govern \emph{irresponsibly through} unavoidable non-identity. The problem is not that the rendering leaves residue. The problem is how authority handles that residue: whether it totalizes the rendering, overextends its scope, displaces burden downward, suppresses challenge, treats local adequacy as exhaustive authority, or blocks correction even after misfit becomes visible. In other words, the paper criticizes not the existence of mediated representation, but unanswerable governance through it.
+
+This distinction matters because it preserves the realism of the framework. The theory is not built on the fantasy of full institutional presence to lived reality. It is built on the opposite recognition: because mediation is unavoidable, the ethics of governing through it becomes more important, not less.
+
+\subsection{``This overstates overextension''}
+
+A final objection is that the paper may overstate the role of overextension. Representations often travel. Institutions routinely reuse files, scores, records, and classifications across neighboring contexts. Not every such reuse is ethically defective. If the paper treats all movement beyond a narrow original use as overextension, it risks becoming too rigid and underestimating the practical need for representational portability.
+
+The reasonable core of this objection should be granted. The paper does not claim that every reuse is overextension, nor that all cross-context travel is illegitimate. Institutions could not function at all if operative renderings never traveled. The point is narrower: many ethically serious failures arise when authority travels beyond declared or real scope conditions without acknowledging that it has done so.
+
+Overextension therefore names not mere reuse, but reuse that silently converts bounded adequacy into broader authority. A model can be extended responsibly if its scope is revised, its limitations acknowledged, its burdens tracked, and its correction pathways preserved. What CEUC criticizes is not mobility as such, but unanswerable mobility: travel without adequate regard for what the rendering was built to preserve, what level it operates at, what residue it leaves, and what ethical consequences follow when it is granted wider decisional force.
+
+This reply reinforces one of the paper's deeper themes. The theory is not against representation, simplification, or portability. It is against forgetting that these are bounded, mediated, and consequence-bearing. Overextension matters not because every boundary crossing is wrong, but because authority too often crosses those boundaries as though no ethical transformation were occurring.
+
+Taken together, these objections sharpen rather than weaken the theory. They force the paper to clarify that its claim is not that mediation is inherently unjust, that all administration is ethically suspect, or that every model is already a moral failure. Its stronger and more defensible claim is narrower: once consequence-bearing authority governs through selective operative renderings, the mediated conditions through which the case becomes actionable are no longer ethically neutral. They are part of the morally assessable act itself.
+\section{Scope Conditions, Limits, and Residues}
+
+A theory of this kind becomes less credible, not more, if it presents itself as though it has solved every nearby problem at once. The argument developed here is intentionally narrower. It identifies a specific moral object, explains why that object is ethically assessable, and derives a set of lower-bound constraints from the conditions under which mediated authority can remain answerable while governing through selective renderings. That is already a substantial claim. It is not the same thing as a complete morality, a full political theory, or a comprehensive account of institutional legitimacy. For that reason, the paper's scope conditions, limits, and visible residues should be stated directly rather than left implicit.
+
+\subsection{Where the Theory Is Strongest}
+
+The paper is strongest in domains where consequence-bearing authority governs through stabilized, selective, and administratively operative renderings of cases. Its primary terrain is therefore institutional, administrative, and model-governed systems: benefits adjudication, clinical administration, educational discipline, compliance review, risk scoring, triage, automated decision support, and comparable settings in which files, categories, profiles, thresholds, or scores acquire standing and decisional force. In these domains, the mediated pathway through which a case becomes actionable is not incidental. It is part of the mechanism by which authority reaches its object, and for that reason it becomes ethically assessable.
+
+The theory is strongest again where the governed case is not merely a thin administrable unit but a humanly lived case or, in the paper's more technical language, a subject-process. In such domains, what is lived, borne, navigated, feared, or suffered may be adequacy-relevant to governance itself. The paper's stronger claims about experiential distortion, burdened residue, and experiential responsiveness are concentrated there. This does not mean that the general theory of mediated authority applies only to subject-processes. It means that the framework's ethical force intensifies where governance acts over cases whose lived significance cannot be dismissed as morally incidental to how the case ought to be handled.
+
+More generally, the paper is strongest wherever three conditions converge: first, the case becomes governable only through selective operative representation; second, that representation acquires standing and consequence-bearing force; and third, the difference between what the rendering preserves and what it leaves weakly carried, backgrounded, or omitted can matter to how the governed case is actually treated. Where those conditions are absent, the theory has less to say. Where they are present, its explanatory and ethical leverage is greatest.
+
+\subsection{What the Paper Does Not Cover}
+
+The paper does not offer a complete moral theory. It does not claim to replace outcome ethics, rights-based approaches, procedural justice, virtue ethics, political morality, or broader theories of flourishing, harm, dignity, or domination. Those frameworks remain necessary for many questions the present argument does not attempt to settle. CEUC is not a morality from nowhere. Its contribution is narrower: it isolates one middle-layer moral object that broader moral vocabularies often presuppose without fully thematizing.
+
+The paper also does not provide a full legitimacy theory. It argues that mediated authority can be ethically defective in virtue of how it renders and governs cases, but it does not yet offer a complete account of when authority is democratically authorized, politically justified, legally valid, or institutionally legitimate in the fullest sense. It establishes that answerability is ethically necessary for responsible mediated authority. It does not yet show how answerability relates in a complete way to legitimacy, authority, or public justification more broadly.
+
+Relatedly, the paper does not provide a complete politics of institutions. It treats institutions only insofar as they govern through selective renderings under finite constraint. It therefore leaves open many questions about ideology, political economy, structural domination, democratic participation, and institutional reform that would be required for a fuller political theory. Those issues are not denied. They are bracketed because they exceed the paper's present burden.
+
+Nor does the paper provide a full ontology of subjectivity. The concept of \emph{subject-process} does important work here, but the paper does not claim to have resolved the metaphysics of personhood, mindedness, or lived experience in any final sense. It uses subject-process in a bounded way to mark cases in which lived significance is adequacy-relevant to governance. That is enough for the present argument, but not enough to count as a completed theory of subjectivity.
+
+Finally, the paper does not offer a universal formal metric for adequacy, burden, or answerability. It argues that scope, residue, burden, and correction can be theorized in disciplined structural terms, but it does not pretend to provide a single calculus by which all representational adequacy or burden distribution could be measured across every domain. Such a metric may not even be available in a unified and defensible form. In any case, this paper does not provide one.
+
+\subsection{Unresolved Questions}
+
+Several important questions remain open after the main argument is complete.
+
+The first concerns the exact criterion for \emph{subject-process}. The paper has given the term disciplined work and bounded use, but the line between a thin administrable case and a governed case whose lived significance is adequacy-relevant still needs sharpening at the margins. This is not a trivial loose end, because some of the paper's strongest claims depend on that distinction while the general theory does not.
+
+The second concerns the formal structure of \emph{answerability}. The paper argues that answerability is the central ethical bridge from mediated architecture to moral assessment, and it specifies several directions in which authority must remain responsive. But that account remains conceptually structured rather than formally complete. A fuller treatment might distinguish types of answerability failure, clarify how answerability relates to correction and burden, or specify more exact relations among scope, residue, traceability, and revisability.
+
+The third concerns the tradeoff structure among the lower-bound constraints. Non-totalization, scope discipline, traceability, burden sensitivity, experiential responsiveness, and correction responsibility are derived here as lower bounds, but the paper does not yet provide a complete account of how these constraints interact when they pull against one another in practice. Real systems often face tensions among speed, tractability, correction capacity, burden distribution, and experiential responsiveness. The paper shows that those tensions are ethically relevant; it does not settle their ordering in every domain.
+
+A fourth question concerns the relation between CEUC and broader legitimacy or democratic theory. The paper explains why mediated authority can be ethically defective in virtue of its rendering regime, but it does not yet specify how that diagnosis should connect to questions of democratic control, public justification, legal validity, or institutional legitimacy in the fuller political sense. Those links remain open and would need to be developed rather than assumed.
+
+A fifth question concerns the status of \emph{residue} itself. The present paper uses residue in a thin and disciplined way, and that may be sufficient for its immediate purposes. But later work may require a more explicit and independent account of residue as rendering-relative remainder, especially if downstream theories need sharper distinctions among background residue, active residue, burdened residue, and corrective residue.
+
+\subsection{Residue Statement}
+
+These unresolved issues are not defects to hide. They are part of the paper's visible remainder. A theory that argues that mediated authority always operates through selective, non-identical renderings should not present itself as exempt from its own lesson. CEUC is itself a bounded rendering of a difficult moral object. Its value depends in part on making that boundedness explicit.
+
+The result is therefore deliberately non-totalizing. The paper claims something substantial but limited: that mediated authority conditions become ethically assessable once consequence-bearing systems govern through selective renderings of cases, and that answerability therefore imposes lower-bound constraints on how such governance may proceed. It does not claim to have said everything about justice, legitimacy, institutional design, or subjectivity. It claims only to have isolated one underdescribed moral object and to have shown why it matters. That boundedness is not a weakness to be disguised. It is part of the paper's discipline.
+\section{Implications and Future Work}
+
+If the argument of this paper is broadly correct, then its consequences extend beyond the immediate claim that mediated authority is a distinct moral object. The result is not merely classificatory. It changes what institutions, designers, and theorists must ask when consequence-bearing systems govern through selective renderings of cases. The paper has argued that mediated authority cannot be assessed adequately by looking only at outcomes, rules, or procedures after the fact. Once that point is granted, several practical and theoretical implications follow.
+
+\subsection{Institutional Ethics}
+
+The first implication is that institutional ethics must widen its field of view. Ethical evaluation cannot remain confined to outcomes, intentions, rights language, or broad procedural ideals while leaving the mediated authority conditions of governance underdescribed. Where consequence-bearing systems act through selective, non-identical renderings, those renderings and the conditions of their authority become proper ethical objects in their own right.
+
+This alters the questions that ethical evaluation should ask. It is no longer sufficient to ask only what decision was reached or whether a procedural norm was formally satisfied. One must also ask how the case became governable within the system, what operative representation acquired standing, what the rendering preserved strongly enough for action, what it left weakly carried or omitted, what burdens were displaced in making it workable, and whether the authority exercised through it remained answerable to what and whom it governed. In that sense, the present framework does not replace institutional ethics. It adds a missing moral layer within it.
+
+The same point changes how institutions should understand their own activities. Forms, files, thresholds, dashboards, and records are often treated as administrative necessities whose moral significance begins only when they contribute to a bad outcome. CEUC suggests a different view. Because authority acts through these mediated forms, their structure is already ethically relevant. Institutions cannot ethically outsource their own rendering regimes to the status of mere technical background.
+
+\subsection{Administrative and Organizational Design}
+
+A second implication concerns design. If mediated authority is structurally fallible because it acts through selective and non-self-exhaustive renderings, then correction, burden visibility, and traceability cannot be treated as optional refinements added after the fact. They must be treated as constitutive conditions of responsible system design.
+
+This follows directly from the paper's account of answerability. A rendering that does not declare, even implicitly, what kind of case it can and cannot adequately govern is prone to overextension. A system that cannot show how a case became actionable, or cannot support meaningful revision when its authoritative rendering misfits the case, is not merely brittle or inefficient. It is ethically underdesigned. Likewise, where a system repeatedly shifts the costs of representational insufficiency downward onto the governed through documentation labor, translation work, repeated narration, waiting, confusion, or humiliation, those costs are not incidental noise around an otherwise adequate process. They are evidence that residue is being exported rather than responsibly handled.
+
+The design implication is therefore substantial. Institutions and organizations should be built on the assumption that their operative renderings will never exhaust what they govern. They should preserve pathways for reopening, contesting, and revising authoritative renderings; make burden visible rather than silently displaced; and maintain enough traceability that the path from case to consequence can be reconstructed. These are not optional virtues of especially reflective organizations. They are part of what answerable mediated authority requires.
+
+\subsection{AI Governance}
+
+The framework has equally direct implications for AI and model governance. On a thinner reading, model cards, transparency requirements, contestability protocols, and risk-management standards are technical devices aimed at improving oversight, documentation, and performance. On the present account, they should also be understood as partial responses to a deeper ethical problem: authority governing through selective operative renderings that are structurally non-identical to the cases they govern. \cite{LepriEtAl2018FairTransparentAccountableADM,Tabassi2023NISTAIRMF}
+
+This reframing clarifies why such governance tools matter. Model documentation matters because renderings are purpose-bound, level-bound, interface-shaped, and scope-limited. Contestability matters because outputs can acquire standing and decisional force over cases whose relevant reality exceeds what the model preserves. Transparency matters because the path by which the case became governable is ethically relevant, not merely technically informative. Risk management matters because mediated authority can become ethically defective not only through explicit bias or technical error, but also through overextension, burden displacement, experiential distortion, and weak correction.
+
+At the same time, CEUC clarifies the limits of current AI governance discourse. Technical accountability mechanisms are valuable, but they are not sufficient if they remain focused only on explainability, fairness metrics, or procedural review in abstraction from the moral structure of mediated authority. A model card that declares intended use while leaving burden displacement opaque, or an appeal process that exists in form but not in practice, is only a partial response. The deeper problem is not simply that a model is difficult to inspect. It is that authority governs through it. Once that is the case, documentation and accountability should be interpreted as attempts to restore answerability under conditions of selective rendering rather than as neutral compliance instruments.
+
+This yields a stricter evaluative standard for AI-assisted systems. It is not enough to ask whether a model performs well against an encoded target. One must also ask whether that target has been overextended, whether the output travels farther than its adequacy permits, whether the governed case can challenge the rendering in a usable way, and whether the burdens of misfit have been displaced downward onto those subject to it. In that respect, CEUC shifts attention from model quality alone to mediated authority quality.
+
+\subsection{Future Theoretical Work}
+
+The paper also has implications for the broader theoretical architecture in which it sits. Upstream, it strengthens the link between finite rendering and ethical consequence. Earlier frameworks established that finite systems render under constraint, that renderings are selective and non-identical to their targets, and that some domains involve subject-processes whose lived significance is adequacy-relevant. The present paper shows what follows once authority acts through such renderings. It therefore tightens the relation between disclosure theory and ethics without collapsing one into the other. In that sense, CEUC clarifies a path from shared reality, to finite rendering, to mediated judgment, to ethically assessable authority. \cite{Swanson2026SharedRealityConditionDisclosure,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess,Swanson2026MediatedJudgmentConstraint,Swanson2026ConstrainedDescribability}
+
+Downstream, the framework supports further work in at least four directions. First, it supports work on legitimacy by clarifying that answerability is ethically necessary for mediated authority while leaving open the fuller question of how answerability relates to democratic and political legitimacy. Second, it supports work on participatory and institutional design by showing why governed subjects may need standing in challenge, revision, and redesign where authority acts over humanly lived cases. Third, it supports work on burden theory by clarifying that burden is not merely an unfortunate side effect of administration but one of the main ways representational insufficiency becomes ethically consequential. Fourth, it supports work on correction architectures by showing why revision pathways are not optional virtues but structural requirements of authority acting through non-identical renderings.
+
+Several more specific tasks follow. One is to develop a more explicit account of how the lower-bound constraints interact when they come into tension in real institutional settings. Another is to sharpen the concept of subject-process so that the framework's strongest domain-sensitive claims can be stated with greater precision while its general mediated-authority claim remains intact. A third is to connect the present account more directly to questions of democratic answerability, public justification, and legitimacy. A fourth is to determine whether the present thin treatment of residue remains sufficient or whether downstream work requires a fuller independent theory of rendering-relative remainder.
+
+The most important future task, however, is not to make CEUC explain everything. It is to extend the framework without losing the discipline that makes it useful. If the paper is right, the decisive consequence is not that every mediated institution must simply be condemned. It is that institutions, models, and systems can no longer be ethically assessed while bracketing the representational pathways through which they govern.
+\section{Conclusion}
+
+The argument of this paper has been deliberately bounded. It has not attempted to provide a complete morality, a full institutional theory, or a final politics of mediated systems. Its narrower aim has been to isolate a specific moral object that is often visible in practice but insufficiently explicit in theory: consequence-bearing authority acting through selective operative renderings of governed cases. If the preceding sections have succeeded, then the paper has shown that mediated authority is not merely an organizational or technical condition surrounding ethical action. Under finite conditions, it belongs to the ethically assessable structure of the action itself.
+
+\subsection{Main Result}
+
+The paper's main result is a sharper account of why mediated authority conditions become ethically assessable. Finite institutions and systems do not govern through exhaustive presence to the cases before them, and under bounded conditions they cannot do so. They govern through selective operative representations that make cases tractable enough for registration, comparison, routing, classification, intervention, and decision. These renderings are therefore not accidental shortcuts laid over some more primary direct access. They are among the practical forms through which governance becomes possible at all.
+
+Those renderings are never neutral or free-floating. They are shaped by interface, purpose, level, and scope. They determine, in part, what can count as the case for the system, what features become action-relevant within it, what can travel across decision points, what can trigger response, what can be challenged, and what can be revised. Because authority reaches the case only through such renderings, the rendering is not merely an external aid to the act. It helps determine the act's practical content. In that sense, mediated governance does not merely happen in the presence of selective representation. It is performed through it.
+
+This is the point at which the paper's constitutive claim matters most. Once authority acts through a selective, non-identical rendering, defects in that rendering are not merely causally upstream conditions of the act. They are defects in the act's mode of address to its object. Where the rendering is scope-blind, burden-displacing, opaque, overextended, experientially distortive, or closed to correction, those are not merely technical defects surrounding what is done. They partly determine what is being done to the governed case. That is why mediated authority conditions are ethically assessable.
+
+The claim becomes sharper still where the governed case is a subject-process or other humanly lived case in which lived significance is adequacy-relevant. In such domains, what is undergone, borne, navigated, or suffered is not a decorative addition to an otherwise sufficient rendering. It may be part of what must remain relevant if governance is to be ethically answerable to its object. The paper's strongest result has therefore been that once authority governs through selective renderings, mediated structure can no longer be treated as mere causal background. It partly constitutes the act itself.
+
+\subsection{Broader Significance}
+
+The broader significance of the paper is that it isolates a genuine middle-layer moral object. Outcomes remain indispensable. So do rules, rights, procedures, fairness, accountability, and burden. But the paper has argued that these familiar concerns often presuppose a more basic structure without stably centering it as an object of ethical theory. That structure is mediated authority: the conversion of a governed case into an actionable object through selective operative representation.
+
+This matters because it clarifies why architecture is not merely background once authority governs through it. Interfaces, documentation regimes, records, categories, thresholds, scores, and correction pathways are not merely technical devices with later moral effects. Where authority reaches the case only through them, they become part of the mediated act itself. This does not collapse ethics into design, nor does it imply that every technical feature is automatically morally decisive. It means something narrower and stronger: where architecture is the pathway of governance, some architectural features become ethically assessable because they help determine how the case is made governable, what burdens are displaced in that process, and what possibilities of revision remain once authority has attached.
+
+The paper also clarifies why scope, burden, and correction are ethical matters rather than merely design concerns. Scope matters because bounded renderings become ethically defective when granted authority beyond the conditions under which they remain adequate. Burden matters because residue does not disappear; it is often displaced downward onto the governed as labor, delay, confusion, humiliation, or practical strain. Correction matters because a system governing through non-identical renderings must remain revisable if it is to remain answerable. None of these is merely a matter of elegant institutional design. They are ethical consequences of governing through selective mediation under finite conditions.
+
+\subsection{Final Compact Claim}
+
+\begin{quote}
+Where consequence-bearing authority reaches its object only through selective, interface-shaped, purpose-bound, scope-limited operative representations, the rendering's non-identity to the governed case is not a merely technical fact. Its omissions, burden displacements, overextensions, and correction pathways are features of the act's mode of address to its object, and are therefore ethically assessable.
+\end{quote}
+
+\appendix
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/corrective_ethics/ethics}
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+DOI:
+\href{https://doi.org/10.5281/zenodo.19103018}{10.5281/zenodo.19103018}
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}
+\end{document}

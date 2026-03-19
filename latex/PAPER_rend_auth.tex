@@ -1,0 +1,636 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding and basic typography ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{abstract}
+
+% ---------- Structure and layout ----------
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---------- Color and boxes ----------
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Links ----------
+\usepackage{hyperref}
+
+% ---------- Grayscale palette ----------
+\definecolor{ink}{HTML}{111111}
+\definecolor{softink}{HTML}{3A3A3A}
+\definecolor{lightink}{HTML}{666666}
+\definecolor{rulegray}{HTML}{CFCFCF}
+\definecolor{boxfill}{HTML}{F7F7F7}
+\definecolor{boxline}{HTML}{A9A9A9}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=softink,
+  citecolor=ink,
+  pdfauthor={David T. Swanson},
+  pdftitle={Rendering to Authority Under Constraint}
+}
+
+% ---------- Global text appearance ----------
+\color{ink}
+\setstretch{1.12}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{0.9em}
+\setlength{\belowdisplayskip}{0.9em}
+\setlength{\abovedisplayshortskip}{0.6em}
+\setlength{\belowdisplayshortskip}{0.6em}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.35em}
+
+% ---------- Section hierarchy ----------
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{softink!85}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\itshape\color{softink!85}}
+  {\thesubsubsection.}{0.45em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape\color{softink}}
+  {\thesubsubsection.}{0.40em}{}
+
+\titlespacing*{\section}{0pt}{2.0em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{1.0em}{0.3em}
+
+% ---------- Abstract ----------
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries\color{ink}}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+\setlength{\absleftindent}{0.75em}
+\setlength{\absrightindent}{0.75em}
+\setlength{\absparsep}{0.5em}
+
+% ---------- Running headers ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Rendering to Authority Under Constraint}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{%
+    \color{rulegray}\leaders\hrule height \headrulewidth\hfill
+  }%
+}
+
+% ---------- Quote styling ----------
+\renewenvironment{quote}
+  {\list{}{\leftmargin=1.4em \rightmargin=1.0em}%
+   \item\relax\color{softink}\itshape}
+  {\endlist}
+
+% ---------- Emphasis ----------
+\renewcommand{\emph}[1]{\textit{#1}}
+
+% ---------- Boxed structural environments ----------
+\tcbset{
+  enhanced,
+  breakable,
+  colback=boxfill,
+  colframe=boxline,
+  boxrule=0.5pt,
+  arc=1.5pt,
+  outer arc=1.5pt,
+  left=0.9em,
+  right=0.9em,
+  top=0.6em,
+  bottom=0.6em,
+  before skip=0.9em,
+  after skip=0.9em
+}
+
+\newtcolorbox{thesisbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Core Thesis},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{definitionbox}[1][]{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Definition}\ifx&#1&\else\space(\emph{#1})\fi,
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{objectionbox}{
+  borderline west={1.5pt}{0pt}{softink},
+  title=\textbf{Objection},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{scopebox}{
+  borderline west={1.5pt}{0pt}{lightink},
+  title=\textbf{Scope Limit},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}{
+  borderline west={1.5pt}{0pt}{ink},
+  title=\textbf{Result},
+  coltitle=ink,
+  fonttitle=\bfseries
+}
+
+% ---------- Optional compact lead-in labels ----------
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\labelword}[1]{\textbf{\textsc{#1}}}
+
+
+\title{\textbf{Rendering to Authority Under Constraint}\\
+\large Standing, Scope Drift, and the Conversion of Finite Models into Action-Guiding Authority}
+\author{David T. Swanson}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper argues that the central danger of finite rendering is not partiality alone, but the conversion of selective renderings into authorities over judgment and action. Finite agents and institutions must act through files, categories, forms, metrics, maps, scores, protocols, and models. Such renderings are necessary because action under constraint requires simplification. Yet not every rendering governs. A rendering becomes structurally dangerous when it acquires standing strong enough to classify, prioritize, allocate, permit, deny, route, or intervene beyond the scope its warrant can bear. The paper develops a staged account of this conversion: rendering, stabilization, portability, institutional embedding, operational uptake, decisional standing, and authority reinforcement. It argues that once renderings acquire operative standing, their scope can drift, their residue can scale, and live correction can weaken even while the rendering appears administratively successful. The paper is not a general theory of institutions or ideology. Its narrower aim is to supply the missing bridge between finite disclosure and later theories of mediated judgment, correction, closure, and model sovereignty. Its payoff is a sharper account of how partial abstractions come to rule cases, and of why scope discipline, answerability, and live challenge paths are constitutive rather than optional wherever renderings guide action.
+\end{abstract}
+\pagebreak
+\section{Introduction}
+
+\subsection{Motivating Problem}
+
+Consider a familiar institutional scene. A person applies for public assistance. What the institution acts on is not the person's life in its full practical reality, but a file: dates, forms, status codes, missing documents, compliance markers, deadlines met or missed. Or consider a hospital, where a patient is rendered through a chart, a diagnosis code, a triage category, a risk score, and a treatment pathway. Or consider a school, where a student appears through attendance records, behavioral flags, test performance, and intervention categories. In each case the institution does not act on the world in unconstrained immediacy. It acts through a rendering.\cite{Scott1998SeeingLikeState,BowkerStar1999SortingThingsOut,MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality}
+
+That fact alone is not yet a criticism. Large-scale judgment and coordination would be impossible without selective renderings of some kind. Institutions need files, categories, forms, metrics, summaries, thresholds, and models because finite action requires simplification.\cite{Simon1996SciencesArtificial,Scott1998SeeingLikeState} The problem, then, is not simplification as such.
+
+The deeper problem is what happens next. Renderings do not remain mere aids to thought. They often acquire enough standing to guide or settle action. A form determines whether a claim is even legible. A score determines whether a case is risky enough to count. A threshold determines access. A file determines whether someone is eligible, routable, reviewable, or deniable. What began as a selective aid to action becomes the basis on which action is justified, organized, and enforced.\cite{Porter1995TrustInNumbers,Power1997AuditSociety,BowkerStar1999SortingThingsOut}
+
+This is the problem the present paper isolates. The central danger is not partiality alone, nor abstraction in itself. The danger is the conversion of selective renderings into authorities over cases. Once that conversion occurs, the limits of the rendering do not disappear. They are built into action. What was originally a finite simplification can become a decisive basis for classification, prioritization, intervention, denial, or refusal.
+
+That problem appears across very different domains. It appears when administrative completeness is treated as a proxy for genuine need. It appears when a risk score displaces richer understanding of a person or situation. It appears when a dashboard becomes more action-guiding than the domain it supposedly tracks. It appears when standardized categories become the effective reality to which institutions respond.\cite{Scott1998SeeingLikeState,Eubanks2018AutomatingInequality,Power1997AuditSociety} These cases are not well captured by the general observation that models are partial. That observation is true, but too weak. The harder question is how partial renderings acquire authority.
+
+\subsection{Central Question}
+
+The central question of this paper is:
+
+\begin{quote}
+How do finite, selective renderings acquire standing over judgment and action, and what changes once they do?
+\end{quote}
+
+This is a bridge question. It does not ask only what a rendering is, nor only what a judgment system does once it already governs through representations. It asks about the threshold between those two levels. How does a rendering move from being a heuristic aid, a descriptive convenience, or a practical simplification to becoming an action-guiding authority?
+
+\subsection{Main Proposal}
+
+The paper's main proposal is this:
+
+\begin{quote}
+Finite agents and institutions must act through renderings, but the central danger of rendering is not partiality alone. It is the acquisition of standing beyond warranted scope. A rendering becomes structurally dangerous when stabilization, portability, institutional embedding, and operational uptake grant it decisional standing strong enough to govern outcomes while weakening the force of correction.
+\end{quote}
+
+More sharply, the paper argues that a rendering becomes a distinct institutional and normative problem when it is no longer treated merely as a selective aid to action but as a sufficient basis for classification, coordination, intervention, or denial. The key pathology is therefore not abstraction as such, but \emph{over-authorized abstraction}.
+
+\subsection{Distinctive Contribution}
+
+This paper occupies a middle layer in a broader architecture of related work. Upstream arguments establish that finite disclosure requires conditioned cuts, that renderings are selective and residue-bearing, and that no finite description exhausts what it discloses.\cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure,Swanson2026EmbeddedProcess} Downstream arguments explain how operative representations mediate judgment and how authority conditions become ethically assessable.\cite{Swanson2026MediatedJudgmentConstraint} What has been missing is an explicit account of the threshold at which rendering becomes authority.
+
+That threshold matters. One cannot simply move from the claim that all renderings are partial to the claim that institutions govern through representations without explaining how representation gains standing in the first place. This paper provides that missing layer. Its contribution is therefore not a general critique of models, and not yet a general theory of institutional governance. It is a structural account of the mechanism by which renderings become action-guiding authorities.
+
+More specifically, the paper should be read as distinct from later work on mediated judgment.\cite{Swanson2026MediatedJudgmentConstraint} That later work studies what happens once operative representations already govern cases. The present paper asks a prior question: how do selective renderings gain enough recognized legitimacy to become operative in the first place? Its object is therefore more upstream and more threshold-focused. It studies the conversion of rendering into authority rather than the full downstream ethics or politics of already-authoritative mediation.
+
+\subsection{Dependency Discipline}
+
+The paper does not attempt to reargue the entire architecture from scratch. It inherits, as background, the claims that finite rendering is selective, residue-bearing, and non-exhaustive.\cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure} It leaves to later work the analysis of what follows once operative representations already structure live judgment, correction, and closure.\cite{Swanson2026MediatedJudgmentConstraint} Its own task is narrower: to isolate the missing middle threshold by which rendering gains standing strong enough to guide action. That is the new work this paper adds.
+
+\subsection{Roadmap}
+
+Section 2 situates the proposal against nearby but insufficient approaches. Section 3 defines the paper's core terms and distinctions. Section 4 develops the main theory, including the stages through which renderings acquire standing. Section 5 explains why this theory is needed and what confusion it resolves. Section 6 shows the theory's explanatory payoff through institutional cases, including a fully worked benefits-administration example. Section 7 addresses major objections. Section 8 clarifies scope, limits, and visible residue. Section 9 sketches implications and future work. Section 10 concludes.
+
+\section{Background and Position}
+
+This section situates the paper against two nearby but insufficient ways of framing the problem. The first emphasizes the partiality of models and abstractions. The second emphasizes the fact that institutions govern through representations. Both are true. The present paper does not reject either claim. Its argument is that neither one, by itself, isolates the mechanism that matters here. What is missing is an account of how renderings acquire enough standing to guide judgment and action.
+
+\subsection{Partiality Alone Is Not Enough}
+
+One familiar way to discuss models, abstractions, and administrative simplifications is to say that they are partial, selective, or reductive. That is correct. Any rendering leaves something out, compresses differences, and carries residue.\cite{Simon1996SciencesArtificial,FriggNguyen2020ModellingNature,Swanson2026ConstrainedDescribability} But partiality alone is not enough to explain the institutional problem this paper targets.
+
+A rendering may be partial and still remain relatively harmless. A map may guide orientation without deciding cases. A form may gather information without yet determining outcomes. A summary may aid attention without ruling action. In such cases, the rendering may be limited, even distorting in some respects, without yet becoming the decisive basis on which people are classified, routed, permitted, denied, or overridden.
+
+For that reason, the important question is not merely whether a rendering leaves something out. All renderings do. The more important question is when, how, and why a partial rendering comes to count strongly enough that its omissions become action-guiding. Partiality is a necessary background condition of the problem, but it is not yet the problem in its most consequential form.
+
+\subsection{Representation Is Not Yet Governance}
+
+A second nearby view begins closer to the institutional issue. It notes that institutions govern through records, categories, metrics, protocols, files, and other representations rather than through unconstrained contact with what they govern.\cite{BowkerStar1999SortingThingsOut,Scott1998SeeingLikeState,Porter1995TrustInNumbers,EspelandStevens1998Commensuration} This is also correct, and it gets us nearer to the paper's object. But it still leaves a prior threshold undescribed.
+
+To say that institutions govern through representations is already to presuppose that some representations have become action-guiding. Yet not every record governs. Not every category has equal force. Not every metric is decisive. Some renderings remain advisory, backgrounded, or weakly informative, while others become strong enough to settle outcomes. The question, then, is how those records, categories, scores, protocols, and files acquire enough recognized legitimacy to count in the first place.
+
+That transition cannot simply be assumed. The move from representation to governance needs its own account. Without that account, one risks skipping over the very mechanism that makes selective renderings institutionally dangerous.
+
+\subsection{The Paper's Position}
+
+The present paper occupies the bridge between these two claims. It accepts that rendering is necessary and selective. It also accepts that institutions often govern through representations. Its central argument is that one needs an intervening mechanism: a theory of \emph{standing}.
+
+A rendering becomes dangerous not merely because it simplifies, but because it comes to count. Once it counts in a strong enough way, its partiality becomes operationally consequential. What matters is not only that the rendering exists, but that it acquires standing sufficient to shape classification, coordination, intervention, denial, or refusal.
+
+The paper therefore focuses on the structural conversion of rendering into authority. It does not reject standardization, portability, or coordinated simplification as such. Nor does it treat all abstraction as suspect. Its narrower question is when those features become decoupled from the scope and limits of the rendering that originally enabled them. The problem begins when a rendering is no longer treated as a bounded aid to action, but as an authoritative basis for action beyond what its original warrant can bear.
+
+This also clarifies the paper's distinct place in the broader architecture. Later work on mediated judgment studies what happens once operative representations already govern cases.\cite{Swanson2026MediatedJudgmentConstraint} The present paper asks a prior question: how does a selective rendering gain enough recognized legitimacy to become operative in the first place? Its object is therefore not governance in full, but the threshold by which rendering becomes action-guiding authority.
+
+\section{Core Definitions and Distinctions}
+
+This section fixes the paper's main terms. The aim is not to multiply vocabulary for its own sake, but to keep several important thresholds from collapsing into one another. In particular, the paper depends on distinguishing a rendering from the authority it may later acquire, and on distinguishing warranted use from operative force.
+
+\subsection{Rendering}
+
+A \emph{rendering} is any selective representation, abstraction, file, category, metric, form, score, threshold, model, protocol, or simplification through which a domain is made actionable. A rendering is not merely a verbal description. It is any structured reduction that allows judgment, coordination, classification, or intervention to proceed under finite conditions.\cite{Simon1996SciencesArtificial,FriggNguyen2020ModellingNature,Swanson2026ConstrainedDescribability}
+
+The term is intentionally broad. It includes highly formal artifacts such as models, scores, and thresholds, but also more ordinary institutional artifacts such as files, forms, summaries, checklists, and categories. The point is to capture the full range of selective structures through which institutions and agents make complex domains tractable enough to act upon.
+
+\subsection{Standing and Decisional Standing}
+
+\emph{Standing} is recognized legitimacy for a rendering to count in judgment, classification, coordination, or action. A rendering has standing when it is treated not merely as available information, but as something that may properly guide what follows. This is more than mere visibility, salience, or frequency of use. A rendering may be prominent without yet possessing standing in the relevant sense. What standing adds is recognized entitlement to matter in the practical resolution of a case.
+
+\emph{Decisional standing} is a stronger condition. It exists when a rendering counts strongly enough to affect outcomes: to allocate, prioritize, route, permit, deny, classify, or intervene. A rendering with decisional standing does not merely inform a background understanding of the case. It enters the chain by which the case is actually processed and resolved.
+
+This distinction is central. A rendering may exist without standing, and it may have standing without yet having strong decisional force. The theory is concerned with the thresholds at which these shifts occur. Its claim is not merely that some renderings matter more than others. It is that some renderings cross into a different role altogether: from selective aid to action-guiding authority.\cite{Swanson2026MediatedJudgmentConstraint}
+
+\subsection{Stabilization, Portability, and Standardization}
+
+\emph{Stabilization} is the regularization of a rendering into repeatable form. \emph{Portability} is the capacity of a rendering to travel across persons, cases, sites, and times without full rederivation. \emph{Standardization} is the formalization of a rendering into a shared category, measure, format, threshold, or workflow element.
+
+These processes matter because authority is rarely conferred on wholly singular or unstable renderings. A rendering becomes more likely to gain standing as it becomes repeatable, recognizable, and transferable. What can be repeated can be built into routines. What can be carried across sites can support coordination. What is standardized can come to appear administratively credible even before its adequacy has been fully examined.\cite{TimmermansEpstein2010WorldOfStandards,Porter1995TrustInNumbers,EspelandStevens1998Commensuration,BowkerStar1999SortingThingsOut}
+
+This point is important because institutional usability and warranted authority are not the same thing. Repeatability, portability, and workflow fit help explain how authority is often acquired in practice. They do not, by themselves, justify that authority. One of the paper's core claims is that renderings are often granted decisional standing through their usability long before their warranted scope has been adequately tested.
+
+\subsection{Institutional Embedding and Operational Uptake}
+
+\emph{Institutional embedding} occurs when a rendering is incorporated into procedures, software, rules, protocols, dashboards, records, or role expectations. \emph{Operational uptake} occurs when such a rendering is actually used in live decisions and actions.
+
+These terms distinguish formal existence from practical force. A score may exist without governing anything. A form may be designed without yet deciding anything. A category may be available without yet having strong institutional consequence. What matters is not only whether a rendering exists, but whether institutions build themselves around it and whether action actually flows through it.\cite{Lipsky1980StreetLevelBureaucracy,Power1997AuditSociety,Scott1998SeeingLikeState}
+
+This distinction matters because embedding and uptake are two of the main channels through which standing hardens. Once a rendering is woven into workflow, role structure, and routine decision, it can come to count not because it has been freshly justified in each case, but because action has already been organized around it.
+
+\subsection{Scope Condition and Residue}
+
+A \emph{scope condition} is the bounded domain within which a rendering is warranted or informative enough to be used responsibly. \emph{Residue} is what the rendering leaves out, flattens, merges, or badly carries. Residue does not imply that a rendering is useless. It names the unavoidable remainder generated by finite simplification.\cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure}
+
+These concepts are important because the danger addressed here is not that renderings have limits. All renderings do. The danger is that a rendering's \emph{operative scope} can outrun its \emph{warranted scope}, while its residue remains active but increasingly difficult to see or challenge.
+
+That distinction is one of the paper's main load-bearing ideas. A rendering may be quite useful within one bounded domain and yet become dangerous when it is allowed to travel further, decide more, or substitute for what it only partially discloses. Scope drift is therefore not simply error at the margins. It is one of the main ways authoritative rendering becomes pathological.
+
+\subsection{Challenge Path and Authority Reinforcement}
+
+A \emph{challenge path} is the route by which a rendering can be questioned, revised, overridden, or displaced. A challenge path is \emph{live} when contestation can become legible to the system, reach a locus capable of altering the rendering's role, and do so without being nullified by opacity, cost, delay, or institutional dependence. By contrast, a merely formal challenge path may exist on paper while leaving the rendering effectively untouched in practice.\cite{Swanson2026MediatedJudgmentConstraint,MoynihanHerdHarvey2015AdministrativeBurden}
+
+\emph{Authority reinforcement} refers to the processes by which an authoritative rendering becomes harder to challenge once institutions rely on it.
+
+These concepts matter because authority changes the conditions of correction. Once a rendering is embedded, standardized, and operationally central, it may begin to shape what counts as admissible evidence, what challenges are intelligible, and what forms of revision are practically available. At that point, the rendering is not only guiding action. It is helping to organize the terms on which its own authority may be contested.\cite{Power1997AuditSociety,Swanson2026MediatedJudgmentConstraint}
+
+This is why the paper treats authority reinforcement as a distinct mechanism rather than a mere aftereffect. Institutional dependence on a rendering can narrow the space of challenge precisely as that rendering becomes more central to action.
+
+\subsection{Load-Bearing Distinctions}
+
+Several distinctions organize the rest of the paper.
+
+The first is the distinction between \emph{rendering} and \emph{authority}. This blocks the thought that every representation already governs.
+
+The second is the distinction between \emph{useful abstraction} and \emph{authoritative abstraction}. This blocks the inference that every usable rendering may properly rule cases.
+
+The third is the distinction between \emph{epistemic adequacy} and \emph{decisional standing}. This blocks the idea that what is good enough to think with is automatically good enough to decide with.
+
+The fourth is the distinction between \emph{standardization} and \emph{justification}. This blocks the thought that repeatability, portability, or institutional fit itself confers warrant.
+
+The fifth is the distinction between \emph{scope condition} and \emph{scope drift}. This blocks the silent expansion of a rendering's authority beyond the domain for which it was originally credible.
+
+The sixth is the distinction between \emph{challenge path} and \emph{symbolic review}. This blocks the thought that nominal reviewability is sufficient once a rendering has acquired authority.
+
+Together these distinctions make it possible to state the paper's main claim more precisely: the danger is not rendering as such, but the acquisition of standing by renderings whose operative reach can outrun their warranted scope while weakening the force of correction.
+\section{Main Theory}
+
+This section develops the paper's central argument step by step. The claim is not merely that institutions sometimes rely too heavily on models, nor merely that simplification can go wrong. The stronger claim is that finite action requires rendering, that rendering is not yet authority, and that a distinct structural threshold is crossed when a rendering acquires standing strong enough to guide outcomes. The danger begins there.
+
+\subsection{Finite Action Requires Rendering}
+
+The first step is straightforward. Finite agents and institutions cannot act without renderings. Large-scale coordination, repeated classification, planning, adjudication, distribution, and intervention all require selective structures through which complex domains become tractable enough for action. In that sense rendering is not a defect layered onto otherwise transparent access to reality. It is a standing condition of action under constraint.\cite{Simon1996SciencesArtificial,FriggNguyen2020ModellingNature,Swanson2026ConstrainedDescribability}
+
+This point matters because the present theory is not an anti-model or anti-institution argument. It does not say that renderings should be abolished, nor that any simplification is already suspect. It says something narrower and more structural: necessary renderings can become dangerous in a distinct way once they acquire authority beyond warranted scope. The problem is therefore not rendering as such, but what institutions do with renderings once they rely on them.
+
+\subsection{Rendering Is Not Yet Authority}
+
+A second step follows. Rendering alone is not yet authority. A rendering may remain heuristic, advisory, exploratory, or weakly informative. A note in a file, a preliminary score, a provisional category, or an informal summary may shape attention without yet deciding a case. A representation can matter without yet governing.
+
+This distinction is crucial because it prevents the paper from collapsing into the merely familiar claim that all models are partial. That claim is true, but too thin. The real threshold appears only when a rendering begins to count strongly enough to guide what institutions do. Some renderings remain background aids. Others become bases for classification, routing, intervention, or refusal. That shift is not automatic. It must be explained.
+
+\subsection{The Threshold of Standing}
+
+A rendering becomes authoritative when it acquires standing. It becomes decisional when it acquires enough standing to affect outcomes. This shift can be explicit or gradual. Sometimes a rendering is formally declared decisive, as when a threshold or rule is written directly into procedure. Sometimes it becomes decisive through routine reliance even without any single moment of formal authorization. In both cases, the rendering crosses from being one input among others to being a licensed basis for action.
+
+This is the point at which the paper's main danger comes clearly into view. Once a rendering has decisional standing, its omissions matter differently. What was once a local simplification becomes part of the mechanism by which cases are classified, prioritized, or denied. The rendering no longer merely helps someone think. It helps determine what will happen.
+
+Standing should therefore not be understood as mere institutional weight or descriptive salience. A rendering can be prominent, frequently consulted, or operationally convenient without yet possessing the kind of recognized legitimacy that lets it settle what follows. Standing names a threshold in normative and practical role. Once crossed, a rendering is no longer merely available to judgment. It is granted entitlement to help constitute judgment.
+
+\subsection{How Standing Is Produced}
+
+Standing is not produced by epistemic adequacy alone. A rendering gains authority through a more complex process. It becomes stable enough to repeat, portable enough to travel, standardized enough to coordinate, embedded enough to fit institutional machinery, and familiar enough for roles to rely on it. Over time, what was initially one way of rendering a domain becomes the way that domain is routinely taken up.\cite{TimmermansEpstein2010WorldOfStandards,EspelandStevens1998Commensuration,Porter1995TrustInNumbers,BowkerStar1999SortingThingsOut}
+
+This is one of the paper's most important claims. A rendering does not need to be exhaustive in order to gain authority. It needs to be usable in the right ways by the right structures. A file format that supports coordination, a score that fits a workflow, a threshold that simplifies routing, or a category that travels easily across offices may gain standing even if it remains selective in ways that matter deeply. That is why operational success and adequacy must be kept distinct. A rendering may work smoothly in administration even while carrying serious residue relative to what it governs.
+
+The point should be stated as strongly as possible: repeatability, portability, and workflow fit are not merely practical conveniences that happen to accompany authority. They are among the main channels through which authority is often smuggled in without explicit justification. What can be easily reused, transferred, standardized, and embedded comes to look not only operationally useful but institutionally warranted. One of the paper's central burdens is to resist that slide.
+
+\subsection{A Staged Mechanism of Conversion}
+
+The conversion from rendering to authority can be described in stages.
+
+First, a domain is rendered selectively enough for action to become possible. Second, the rendering is stabilized into repeatable form. Third, it becomes portable across agents, cases, sites, or times. Fourth, it is standardized and embedded into procedures, software, tools, expectations, or records. Fifth, it is taken up in live judgment. Sixth, it acquires decisional standing strong enough to affect outcomes. Seventh, once institutions begin to depend on it, authority reinforcement sets in and challenge becomes harder.\cite{BowkerStar1999SortingThingsOut,TimmermansEpstein2010WorldOfStandards,Power1997AuditSociety}
+
+This staged account matters because it avoids two opposite mistakes. It avoids treating authority as a purely epistemic relation, as if renderings ruled only because they were the most adequate available account of reality. And it avoids treating authority as a mysterious institutional fact with no mechanism at all. The point is that authority emerges through the interaction of selective rendering, repeatability, portability, embedding, operational fit, and routinized uptake. The rendering becomes actionable, then dependable, then normal, and finally difficult to dislodge.
+
+The sequence is not offered merely as an illuminating description of common institutional life. It is meant as a genuine explanatory structure. If one wants to understand how partial renderings come to govern, one must explain how they become stable enough to circulate, portable enough to coordinate, embedded enough to be relied on, and normalized enough to count. The mechanism matters because without it the move from finite model to action-guiding authority remains unexplained.
+
+\subsection{Scope Drift Under Authority}
+
+Once a rendering has authority, its warranted scope and its operative scope can diverge. A category may be used outside the domain for which it was originally designed. A score may come to govern decisions beyond the setting in which it was calibrated. A threshold may become a proxy for conditions it was never adequate to capture. A file may come to stand in for the person, situation, or process it only partially renders.\cite{Scott1998SeeingLikeState,BowkerStar1999SortingThingsOut,SelbstEtAl2019FairnessAbstraction}
+
+This is the moment of \emph{scope drift}. The rendering now governs beyond the bounds within which it had even limited credibility. Crucially, this drift does not require bad faith. It can result from convenience, habit, standardization, administrative pressure, or the inertia of operational success. A rendering that has become useful, routinized, and trusted can quietly expand its reach without anyone explicitly deciding that such expansion is warranted.
+
+Scope drift should be understood as one distinct pathology mechanism. It concerns widened reach. The rendering governs more than its original warrant can bear. Its authority expands faster than its justification.
+
+\subsection{Over-Authorized Abstraction}
+
+The central pathology is therefore \emph{over-authorized abstraction}. This does not mean abstraction in general. It means a rendering granted standing beyond warranted scope relative to what it governs. At that point the problem is not simply that a model is incomplete. The problem is that incompleteness has become action-guiding.
+
+This is what makes the object of the paper distinct. Not every abstraction is dangerous. Not every standardization is harmful. What is dangerous is the combination of selective rendering, decisional standing, scope drift, and weakened correction. The abstraction now rules more than it should. Its selective structure is no longer one input within judgment. It has become part of what judgment is required to follow.
+
+\subsection{Residue Scaling}
+
+As authoritative renderings scale, residue scales with them. A local omission in a weak rendering may remain locally contained. The same omission, once built into an authoritative rendering, becomes distributive. It affects many cases, many decisions, many refusals, many routes of classification. Partiality does not disappear under authority. It is amplified by it.\cite{Swanson2026ConstrainedDescribability,BowkerStar1999SortingThingsOut,Eubanks2018AutomatingInequality}
+
+This helps explain why a rendering can be administratively successful while still generating systematic distortion. It is not because residue vanished. It is because residue became ordinary, routinized, and difficult to contest. The rendering keeps working in institutional terms precisely while what it leaves out is spread more widely through the decisions that rely on it.
+
+Residue scaling is therefore a second distinct pathology mechanism. Scope drift concerns widened reach. Residue scaling concerns the distributed consequences of omission once the rendering is authorized across many cases. What begins as local simplification becomes patterned distortion.
+
+\subsection{Authority Reinforcement and Weakening Correction}
+
+Once a rendering is embedded and operationally central, challenge paths often weaken. Institutions build around what works for coordination. Roles adapt to the rendering. Evidence is reformatted to fit its categories. Review paths are designed in terms it already recognizes. Over time, the rendering shapes not only decisions but also the grammar of admissible challenge.\cite{Power1997AuditSociety,Lipsky1980StreetLevelBureaucracy,MoynihanHerdHarvey2015AdministrativeBurden,Swanson2026MediatedJudgmentConstraint}
+
+This is what authority reinforcement means. The rendering does not merely guide action. It begins to protect itself through the very structures that rely on it. A challenge may still exist formally while remaining weak in practice. Review may be available only in the terms already granted standing by the rendering itself. At that point, correction is not abolished, but it is narrowed, burdened, delayed, or reformatted in ways that favor the continued authority of the rendering. The result is a familiar pattern: partiality hardened by operational dependency.
+
+Authority reinforcement is thus a third distinct pathology mechanism. Scope drift is about widened reach. Residue scaling is about distributed consequences of omission. Authority reinforcement is about the narrowing of correction once institutions become dependent on the rendering. These mechanisms are related, but not identical, and each helps explain how rendering becomes dangerous once it acquires standing.
+
+\subsection{Corrective Demands}
+
+If this theory is correct, then a rendering is not responsibly authoritative merely because it works well enough to support coordination. It must also remain bounded by scope discipline, revisable through live challenge paths, and answerable to what it poorly carries or leaves out. These are not secondary moral refinements added after the real work of institutional design is complete. They are constitutive conditions of responsible authority once renderings guide action.\cite{Swanson2026MediatedJudgmentConstraint,Swanson2026ConstrainedDescribability}
+
+The corrective task, then, is not to abolish rendering, standardization, or institutional coordination. It is to subordinate authoritative rendering to ongoing correction, bounded scope, and reality-answerability. Without this, institutions do not merely simplify. They convert finite renderings into self-protective authorities. That is the structural danger this paper aims to make visible.
+
+\section{Why This Theory Is Needed}
+
+This paper is needed because several familiar ways of describing institutional abstraction each capture something important while leaving the central structural threshold underdescribed. It is true that models are partial. It is also true that institutions govern through records, categories, metrics, files, thresholds, and protocols. But between those two truths lies a missing question: how does a rendering become strong enough to count in the first place? RAUC exists to answer that question.
+
+\subsection{It Explains a Missing Threshold}
+
+One reason this theory is needed is that many discussions move too quickly from model partiality to institutional governance. They either say that all models are reductive or that institutions govern through representations, but they do not explain the threshold between those claims. The result is a gap in the analysis. One is told either that abstraction leaves things out or that institutions act through abstraction, but not how selective rendering becomes action-guiding authority.\cite{Swanson2026MediatedJudgmentConstraint}
+
+RAUC isolates that threshold. It explains how a rendering moves from being an aid to thought or coordination to becoming something with standing strong enough to classify, route, deny, permit, or intervene. Without that step, the transition from representation to governance remains too compressed. The mechanism of authority is assumed rather than described.
+
+\subsection{It Blocks a Common Confusion}
+
+A second reason is that institutions often confuse operational fit with sufficient warrant. What is stable, portable, standardized, and administratively useful begins to look epistemically adequate by default. A rendering that travels easily across offices, integrates smoothly into workflows, and supports repeatable decisions can come to appear credible simply because it works well institutionally.\cite{Porter1995TrustInNumbers,EspelandStevens1998Commensuration,TimmermansEpstein2010WorldOfStandards}
+
+This theory blocks that substitution by distinguishing use from standing, and standing from warranted scope. A rendering can be highly usable without being adequate enough to govern all that it ends up governing. It can be efficient, portable, and administratively smooth while still carrying residue that matters deeply. RAUC is needed because it prevents institutional convenience from silently becoming a proxy for epistemic legitimacy.
+
+\subsection{It Explains Why Partiality Scales}
+
+A third reason is that it explains why institutional harm often persists without obvious doctrinal error or spectacular malfunction. A rendering can be locally plausible while becoming globally distortive once granted standing across many decisions. What begins as a bounded simplification can, through embedding and repetition, become the ordinary basis of action across a whole system.\cite{BowkerStar1999SortingThingsOut,Scott1998SeeingLikeState,Eubanks2018AutomatingInequality}
+
+The problem, then, is not only that the rendering is partial. The problem is that its partiality has become infrastructural in action. Once the rendering is authoritative, its omissions no longer remain local. They are distributed through the classifications, refusals, routes, priorities, and interventions that now depend on it. RAUC is needed because it explains how partiality scales once standing is granted.
+
+\subsection{It Prepares Later Critique}
+
+A fourth reason is architectural. Later objects concerning mediated judgment, correction, closed targets, model sovereignty, and epistemic infrastructure all depend on an account of how renderings first become authoritative. If that step is missing, later critique risks sounding asserted rather than derived. One may say that institutions govern through representations, that correction is blocked, or that systems privilege models over reality, but the intermediate mechanism remains underdescribed.\cite{Swanson2026ConstrainedDescribability,Swanson2026ConstraintConditionDisclosure,Swanson2026MediatedJudgmentConstraint}
+
+RAUC supplies that bridge. It explains how renderings acquire standing, how that standing becomes operational, and how authority reinforcement can then weaken correction. In that sense the paper is not only independently useful. It is also derivationally necessary for a broader architecture of related work. Without it, later critique remains too aggregated. With it, the path from finite rendering to mediated authority becomes much more intelligible.
+\section{Applications and Explanatory Payoff}
+
+\subsection{Worked Case: Benefits Administration}
+
+A benefits system offers one of the clearest illustrations of the paper's mechanism because it makes visible, in relatively compact form, the full path from selective rendering to action-guiding authority. Such a system does not act on need as need appears in the lived complexity of a person's situation. It acts through forms, deadlines, eligibility codes, document completeness, compliance states, and case files. These renderings are not incidental. They are what make large-scale administration possible. Need must be rendered into a format that can be recorded, compared, routed, and decided.\cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality,Lipsky1980StreetLevelBureaucracy,Scott1998SeeingLikeState}
+
+The first step is selective rendering itself. A claimant's life is translated into administratively tractable elements: income proofs, household counts, work status, residence verification, application dates, missing documents, and compliance markers. This translation is already selective, but that alone is not yet the core pathology. At this stage the rendering could still function as a bounded aid to institutional judgment.
+
+The second step is stabilization. The rendering is regularized into repeatable forms: standardized applications, recurring document requirements, fixed submission windows, common reasons for denial, and familiar case-status categories. What is stabilized can now be processed more reliably across many cases.
+
+The third step is portability. Once rendered in repeatable form, the case can travel across workers, offices, databases, administrative levels, and time. A case file no longer depends on the full presence of the claimant's circumstances. It can be handed off, reopened, audited, reviewed, or delayed while still remaining institutionally legible. Portability is one of the conditions that make large systems workable. It is also one of the conditions that prepares a rendering to gain standing.\cite{Lipsky1980StreetLevelBureaucracy,Scott1998SeeingLikeState}
+
+The fourth step is embedding. The rendering is incorporated into software, workflows, staffing routines, training expectations, notice-generation systems, and review procedures. At this point the file is not merely one representation among others. It begins to fit the institutional machinery through which decisions are made.
+
+The fifth step is operational uptake. Workers rely on the file, the compliance state, the missing-document marker, and the deadline record in live decisions. At this stage the rendering is no longer merely informative. Action flows through it.\cite{Lipsky1980StreetLevelBureaucracy}
+
+The sixth step is decisional standing. Now what matters for the institution is not simply whether a person is in need, but whether need has appeared in the administratively recognized form. A missing document, an expired deadline, or an incorrectly formatted submission may come to matter more decisively than the underlying condition the system was ostensibly designed to address. The claimant may then be denied not because need is absent, but because the rendering that stands in for need has acquired authority over the case.
+
+The seventh step is scope drift. A documentation rule originally meant to support evidentiary reliability may come to function as a proxy for cooperation, stability, seriousness, or eligibility more generally. A missed deadline may be treated not merely as late paperwork but as evidence that the claim itself is administratively defective. A file can thereby begin to govern more than its original warrant can bear.\cite{Scott1998SeeingLikeState}
+
+The eighth step is residue scaling. What the rendering leaves out does not disappear. It is distributed. Transportation failure, illness, cognitive overload, unstable work schedules, caregiving strain, language difficulty, or bureaucratic confusion may all remain weakly carried by the administrative rendering. Once that rendering governs many cases, these omissions become systematic rather than local. The result is not just one distorted judgment, but a patterned form of distortion reproduced across many files and many denials.\cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality}
+
+The ninth step is authority reinforcement. Once the system relies on the rendering, challenge becomes harder. Appeals often must be expressed in the same administrative grammar that generated the problem. The claimant must produce more documents, narrate their situation in institutionally acceptable terms, and contest the decision through channels already structured by the rendering's categories. A challenge path may exist formally while remaining weak in practice. If it cannot become legible, timely, affordable, and revision-capable, then the path is not fully live. Review exists, but chiefly in the terms already granted standing by the rendering itself.\cite{MoynihanHerdHarvey2015AdministrativeBurden,Eubanks2018AutomatingInequality}
+
+This worked case therefore shows more than that benefits administration is reductive. All large systems are reductive. The deeper problem is that the reduction becomes action-guiding and then increasingly self-protective. What was originally a practical rendering of a case becomes a licensed basis for permitting, denying, delaying, or routing. The case thus demonstrates the full mechanism this paper isolates: selective rendering, stabilization, portability, embedding, decisional standing, scope drift, residue scaling, and weakened correction.
+
+\subsection{Clinical and Hospital Systems}
+
+Clinical and hospital systems display the same structure in a different register. A patient is rendered through charts, diagnosis codes, triage categories, billing classifications, standardized indicators, and treatment pathways. These renderings are necessary. No complex clinical institution could function without them. But necessity does not prevent the conversion of rendering into authority.\cite{BowkerStar1999SortingThingsOut,Porter1995TrustInNumbers,Power1997AuditSociety}
+
+Once such renderings acquire standing, the patient becomes governable chiefly through what the rendering carries. What is easily coded, tracked, stabilized, and transmitted gains force in decisional space. What is difficult to code or standardize may still matter clinically, practically, or existentially, yet remain weak in the chain by which treatment, prioritization, or administrative judgment proceeds. The patient's condition may therefore be formally well rendered in one sense while still being poorly carried in another.\cite{BowkerStar1999SortingThingsOut,ObermeyerEtAl2019DissectingRacialBias}
+
+This helps explain why clinical systems can feel both rational and distortive at once. The problem does not require obvious cruelty or crude bad faith. It can arise simply because the renderings that support coordination also acquire enough standing to dominate action. RAUC therefore clarifies how necessary clinical simplifications can become over-authorized without anyone needing to deny that they remain partial.
+
+\subsection{AI-Mediated Systems}
+
+AI-mediated systems provide a more compressed and often more visible version of the same mechanism. A score, ranking, prediction, or model output gains authority not only because it performs well under some metric, but because it is portable, scalable, embeddable, and easy to integrate into workflow. It can be inserted into triage, screening, ranking, fraud detection, resource allocation, or risk management with relatively low friction. Those very features make it attractive institutionally.\cite{SelbstEtAl2019FairnessAbstraction,ObermeyerEtAl2019DissectingRacialBias}
+
+Once decisional standing is conferred, however, the model output may act over cases with more force than the domain knowledge it partially replaces or reorganizes. What matters is not only the model's predictive quality in the abstract, but the fact that its output now counts strongly enough to shape outcomes. A rendering that began as one input among others can quickly become the most operationally consequential input simply because it is standardized, portable, and easy to use at scale.\cite{SelbstEtAl2019FairnessAbstraction}
+
+RAUC helps explain why even accurate systems can remain dangerous. The problem is not merely error rate. It is over-authorized abstraction. A model may perform well relative to a target and still become action-guiding beyond the scope its rendering can responsibly bear. In such cases, the danger lies not in the existence of modeling, but in the conferral of standing that outpaces warranted scope and weakens challenge.\cite{ObermeyerEtAl2019DissectingRacialBias,FriggNguyen2020ModellingNature}
+
+\subsection{The Broader Payoff}
+
+Across these domains, the theory explains how selective renderings come to rule without ever becoming exhaustive. That is the paper's central explanatory gain. It shows why the key issue is not simply whether institutions simplify, but whether simplifications have been granted standing strong enough to guide outcomes beyond what their warrant can bear.
+
+It also clarifies why correction becomes harder precisely when rendering becomes most operationally successful. Once a rendering is stable, portable, embedded, and routinely relied upon, its authority is no longer carried by epistemic adequacy alone. It is carried by the institutional advantages that make it usable. That is why institutions can become closure-prone without ever abandoning the language of rationality, efficiency, or coordination.
+
+The broader payoff, then, is a stronger account of institutional distortion that does not require treating all models as suspect. The paper makes visible a narrower and more precise danger: not abstraction as such, but abstraction that has become authoritative faster than correction can follow.
+
+\section{Objections and Replies}
+
+The objections in this section test whether the paper identifies a distinct structural mechanism or merely redescribes familiar worries in more elaborate language. Some of these objections have real force. In several cases the right reply is clarification rather than flat rejection. Even so, none undermines the paper's central claim that the conversion of rendering into authority is a real threshold that must be analyzed in its own right.
+
+\subsection{Objection 1: This Is Just the Old Point That Maps Are Not Territories}
+
+One obvious objection is that the paper simply restates a familiar truth: representations are not identical with what they represent. If that is all the paper says, then its theoretical contribution is thin.\cite{FriggNguyen2020ModellingNature}
+
+That objection misses the mechanism. The paper does not merely argue that renderings differ from reality. It asks how selective renderings become strong enough to guide classification, routing, denial, intervention, and other forms of action. The distinctive contribution is therefore not the general warning that models are partial. It is the account of \emph{standing}, especially \emph{decisional standing}, and the staged process by which partial renderings become operative authorities. The novelty lies in the threshold and the conversion mechanism, not in the generic claim that simplifications leave something out.
+
+\subsection{Objection 2: This Collapses into Later Work on Mediated Judgment}
+
+A second objection is that the paper seems redundant with later work on mediated judgment. If institutions already govern through operative representations, why is another paper needed to discuss how renderings become authoritative?\cite{Swanson2026MediatedJudgmentConstraint}
+
+There is overlap, but not redundancy. Later work on mediated judgment analyzes what happens once operative representations already govern cases. It studies the action-guiding role of files, records, metrics, and other renderings once they have decisional force. The present paper addresses a prior question: how do renderings become authoritative enough to be operative in the first place? Its role is therefore more upstream and more mechanistic. It isolates the threshold by which selective renderings gain standing, become embedded, and acquire enough force to mediate judgment at all.\cite{Swanson2026MediatedJudgmentConstraint}
+
+\subsection{Objection 3: Standardization and Portability Are Often Beneficial}
+
+A third objection is that the paper risks treating standardization, portability, and repeatability as suspect. Yet those very features are often necessary and beneficial. Without them, institutions could not coordinate action, compare cases, or distribute responsibilities across time and place.\cite{TimmermansEpstein2010WorldOfStandards,Porter1995TrustInNumbers}
+
+This objection is correct as far as it goes, and the paper should concede the point. The argument does not criticize standardization or portability as such. It criticizes the silent conversion of those properties into sufficient warrant for authority. The issue is not that renderings travel well, repeat reliably, or fit administrative workflows. The issue is that these virtues of coordination can be mistaken for epistemic adequacy or even for warranted decisional force. A rendering may be highly usable while still being too selective to bear the scope of authority it is granted. The target of critique is therefore not standardization itself, but over-authorized standardization.
+
+\subsection{Objection 4: If All Renderings Are Selective, None Should Govern}
+
+A fourth objection pushes in the opposite direction. If all renderings are selective and residue-bearing, perhaps none should ever be granted authority. The paper would then seem to undermine the very possibility of coordinated institutional action.
+
+That conclusion does not follow. Finite action requires renderings, and some degree of authority is unavoidable in coordinated systems. The paper's claim is not that renderings should never guide action. It is that their authority must remain bounded, corrigible, and answerable to what they omit. The distinction between rendering and over-authorized rendering matters here. The theory criticizes not the existence of action-guiding abstractions, but the granting of standing beyond warranted scope together with weakened correction. In other words, the paper defends disciplined authority, not authoritylessness.
+
+\subsection{Objection 5: Standing Is Too Vague}
+
+A fifth objection is that \emph{standing} may sound too vague to do serious theoretical work. If it names only a loose sense in which some renderings ``count more'' than others, then the paper risks becoming impressionistic.
+
+This objection matters, but the term is more precise here than it may first appear. In this paper, standing means recognized legitimacy for a rendering to count in judgment, classification, coordination, or action. \emph{Decisional standing} names the stronger threshold at which such counting affects outcomes. That threshold is not mysterious. It is practically observable wherever a rendering begins to allocate, deny, permit, route, prioritize, or intervene. A rendering with decisional standing does not merely describe a case. It enters the chain by which the case is resolved. The concept is therefore not vague sociological atmosphere. It names a real structural threshold between available representation and action-guiding authority.
+
+More importantly, standing does explanatory work that terms like salience, weight, or frequency of use do not. A rendering may be prominent or operationally convenient without yet possessing recognized legitimacy to settle what follows. Standing marks the point at which institutional use becomes normatively and practically authorized enough to shape outcomes. That is why the concept is needed.
+
+\subsection{Objection 6: The Theory Risks Explaining Too Much}
+
+A final objection is that the theory may be too expansive. Once one has the language of rendering, standing, scope drift, residue scaling, challenge paths, and authority reinforcement, it may become tempting to redescribe nearly every institutional failure as a case of rendering-to-authority conversion gone wrong.
+
+That risk is real, and the paper should concede it openly. Not every institutional failure is best explained in these terms. Some failures are better explained by corruption, scarcity, incompetence, conflict of interest, deliberate domination, or breakdown at other levels of analysis. The present theory does not claim to explain all governance, all institutions, or all civilization. It isolates one recurrent mechanism: the conversion of selective renderings into authorities over cases.
+
+Its ambition is therefore bounded. The claim is not that every failure is a case of over-authorized abstraction, but that many important failures cannot be understood adequately unless this mechanism is made explicit. The paper offers neither a total explanation nor a mere relabeling. It offers a middle-layer mechanism that is often presupposed, frequently consequential, and too rarely analyzed directly.
+\section{Scope Conditions, Limits, and Residues}
+
+This paper is a bridge theory, not a total theory of institutions, governance, or ideology. Its argument is intentionally narrower. It identifies a structural threshold in the life of institutional abstraction: the point at which a selective rendering acquires enough standing to guide action. The limits of the paper should therefore remain explicit.
+
+\subsection{Scope Conditions}
+
+The theory applies most strongly to cases in which forms, files, categories, scores, protocols, models, thresholds, or dashboards guide live decisions. It is especially relevant where such renderings determine access, classification, prioritization, intervention, or refusal. In these cases, the difference between a merely available representation and an authoritative one is practically consequential and can often be observed with some clarity.
+
+The theory is strongest in administrative, professional, technical, and institutional settings where renderings are stabilized, portable, embeddable, and repeatedly used across cases. It is correspondingly weaker for loose, informal, or weakly structured contexts in which no rendering clearly acquires standing strong enough to shape outcomes. The paper is therefore best read as a theory of rendering under organized conditions of action rather than as a theory of all abstraction whatsoever.
+
+\subsection{What the Paper Does Not Claim}
+
+The paper does not provide a complete theory of institutions. It does not attempt to explain all forms of organizational power, all failures of governance, or all large-scale social coordination.
+
+It does not provide a full sociology of classification, standardization, or administrative knowledge. Nor does it offer a complete ethics of authority in general. It is narrower than any of those projects.
+
+It also does not provide a full genealogy of ideology, closure, or epistemic infrastructure. Those are related and later questions, but they are not exhausted by the present object.\cite{Swanson2026MediatedJudgmentConstraint,Swanson2026ConstrainedDescribability} Likewise, the paper does not say that all standardization is oppressive, that all portability is epistemically corrupting, or that all rendering should be replaced by unstructured judgment. Finite action requires rendering. The claim is not that rendering should disappear, but that the acquisition of authority by renderings must be analyzed and bounded.
+
+\subsection{Open Problems}
+
+Several important questions remain open.
+
+First, the paper does not fully explain why some renderings are culturally, professionally, or institutionally preferred over others. It shows how renderings acquire standing, but not yet the full genealogy of why certain renderings are selected for that path.
+
+Second, the paper does not yet explain how authoritative renderings are reproduced over long stretches of time across institutions, sectors, or generations. That is a later question about infrastructural reproduction rather than the immediate mechanism of authority conversion.
+
+Third, the paper does not fully explain how challenge paths can be preserved at scale once institutions become deeply dependent on standardized renderings. It identifies the problem of authority reinforcement more clearly than it solves the design problem that follows from it.
+
+Fourth, the paper does not sharply settle every boundary between this object and later objects on closure, legibility, model sovereignty, or epistemic infrastructure. Some pressure remains at those borders, and later work will need to clarify the division of labor more fully.
+
+\subsection{Residues}
+
+The theory leaves visible residues, and they should remain visible. It does not provide the full political economy of standing. It does not provide a complete historical genealogy of standardization, portability, or administrative legitimacy. It does not provide a finished design theory of non-sovereign model use. It also does not yet provide a full account of how institutions might remain dependent on renderings while preserving live, non-symbolic correction under real conditions of scale and pressure.
+
+These are not hidden weaknesses to be concealed. They are the visible limits of a bridge object. The task of this paper is not to complete the entire theory of institutional abstraction in one step. Its task is to isolate the threshold by which renderings become authoritative, and to show why that threshold matters for everything that follows.
+
+\section{Implications and Future Work}
+
+\subsection{Implications for Judgment and Design}
+
+If the argument of this paper is correct, then responsible judgment and design cannot stop at producing renderings that are stable, portable, and operationally useful. Those are real achievements, but they are not enough. One must also ask what kind of standing a rendering is being granted, what scope conditions govern its use, and how its authority will remain answerable once institutions begin to depend on it.
+
+This shifts the design question in an important way. The issue is not only whether a rendering performs well in coordination, prediction, or administrative regularity. It is also whether it is being given more decisional force than its warranted scope can bear. A responsible design practice must therefore attend not only to accuracy, standardization, and workflow fit, but also to bounded use, live correction, and the institutional conditions under which a rendering can still be challenged when it begins to misfit what it governs.\cite{TimmermansEpstein2010WorldOfStandards,Power1997AuditSociety,MoynihanHerdHarvey2015AdministrativeBurden}
+
+In that sense, the paper has a practical diagnostic implication. Designers and institutions should ask not only whether a rendering works, but whether it is becoming authoritative faster than correction can follow. That question becomes especially important as systems scale. What is stabilized, portable, and easily embeddable can acquire decisional standing quickly; challenge paths, by contrast, are often slower to build, easier to narrow, and harder to preserve under pressure. A responsible design practice must therefore treat live challenge paths, revision capacity, and scope discipline as constitutive design concerns rather than optional safeguards added later.
+
+\subsection{Implications for Later Related Work}
+
+The paper also has a clear architectural implication. It supplies a missing bridge for later work on mediated judgment, correction, target closure, and epistemic infrastructure. Without this bridge, later arguments risk moving too quickly from finite rendering to institutional domination, closed targets, or model sovereignty. With it, the path becomes more intelligible.\cite{Swanson2026ConstrainedDescribability,Swanson2026MediatedJudgmentConstraint,Swanson2026EmbeddedProcess}
+
+More specifically, the paper explains how renderings become decisive enough to mediate judgment, morally significant enough to assess, and entrenched enough to generate later closure. It therefore helps clarify the order of the broader architecture. First one must explain why finite systems require renderings. Then one must explain how renderings acquire standing. Only after that can one fully explain how operative representations govern cases, how correction becomes ethically load-bearing, and how large-scale systems become closure-prone around authoritative abstractions.\cite{Swanson2026MediatedJudgmentConstraint}
+
+This also helps clarify the division of labor within the stack. Upstream work establishes finite rendering, residue, and conditioned selectivity. The present paper isolates the threshold by which rendering becomes authority. Later work can then analyze what follows once such authority is already operative: mediated judgment, blocked correction, target closure, model sovereignty, and broader infrastructural overclosure. The paper's implication for the architecture is therefore not merely additive. It is derivational. It improves the order in which the broader theory becomes intelligible.\cite{Swanson2026ConstrainedDescribability,Swanson2026MediatedJudgmentConstraint}
+
+\subsection{Future Work}
+
+Several directions for future work follow from the present argument.
+
+One is a sharper historical account of standing: how different institutions, professions, and administrative orders have conferred authority on particular renderings and not others.
+
+A second is the development of more precise case studies of authority reinforcement, especially cases in which challenge remains formally available while becoming weak in practice.
+
+A third is to connect this bridge object more explicitly to later theories of legibility, closure, ideology, and intervention, while preserving the distinct role of each layer.
+
+A fourth is to extend the analysis into more explicit design criteria for maintaining live challenge paths in large systems that must nevertheless rely on standardized renderings.
+
+A fifth is to develop more explicit analysis of the asymmetry by which action-enabling intelligibility can scale faster than correction-enabling revision. The present paper already points toward that pattern, but does not yet formalize it. Later work could show more precisely how stabilization, portability, and embedding allow renderings to become authoritative faster than institutions become able to contest, revise, or bound them responsibly.
+
+These extensions matter because the current paper is deliberately bounded. It identifies the threshold at which rendering becomes authority. Later work can build on that threshold to explain how authoritative renderings harden into broader epistemic and institutional pathologies, and how they might be made more corrigible in practice.
+
+\section{Conclusion}
+
+\subsection{Main Result}
+
+The main result of this paper is a sharper account of how finite renderings become authorities over judgment and action. The central danger is not partiality alone. Partiality is unavoidable wherever finite agents and institutions must act through selective representations. The deeper danger is that a rendering can acquire standing beyond the scope its warrant can bear. Once a rendering becomes stabilized, portable, embedded, and operationally central enough to guide outcomes, its residue does not disappear. It becomes action-guiding as well.
+
+The paper's stronger contribution is therefore to identify a real threshold in the life of institutional abstraction. A rendering is not yet dangerous merely because it simplifies. It becomes structurally dangerous when it crosses from selective aid to operative authority. That threshold helps explain how ordinary administrative and technical renderings come to shape real classifications, denials, routes, interventions, and refusals.
+
+\subsection{Broader Significance}
+
+This matters because it changes how institutional abstraction should be assessed. The right question is not only whether a rendering is useful, efficient, stable, or portable. It is also whether it has been granted more authority than its scope can bear, whether its operative reach has drifted beyond its original warrant, and whether live correction remains possible once action begins to depend on it.
+
+More broadly, the paper clarifies why institutional distortion does not require either crude bad faith or spectacular system failure. A rendering can work well enough to support coordination while still becoming over-authorized in relation to what it governs. The significance of the theory is therefore not simply that it criticizes simplification. It is that it explains how simplification becomes authoritative, and why that shift is the point at which partiality becomes operationally dangerous.
+
+It also identifies a wider asymmetry that later work can develop more fully: renderings often become intelligible enough to coordinate action before institutions become corrigible enough to keep that action bounded and answerable. In that sense, the broader danger is not only over-authorized abstraction, but authoritative simplification that scales faster than correction.
+
+\subsection{Final Claim}
+
+\begin{quote}
+\emph{Rendering to Authority Under Constraint} is the view that finite renderings become structurally dangerous not merely because they are partial, but because they acquire standing over judgment and action beyond their warranted scope. The conversion of rendering into authority is therefore a distinct mechanism that must be understood prior to later critiques of mediated judgment, correction, closure, and model sovereignty.
+\end{quote}
+
+If that is right, then the problem of institutional abstraction is never only that it simplifies. It is that simplification can become authoritative faster than correction can follow.
+
+\bibliographystyle{plain}
+\bibliography{core_papers/papers/rendering_auth/rend}
+\section*{Rights and Contact}
+
+\noindent
+Copyright \textcopyright\ \the\year\ David T. Swanson.
+
+\noindent
+This work is licensed under the
+\href{https://creativecommons.org/licenses/by/4.0/}
+{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\noindent
+DOI:
+\href{https://doi.org/10.5281/zenodo.19106901}{10.5281/zenodo.19106901}
+
+\noindent
+For questions, comments, or citation inquiries, contact:
+\href{mailto:dswanson903@gmail.com}{dswanson903@gmail.com}
+\end{document}
