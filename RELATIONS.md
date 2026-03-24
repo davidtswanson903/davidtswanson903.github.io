@@ -14,6 +14,8 @@ This repo is organized so that each PDF in `pdfs/` has a corresponding Google-Sc
 | `pdfs/corrigible_goodness.pdf` | `papers/corrigible-goodness.html` | `Swanson2026CorrigibleGoodness` | `10.5281/zenodo.19105820` |
 | `pdfs/rendering_to_authority.pdf` | `papers/rendering-to-authority.html` | `Swanson2026RenderingAuthority` | `10.5281/zenodo.19106901` |
 | `pdfs/constrained_describability.pdf` | `papers/constrained-describability.html` | `Swanson2026ConstrainedDescribability` | `10.5281/zenodo.19020051` |
+| `pdfs/toy_model.pdf` | `papers/toy-model.html` | `Swanson2026ToyModel` | `10.5281/zenodo.19199863` |
 
 Notes:
 - The landing pages include `citation_*` meta tags (especially `citation_pdf_url`) for Google Scholar.
+- `toy-model` is a newly added paper on consciousness modeling and field-based formalization.
